@@ -9,6 +9,11 @@ const publicEvidence = [
   EvidenceStatus.LICENSED_SOURCE,
 ];
 
+function companyHref(company: { ticker: string | null; slug: string | null; country: string }) {
+  const identifier = company.country === "KR" && company.ticker ? company.ticker : company.slug || company.ticker;
+  return identifier ? `/companies/${identifier}` : null;
+}
+
 export default async function EcosystemPage({
   params,
 }: {
@@ -27,7 +32,7 @@ export default async function EcosystemPage({
           id: true,
           name: true,
           sequence: true,
-          products: { select: { id: true, name: true }, orderBy: { name: "asc" } },
+          products: { select: { id: true, name: true, technologyGroup: true }, orderBy: { name: "asc" } },
           companyRoles: {
             where: { evidenceStatus: { in: publicEvidence } },
             select: {
@@ -36,9 +41,9 @@ export default async function EcosystemPage({
               evidenceStatus: true,
               sourceUrl: true,
               company: {
-                select: { id: true, ticker: true, nameKo: true, nameEn: true, country: true },
+                select: { id: true, ticker: true, slug: true, nameKo: true, nameEn: true, country: true },
               },
-              product: { select: { id: true, name: true } },
+              product: { select: { id: true, name: true, technologyGroup: true } },
             },
           },
         },
@@ -87,28 +92,32 @@ export default async function EcosystemPage({
               <span>{String(stage.sequence).padStart(2, "0")}</span>
               <h3>{stage.name}</h3>
               {stage.products.length > 0 && (
-                <p>{stage.products.map((product) => product.name).join(" · ")}</p>
+                <p>
+                  {stage.products.map((product) =>
+                    product.technologyGroup ? `${product.name} (${product.technologyGroup})` : product.name,
+                  ).join(" · ")}
+                </p>
               )}
               <div className="ecosystemCompanyList">
                 {stage.companyRoles.length === 0 ? (
                   <p>Verified company relationships will appear after evidence review.</p>
                 ) : (
                   stage.companyRoles.map((role) => {
+                    const href = companyHref(role.company);
                     const label = (
                       <>
                         <strong>{role.company.nameEn || role.company.nameKo}</strong>
                         <span>{role.company.country || "—"}</span>
                         {role.product && <span>{role.product.name}</span>}
+                        {role.product?.technologyGroup && <span>{role.product.technologyGroup}</span>}
                         <span>{role.roleType.replaceAll("_", " ")}</span>
                       </>
                     );
 
                     return (
                       <div className="ecosystemCompanyRow" key={role.id}>
-                        {role.company.ticker ? (
-                          <a className="ecosystemCompanyLink" href={`/companies/${role.company.ticker}`}>
-                            {label}
-                          </a>
+                        {href ? (
+                          <a className="ecosystemCompanyLink" href={href}>{label}</a>
                         ) : (
                           <div className="ecosystemCompanyLink disabledCompanyLink">{label}</div>
                         )}
