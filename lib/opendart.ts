@@ -1,5 +1,10 @@
 const DART_BASE_URL = "https://engopendart.fss.or.kr/engapi";
 const DART_VIEWER_URL = "https://dart.fss.or.kr/dsaf001/main.do";
+const DART_REQUEST_HEADERS = {
+  accept: "application/json",
+  referer: "https://engopendart.fss.or.kr/",
+  "user-agent": "KoreaMarketPortal/0.1 (+https://korea-market-portal.vercel.app)",
+};
 
 export type DartDisclosureItem = {
   corp_code: string;
@@ -56,7 +61,7 @@ export async function fetchDartDisclosures(params: {
   if (params.endDate) search.set("end_de", params.endDate);
 
   const response = await fetch(`${DART_BASE_URL}/list.json?${search}`, {
-    headers: { accept: "application/json" },
+    headers: DART_REQUEST_HEADERS,
     cache: "no-store",
   });
 
@@ -81,7 +86,7 @@ export async function fetchDartCompany(corpCode: string) {
   });
 
   const response = await fetch(`${DART_BASE_URL}/company.json?${search}`, {
-    headers: { accept: "application/json" },
+    headers: DART_REQUEST_HEADERS,
     cache: "no-store",
   });
   if (!response.ok) throw new Error(`OpenDART HTTP ${response.status}`);
