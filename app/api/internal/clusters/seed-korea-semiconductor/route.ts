@@ -106,7 +106,7 @@ const hubs: HubSeed[] = [
     factories: [
       {
         companyTicker: "000660",
-        factoryName: "SK hynix Icheon M16",
+        factoryName: "SK hynix M16 Icheon",
         sourceUrl: SK_ICHON_SOURCE,
         evidenceStatus: EvidenceStatus.COMPANY_CONFIRMED,
       },
@@ -132,7 +132,7 @@ const hubs: HubSeed[] = [
     factories: [
       {
         companyTicker: "000660",
-        factoryName: "SK hynix Cheongju M15X",
+        factoryName: "SK hynix M15X Cheongju",
         sourceUrl: SK_CHEONGJU_SOURCE,
         evidenceStatus: EvidenceStatus.COMPANY_CONFIRMED,
       },
