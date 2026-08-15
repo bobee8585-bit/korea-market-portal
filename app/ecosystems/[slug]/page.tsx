@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { EvidenceStatus } from "@prisma/client";
 import { db } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 const publicEvidence = [
   EvidenceStatus.REGULATOR_CONFIRMED,
   EvidenceStatus.GOVERNMENT_CONFIRMED,
@@ -62,7 +64,10 @@ export default async function EcosystemPage({
         </div>
         <nav className="nav" aria-label="Ecosystem navigation">
           <a href="/companies">Companies</a>
-          <a href={`/ecosystems/${ecosystem.slug}`} className="active">{ecosystem.name}</a>
+          <a href={`/ecosystems/${ecosystem.slug}`} className="active">Explorer</a>
+          <a href={`/ecosystems/${ecosystem.slug}/compare`}>Compare</a>
+          <a href="/mega-factories">Factories</a>
+          <a href="/clusters">Clusters</a>
         </nav>
       </header>
 
@@ -85,6 +90,7 @@ export default async function EcosystemPage({
             <span className="eyebrow">GLOBAL VALUE CHAIN</span>
             <h2>Stages and verified companies</h2>
           </div>
+          <a href={`/ecosystems/${ecosystem.slug}/compare`} className="sourceLink">Compare countries and roles →</a>
         </div>
         <div className="stages">
           {ecosystem.stages.map((stage) => (
