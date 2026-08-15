@@ -96,6 +96,7 @@ model Company {
   ticker        String?  @unique
   nameKo        String
   nameEn        String?
+  country       String   @default("KR")
   market        Market?
   websiteUrl    String?
   irUrl         String?
@@ -111,6 +112,7 @@ model Company {
 
   @@index([nameKo])
   @@index([nameEn])
+  @@index([country])
 }
 
 model CompanyAlias {
