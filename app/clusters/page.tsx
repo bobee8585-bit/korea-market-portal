@@ -1,6 +1,8 @@
 import { EvidenceStatus } from "@prisma/client";
 import { db } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 const publicEvidence = [
   EvidenceStatus.REGULATOR_CONFIRMED,
   EvidenceStatus.GOVERNMENT_CONFIRMED,
@@ -59,6 +61,7 @@ export default async function IndustryClustersPage() {
         </a>
         <nav className="nav" aria-label="Industry cluster navigation">
           <a href="/ecosystems/semiconductor">Ecosystems</a>
+          <a href="/ecosystems/semiconductor/compare">Compare</a>
           <a href="/mega-factories">Mega Factories</a>
           <a href="/clusters" className="active">Industry Clusters</a>
         </nav>
@@ -87,6 +90,7 @@ export default async function IndustryClustersPage() {
               <span className="eyebrow">COUNTRY ECOSYSTEM COMPARISON</span>
               <h2>Verified regional semiconductor footprint</h2>
             </div>
+            <a className="sourceLink" href="/ecosystems/semiconductor/compare">Compare value-chain roles →</a>
           </div>
           <div className="grid3">
             {countryComparison.map((item) => (
