@@ -91,6 +91,18 @@ a.ecosystemCompanyLink:hover strong { color: #9aa7ff; }
 .listRow p { margin: 4px 0 0; font-size: 12px; }
 .listMeta { display: grid; justify-items: end; align-content: center; gap: 4px; color: #8ea0bb; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
 
+.factoryMap { position: relative; height: 520px; overflow: hidden; border-radius: 16px; border: 1px solid rgba(255,255,255,.08); background: radial-gradient(circle at 72% 42%, rgba(87,104,255,.12), transparent 24%), linear-gradient(180deg, rgba(25,42,68,.94), rgba(7,16,29,.98)); }
+.factoryMap::before { content: ""; position: absolute; inset: 9% 5%; border-radius: 48% 52% 46% 54%; opacity: .38; background: radial-gradient(ellipse at 24% 37%, rgba(98,122,155,.56) 0 8%, transparent 9%), radial-gradient(ellipse at 31% 66%, rgba(98,122,155,.46) 0 11%, transparent 12%), radial-gradient(ellipse at 53% 31%, rgba(98,122,155,.52) 0 14%, transparent 15%), radial-gradient(ellipse at 70% 36%, rgba(98,122,155,.52) 0 18%, transparent 19%), radial-gradient(ellipse at 82% 72%, rgba(98,122,155,.48) 0 8%, transparent 9%); pointer-events: none; }
+.mapGrid { position: absolute; inset: 0; pointer-events: none; opacity: .2; }
+.mapGridVertical { background-image: linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px); background-size: 12.5% 100%; }
+.mapGridHorizontal { background-image: linear-gradient(180deg, rgba(255,255,255,.14) 1px, transparent 1px); background-size: 100% 25%; }
+.factoryMapPoint { position: absolute; transform: translate(-50%, -50%); z-index: 3; }
+.factoryMapDot { display: block; width: 12px; height: 12px; border-radius: 50%; background: #8ea0ff; border: 3px solid rgba(255,255,255,.86); box-shadow: 0 0 0 7px rgba(109,124,255,.12), 0 0 28px rgba(109,124,255,.75); }
+.factoryMapLabel { position: absolute; left: 16px; top: -8px; width: max-content; max-width: 210px; display: grid; gap: 2px; padding: 7px 9px; border: 1px solid rgba(255,255,255,.08); border-radius: 8px; background: rgba(4,10,18,.88); opacity: 0; pointer-events: none; transition: opacity .15s ease; }
+.factoryMapLabel strong { font-size: 11px; }
+.factoryMapLabel small { color: #8fa0b8; font-size: 9px; }
+.factoryMapPoint:hover .factoryMapLabel { opacity: 1; }
+.mapNote { margin: 12px 2px 0; font-size: 11px; color: #8191a8; }
 .factoryGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .factoryCard { padding: 18px; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: linear-gradient(180deg, rgba(64,80,124,.16), rgba(13,23,39,.8)); }
 .factoryCard > p { margin: 5px 0; font-size: 13px; }
@@ -106,6 +118,7 @@ a.ecosystemCompanyLink:hover strong { color: #9aa7ff; }
   .stages { grid-template-columns: repeat(2, 1fr); }
   .grid3, .grid2, .companyResultGrid, .factoryGrid { grid-template-columns: 1fr; }
   .roleGrid { grid-template-columns: repeat(2, 1fr); }
+  .factoryMap { height: 420px; }
 }
 
 @media (max-width: 620px) {
@@ -117,4 +130,6 @@ a.ecosystemCompanyLink:hover strong { color: #9aa7ff; }
   .peerRow span:last-child { grid-column: 2; }
   .listRow { display: grid; }
   .listMeta { justify-items: start; }
+  .factoryMap { height: 340px; }
+  .factoryMapLabel { display: none; }
 }
