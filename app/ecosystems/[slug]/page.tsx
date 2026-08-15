@@ -55,6 +55,10 @@ export default async function EcosystemPage({
           <a href="/" className="brand">Korea Market Portal</a>
           <div className="subtitle">Global Industry Ecosystem</div>
         </div>
+        <nav className="nav" aria-label="Ecosystem navigation">
+          <a href="/companies">Companies</a>
+          <a href={`/ecosystems/${ecosystem.slug}`} className="active">{ecosystem.name}</a>
+        </nav>
       </header>
 
       <section className="hero">
@@ -85,19 +89,37 @@ export default async function EcosystemPage({
               {stage.products.length > 0 && (
                 <p>{stage.products.map((product) => product.name).join(" · ")}</p>
               )}
-              <div>
+              <div className="ecosystemCompanyList">
                 {stage.companyRoles.length === 0 ? (
                   <p>Verified company relationships will appear after evidence review.</p>
                 ) : (
-                  stage.companyRoles.map((role) => (
-                    <p key={role.id}>
-                      <strong>{role.company.nameEn || role.company.nameKo}</strong>
-                      {role.company.country ? ` · ${role.company.country}` : ""}
-                      {role.product ? ` · ${role.product.name}` : ""}
-                      {` · ${role.roleType.replaceAll("_", " ")}`}
-                      {role.sourceUrl ? <> · <a href={role.sourceUrl} target="_blank" rel="noreferrer">Source ↗</a></> : null}
-                    </p>
-                  ))
+                  stage.companyRoles.map((role) => {
+                    const label = (
+                      <>
+                        <strong>{role.company.nameEn || role.company.nameKo}</strong>
+                        <span>{role.company.country || "—"}</span>
+                        {role.product && <span>{role.product.name}</span>}
+                        <span>{role.roleType.replaceAll("_", " ")}</span>
+                      </>
+                    );
+
+                    return (
+                      <div className="ecosystemCompanyRow" key={role.id}>
+                        {role.company.ticker ? (
+                          <a className="ecosystemCompanyLink" href={`/companies/${role.company.ticker}`}>
+                            {label}
+                          </a>
+                        ) : (
+                          <div className="ecosystemCompanyLink disabledCompanyLink">{label}</div>
+                        )}
+                        {role.sourceUrl && (
+                          <a className="sourceLink" href={role.sourceUrl} target="_blank" rel="noreferrer">
+                            Source ↗
+                          </a>
+                        )}
+                      </div>
+                    );
+                  })
                 )}
               </div>
             </article>
