@@ -1,0 +1,229 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Market {
+  KOSPI
+  KOSDAQ
+  KONEX
+  OTHER
+}
+
+enum RightsType {
+  OFFICIAL_OPEN_DATA
+  LICENSED
+  METADATA_ONLY
+  LINK_ONLY
+  BLOCKED
+}
+
+enum SourceType {
+  REGULATOR
+  EXCHANGE
+  GOVERNMENT
+  COMPANY_IR
+  MEDIA
+  BROKER
+  FUND
+  CENTRAL_BANK
+  PUBLIC_DATA
+  INTERNATIONAL_ORG
+}
+
+enum EvidenceStatus {
+  REGULATOR_CONFIRMED
+  GOVERNMENT_CONFIRMED
+  COMPANY_CONFIRMED
+  LICENSED_SOURCE
+  INFERRED
+  UNVERIFIED
+}
+
+enum RelationshipType {
+  SUPPLIER_TO
+  CUSTOMER_OF
+  PEER_OF
+  JOINT_VENTURE_WITH
+  STRATEGIC_PARTNER_OF
+  SUBSIDIARY_OF
+  PARENT_OF
+  LICENSE_PARTNER_OF
+}
+
+enum EcosystemRoleType {
+  MANUFACTURER
+  MATERIAL_SUPPLIER
+  EQUIPMENT_PROVIDER
+  DESIGNER
+  ASSEMBLY
+  PACKAGING
+  TESTING
+  CUSTOMER
+  INFRASTRUCTURE
+  LOGISTICS
+  OTHER
+}
+
+model Company {
+  id          String   @id @default(cuid())
+  corpCode    String?  @unique
+  ticker      String?  @unique
+  nameKo      String
+  nameEn      String?
+  market      Market?
+  websiteUrl  String?
+  irUrl       String?
+  isActive    Boolean  @default(true)
+  aliases     CompanyAlias[]
+  roles       CompanyEcosystemRole[]
+  factories   Factory[]
+  relationsFrom CompanyRelationship[] @relation("RelationshipFrom")
+  relationsTo   CompanyRelationship[] @relation("RelationshipTo")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([nameKo])
+  @@index([nameEn])
+}
+
+model CompanyAlias {
+  id        String  @id @default(cuid())
+  companyId String
+  alias     String
+  language  String?
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([alias])
+}
+
+model Source {
+  id             String     @id @default(cuid())
+  name           String
+  country        String?
+  sourceType     SourceType
+  homepageUrl    String?
+  apiUrl         String?
+  termsUrl       String?
+  official       Boolean    @default(false)
+  rightsType     RightsType @default(BLOCKED)
+  canStore       Boolean    @default(false)
+  canTranslate   Boolean    @default(false)
+  canAnalyze     Boolean    @default(false)
+  canCache       Boolean    @default(false)
+  canShowTitle   Boolean    @default(false)
+  canShowExcerpt Boolean    @default(false)
+  canShowImage   Boolean    @default(false)
+  verifiedAt     DateTime?
+  licenseStart   DateTime?
+  licenseEnd     DateTime?
+  active         Boolean    @default(false)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model Ecosystem {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  active      Boolean  @default(true)
+  stages      EcosystemStage[]
+  products    Product[]
+  roles       CompanyEcosystemRole[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model EcosystemStage {
+  id             String   @id @default(cuid())
+  ecosystemId    String
+  parentStageId  String?
+  name           String
+  sequence       Int
+  ecosystem      Ecosystem @relation(fields: [ecosystemId], references: [id], onDelete: Cascade)
+  parent         EcosystemStage? @relation("StageTree", fields: [parentStageId], references: [id])
+  children       EcosystemStage[] @relation("StageTree")
+  products       Product[]
+  companyRoles   CompanyEcosystemRole[]
+
+  @@unique([ecosystemId, sequence])
+}
+
+model Product {
+  id              String   @id @default(cuid())
+  ecosystemId     String
+  stageId         String?
+  name            String
+  technologyGroup String?
+  ecosystem       Ecosystem @relation(fields: [ecosystemId], references: [id], onDelete: Cascade)
+  stage           EcosystemStage? @relation(fields: [stageId], references: [id])
+  companyRoles    CompanyEcosystemRole[]
+  relationships   CompanyRelationship[]
+
+  @@index([name])
+}
+
+model CompanyEcosystemRole {
+  id             String             @id @default(cuid())
+  companyId      String
+  ecosystemId    String
+  stageId        String?
+  productId      String?
+  roleType       EcosystemRoleType
+  evidenceStatus EvidenceStatus
+  sourceId       String?
+  sourceUrl      String?
+  verifiedAt     DateTime?
+  company        Company            @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  ecosystem      Ecosystem          @relation(fields: [ecosystemId], references: [id], onDelete: Cascade)
+  stage          EcosystemStage?    @relation(fields: [stageId], references: [id])
+  product        Product?           @relation(fields: [productId], references: [id])
+
+  @@index([ecosystemId, stageId])
+  @@index([companyId])
+}
+
+model CompanyRelationship {
+  id               String           @id @default(cuid())
+  fromCompanyId    String
+  toCompanyId      String
+  ecosystemId      String?
+  productId        String?
+  relationshipType RelationshipType
+  evidenceStatus   EvidenceStatus
+  sourceId         String?
+  sourceUrl        String?
+  validFrom        DateTime?
+  validTo          DateTime?
+  verifiedAt       DateTime?
+  fromCompany      Company          @relation("RelationshipFrom", fields: [fromCompanyId], references: [id], onDelete: Cascade)
+  toCompany        Company          @relation("RelationshipTo", fields: [toCompanyId], references: [id], onDelete: Cascade)
+  product          Product?         @relation(fields: [productId], references: [id])
+
+  @@index([fromCompanyId, relationshipType])
+  @@index([toCompanyId, relationshipType])
+}
+
+model Factory {
+  id          String   @id @default(cuid())
+  companyId   String
+  name        String
+  country     String
+  region      String?
+  city        String?
+  latitude    Decimal? @db.Decimal(9, 6)
+  longitude   Decimal? @db.Decimal(9, 6)
+  factoryType String?
+  status      String?
+  sourceId    String?
+  sourceUrl   String?
+  verifiedAt  DateTime?
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([country, city])
+}
