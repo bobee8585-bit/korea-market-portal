@@ -83,13 +83,13 @@ export default async function KoreaInsidePage() {
             <p>Products appear only after evidence-backed Korean company roles have been approved.</p>
           </div>
         ) : (
-          <div className="koreaInsideGrid">
+          <div className="grid3">
             {products.map((product) => {
               const koreanRoles = product.companyRoles.filter((role) => role.company.country === "KR");
               const globalRoles = product.companyRoles.filter((role) => role.company.country !== "KR");
 
               return (
-                <article className="koreaInsideCard" key={product.id}>
+                <article className="stage" key={product.id}>
                   <div className="roleTopline">
                     <span>{product.ecosystem.name}</span>
                     <span>{product.stage?.name || "Unassigned stage"}</span>
