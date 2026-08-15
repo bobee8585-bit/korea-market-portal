@@ -42,6 +42,14 @@ Global market and industrial-ecosystem intelligence focused on Korean public com
 13. LINK_ONLY external content cannot enable translation or AI analysis in the protected ingestion API.
 14. Market-event relevance notes must pass the publication safety guard and may not contain trading instructions.
 
+## Language policy
+
+- English (`en`) is the only published MVP interface and the canonical URL has no locale prefix.
+- Korean (`ko`) is design-only for the MVP. Its reserved future prefix is `/ko`; no Korean interface is published yet.
+- Stable identifiers, API field names and canonical English routes must not depend on translated labels.
+- The source language of filings, news and research is preserved. Translation remains subject to the rights rules above.
+- `npm run verify:mvp` protects this language contract and the internal-ingestion authorization boundary in CI.
+
 ## Local setup
 
 ```bash

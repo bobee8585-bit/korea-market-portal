@@ -112,6 +112,11 @@ a.ecosystemCompanyLink:hover strong { color: #9aa7ff; }
 .factoryProduct span { color: #8fa0b8; font-size: 11px; }
 .emptyState { padding: 36px 8px; text-align: center; }
 .emptyState p { margin-bottom: 0; }
+.statusPage { display: grid; min-height: 100vh; place-items: center; }
+.statusPage .panel { width: min(720px, 100%); }
+.statusPage h1 { margin-inline: auto; font-size: clamp(34px, 6vw, 58px); }
+.statusActions { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
+.statusActions a, .statusActions button { border: 0; border-radius: 12px; padding: 12px 16px; background: #5968ff; color: white; cursor: pointer; font-weight: 800; }
 
 .clusterGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .clusterCard { padding: 18px; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: linear-gradient(180deg, rgba(64,80,124,.14), rgba(13,23,39,.82)); }
