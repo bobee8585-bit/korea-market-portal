@@ -113,10 +113,24 @@ a.ecosystemCompanyLink:hover strong { color: #9aa7ff; }
 .emptyState { padding: 36px 8px; text-align: center; }
 .emptyState p { margin-bottom: 0; }
 
+.clusterGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.clusterCard { padding: 20px; border: 1px solid rgba(255,255,255,.08); border-radius: 15px; background: linear-gradient(180deg, rgba(77,93,149,.15), rgba(11,22,38,.86)); }
+.clusterCard > p { margin: 6px 0; }
+.clusterStats { display: flex; flex-wrap: wrap; gap: 7px; margin: 16px 0; }
+.clusterStats span { border-radius: 999px; background: rgba(109,124,255,.1); border: 1px solid rgba(109,124,255,.16); color: #bac4ff; padding: 6px 9px; font-size: 10px; }
+.clusterSection { display: grid; gap: 7px; margin-top: 18px; }
+.clusterSection > strong { color: #dce6f7; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+.clusterSection > p { margin: 0; font-size: 12px; }
+.clusterMember { display: grid; gap: 2px; padding: 9px 10px; border-radius: 9px; background: rgba(255,255,255,.03); }
+a.clusterMember:hover { background: rgba(109,124,255,.08); }
+.clusterMember span { color: #e9f1ff; font-size: 12px; }
+.clusterMember small { color: #8293ad; font-size: 10px; }
+.clusterCard > .sourceLink { display: inline-block; margin-top: 18px; }
+
 @media (max-width: 980px) {
   .topbar, .hero, .companyHero { grid-template-columns: 1fr; display: grid; }
   .stages { grid-template-columns: repeat(2, 1fr); }
-  .grid3, .grid2, .companyResultGrid, .factoryGrid { grid-template-columns: 1fr; }
+  .grid3, .grid2, .companyResultGrid, .factoryGrid, .clusterGrid { grid-template-columns: 1fr; }
   .roleGrid { grid-template-columns: repeat(2, 1fr); }
   .factoryMap { height: 420px; }
 }
