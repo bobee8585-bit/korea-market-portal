@@ -43,11 +43,12 @@ export async function GET(
               roleType: true,
               evidenceStatus: true,
               sourceUrl: true,
-              product: { select: { id: true, name: true } },
+              product: { select: { id: true, name: true, technologyGroup: true } },
               company: {
                 select: {
                   id: true,
                   ticker: true,
+                  slug: true,
                   nameKo: true,
                   nameEn: true,
                   country: true,
@@ -65,5 +66,9 @@ export async function GET(
     return NextResponse.json({ error: "ECOSYSTEM_NOT_FOUND" }, { status: 404 });
   }
 
-  return NextResponse.json({ ecosystem, filter: { country } });
+  return NextResponse.json({
+    methodology: "Only regulator, government, company-confirmed or licensed ecosystem roles are public.",
+    ecosystem,
+    filter: { country },
+  });
 }
