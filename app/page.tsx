@@ -16,6 +16,13 @@ const principles = [
   "Every ecosystem relation requires evidence",
 ];
 
+const ecosystems = [
+  ["Semiconductor", "semiconductor"],
+  ["Battery", "battery"],
+  ["Automotive / EV", "automotive-ev"],
+  ["Shipbuilding", "shipbuilding"],
+] as const;
+
 export default function HomePage() {
   return (
     <main className="shell">
@@ -52,10 +59,29 @@ export default function HomePage() {
       <section className="panel">
         <div className="panelHeader">
           <div>
+            <span className="eyebrow">GLOBAL INDUSTRY ECOSYSTEMS</span>
+            <h2>Explore the first four value chains</h2>
+          </div>
+        </div>
+        <div className="grid3">
+          {ecosystems.map(([name, slug]) => (
+            <article className="stage" key={slug}>
+              <span>ECOSYSTEM</span>
+              <h3>{name}</h3>
+              <p>Open the live database-backed ecosystem explorer.</p>
+              <a href={`/ecosystems/${slug}`}>Explore →</a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="panel">
+        <div className="panelHeader">
+          <div>
             <span className="eyebrow">SEMICONDUCTOR ECOSYSTEM</span>
             <h2>Global value chain</h2>
           </div>
-          <button type="button">Focus Korea</button>
+          <a href="/ecosystems/semiconductor">Open Explorer</a>
         </div>
         <div className="stages">
           {ecosystemStages.map((stage, index) => (
