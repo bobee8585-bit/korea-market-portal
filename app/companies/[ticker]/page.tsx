@@ -14,7 +14,7 @@ function formatDate(value: Date | null) {
   return new Intl.DateTimeFormat("en-CA", { dateStyle: "medium", timeZone: "Asia/Seoul" }).format(value);
 }
 
-function companyHref(company: { ticker: string | null; slug: string | null }) {
+function companyHref(company: { ticker: string | null; slug: string | null; country: string }) {
   const identifier = company.country === "KR" && company.ticker ? company.ticker : company.slug || company.ticker;
   return identifier ? `/companies/${identifier}` : "#";
 }
