@@ -94,6 +94,7 @@ model Company {
   id            String   @id @default(cuid())
   corpCode      String?  @unique
   ticker        String?  @unique
+  slug          String?  @unique
   nameKo        String
   nameEn        String?
   country       String   @default("KR")
