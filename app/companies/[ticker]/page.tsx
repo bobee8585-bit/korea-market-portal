@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { EvidenceStatus } from "@prisma/client";
 import { db } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 const publicEvidence = [
   EvidenceStatus.REGULATOR_CONFIRMED,
   EvidenceStatus.GOVERNMENT_CONFIRMED,
@@ -37,7 +39,10 @@ export default async function CompanyPage({
         include: { ecosystem: true, stage: true, product: true },
         orderBy: [{ ecosystem: { name: "asc" } }],
       },
-      factories: { orderBy: [{ country: "asc" }, { name: "asc" }] },
+      factories: {
+        where: { evidenceStatus: { in: publicEvidence } },
+        orderBy: [{ country: "asc" }, { name: "asc" }],
+      },
       disclosures: {
         take: 12,
         orderBy: { filedAt: "desc" },
@@ -95,7 +100,7 @@ export default async function CompanyPage({
         </div>
         <div className="policyCard">
           <strong>Evidence-first profile</strong>
-          <span>• Only approved ecosystem relationships are shown.</span>
+          <span>• Only approved ecosystem and factory relationships are shown.</span>
           <span>• External evidence opens at its original source.</span>
           <span>• No investment ranking, recommendation or trading instruction.</span>
         </div>
@@ -120,6 +125,7 @@ export default async function CompanyPage({
               <h3>{role.product?.name || role.stage?.name || role.roleType}</h3>
               <p>{role.stage?.name || "Unassigned stage"} · {role.roleType.replaceAll("_", " ")}</p>
               {role.product?.technologyGroup && <p>Technology group: {role.product.technologyGroup}</p>}
+              <a className="sourceLink" href={`/ecosystems/${role.ecosystem.slug}/compare`}>Compare ecosystem →</a>
               {role.sourceUrl && (
                 <a className="sourceLink" href={role.sourceUrl} target="_blank" rel="noreferrer">
                   Official evidence ↗
@@ -178,8 +184,8 @@ export default async function CompanyPage({
                   <p>{[factory.city, factory.region, factory.country].filter(Boolean).join(", ")}</p>
                 </div>
                 <div className="listMeta">
-                  <span>{factory.factoryType || "Site"}</span>
-                  <span>{factory.status || "Unknown status"}</span>
+                  <span>{factory.factoryType.replaceAll("_", " ")}</span>
+                  <span>{factory.status.replaceAll("_", " ")}</span>
                 </div>
               </div>
             ))}
