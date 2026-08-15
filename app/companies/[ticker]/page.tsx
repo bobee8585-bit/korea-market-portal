@@ -14,15 +14,23 @@ function formatDate(value: Date | null) {
   return new Intl.DateTimeFormat("en-CA", { dateStyle: "medium", timeZone: "Asia/Seoul" }).format(value);
 }
 
+function companyHref(company: { ticker: string | null; slug: string | null }) {
+  const identifier = company.country === "KR" && company.ticker ? company.ticker : company.slug || company.ticker;
+  return identifier ? `/companies/${identifier}` : "#";
+}
+
 export default async function CompanyPage({
   params,
 }: {
   params: Promise<{ ticker: string }>;
 }) {
-  const { ticker } = await params;
+  const { ticker: identifier } = await params;
 
-  const company = await db.company.findUnique({
-    where: { ticker },
+  const company = await db.company.findFirst({
+    where: {
+      OR: [{ ticker: identifier }, { slug: identifier }],
+      isActive: true,
+    },
     include: {
       roles: {
         where: { evidenceStatus: { in: publicEvidence } },
@@ -70,7 +78,7 @@ export default async function CompanyPage({
           <a href="#position">Ecosystem Position</a>
           <a href="#peers">Global Peers</a>
           <a href="#factories">Factories</a>
-          <a href="#disclosures">Disclosures</a>
+          {company.country === "KR" && <a href="#disclosures">Disclosures</a>}
         </nav>
       </header>
 
@@ -79,7 +87,7 @@ export default async function CompanyPage({
           <span className="eyebrow">COMPANY ECOSYSTEM PROFILE</span>
           <h1 className="companyTitle">{company.nameEn || company.nameKo}</h1>
           <div className="companyMeta">
-            <span>{company.nameKo}</span>
+            {company.nameKo !== company.nameEn && <span>{company.nameKo}</span>}
             {company.ticker && <span>{company.ticker}</span>}
             {company.market && <span>{company.market}</span>}
             {company.country && <span>{company.country}</span>}
@@ -111,6 +119,7 @@ export default async function CompanyPage({
               </div>
               <h3>{role.product?.name || role.stage?.name || role.roleType}</h3>
               <p>{role.stage?.name || "Unassigned stage"} · {role.roleType.replaceAll("_", " ")}</p>
+              {role.product?.technologyGroup && <p>Technology group: {role.product.technologyGroup}</p>}
               {role.sourceUrl && (
                 <a className="sourceLink" href={role.sourceUrl} target="_blank" rel="noreferrer">
                   Official evidence ↗
@@ -143,7 +152,7 @@ export default async function CompanyPage({
                   <span>{role.roleType.replaceAll("_", " ")}</span>
                 </div>
                 {peers.map((peer) => (
-                  <a className="peerRow" key={peer.id} href={peer.company.ticker ? `/companies/${peer.company.ticker}` : "#"}>
+                  <a className="peerRow" key={peer.id} href={companyHref(peer.company)}>
                     <span>{peer.company.country || "—"}</span>
                     <strong>{peer.company.nameEn || peer.company.nameKo}</strong>
                     <span>{peer.roleType.replaceAll("_", " ")}</span>
@@ -178,19 +187,25 @@ export default async function CompanyPage({
         </article>
 
         <article className="panel" id="disclosures">
-          <span className="eyebrow">OFFICIAL DISCLOSURES</span>
-          <h2>Latest filings</h2>
+          <span className="eyebrow">{company.country === "KR" ? "OFFICIAL DISCLOSURES" : "OFFICIAL SOURCE"}</span>
+          <h2>{company.country === "KR" ? "Latest filings" : "Company information"}</h2>
           <div className="stackList">
-            {company.disclosures.length === 0 && <p>No synced disclosures are available yet.</p>}
-            {company.disclosures.map((item) => (
-              <a className="listRow" key={item.receiptNo} href={item.originalUrl} target="_blank" rel="noreferrer">
-                <div>
-                  <strong>{item.reportName}</strong>
-                  <p>{item.source.name} · {formatDate(item.filedAt)}</p>
-                </div>
-                <div className="listMeta"><span>{item.eventType.replaceAll("_", " ")}</span><span>Original ↗</span></div>
-              </a>
-            ))}
+            {company.country === "KR" ? (
+              company.disclosures.length === 0 ? <p>No synced disclosures are available yet.</p> : company.disclosures.map((item) => (
+                <a className="listRow" key={item.receiptNo} href={item.originalUrl} target="_blank" rel="noreferrer">
+                  <div>
+                    <strong>{item.reportName}</strong>
+                    <p>{item.source.name} · {formatDate(item.filedAt)}</p>
+                  </div>
+                  <div className="listMeta"><span>{item.eventType.replaceAll("_", " ")}</span><span>Original ↗</span></div>
+                </a>
+              ))
+            ) : (
+              <>
+                <p>Foreign-company profiles use official or rights-cleared ecosystem evidence and do not mirror local filings.</p>
+                {company.websiteUrl && <a className="sourceLink" href={company.websiteUrl} target="_blank" rel="noreferrer">Official company site ↗</a>}
+              </>
+            )}
           </div>
         </article>
       </section>
