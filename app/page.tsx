@@ -34,28 +34,24 @@ export default function HomePage() {
         <nav className="nav" aria-label="Primary navigation">
           <a href="/companies">Companies</a>
           <a href="#ecosystems" className="active">Ecosystems</a>
-          <a href="/ecosystems/semiconductor/compare">Compare</a>
           <a href="/korea-inside">Korea Inside</a>
-          <a href="/mega-factories">Mega Factories</a>
-          <a href="/clusters">Industry Clusters</a>
+          <a href="/news">News & Research</a>
+          <a href="/market-events">Market Events</a>
+          <a href="/global-money">Global Money</a>
+          <a href="/ma">M&A</a>
         </nav>
       </header>
 
       <section className="hero" id="ecosystems">
         <div>
-          <span className="eyebrow">FOUNDATION v0.1</span>
+          <span className="eyebrow">MVP</span>
           <h1>See where Korean companies sit inside global industrial ecosystems.</h1>
           <p>
-            The portal connects industries, products, companies, factories, regional hubs,
-            official disclosures and evidence without turning those facts into trading advice.
+            The portal connects industries, products, companies, factories, institutional disclosures,
+            global events, M&A, official filings and source links without turning those facts into trading advice.
           </p>
           <form action="/companies" method="get" className="companySearchForm homeSearch">
-            <input
-              type="search"
-              name="q"
-              placeholder="Search company or ticker — Samsung Electronics, TSMC, 005930…"
-              aria-label="Search companies"
-            />
+            <input type="search" name="q" placeholder="Search company or ticker — Samsung Electronics, TSMC, 005930…" aria-label="Search companies" />
             <button type="submit">Search</button>
           </form>
         </div>
@@ -67,67 +63,28 @@ export default function HomePage() {
 
       <section className="panel">
         <div className="panelHeader">
-          <div>
-            <span className="eyebrow">GLOBAL INDUSTRY ECOSYSTEMS</span>
-            <h2>Explore the first four value chains</h2>
-          </div>
-          <div className="nav">
-            <a href="/ecosystems/semiconductor/compare">Compare roles →</a>
-            <a href="/korea-inside">Korea Inside →</a>
-            <a href="/mega-factories">Production sites →</a>
-            <a href="/clusters">Industry clusters →</a>
-          </div>
+          <div><span className="eyebrow">GLOBAL INDUSTRY ECOSYSTEMS</span><h2>Explore the first four value chains</h2></div>
+          <div className="nav"><a href="/ecosystems/semiconductor/compare">Compare roles →</a><a href="/mega-factories">Production sites →</a><a href="/clusters">Industry clusters →</a></div>
         </div>
         <div className="grid3">
-          {ecosystems.map(([name, slug]) => (
-            <article className="stage" key={slug}>
-              <span>ECOSYSTEM</span>
-              <h3>{name}</h3>
-              <p>Open the live database-backed ecosystem explorer.</p>
-              <a href={`/ecosystems/${slug}`}>Explore →</a>
-            </article>
-          ))}
+          {ecosystems.map(([name, slug]) => <article className="stage" key={slug}><span>ECOSYSTEM</span><h3>{name}</h3><p>Open the live database-backed ecosystem explorer.</p><a href={`/ecosystems/${slug}`}>Explore →</a></article>)}
         </div>
       </section>
 
       <section className="panel">
-        <div className="panelHeader">
-          <div>
-            <span className="eyebrow">SEMICONDUCTOR ECOSYSTEM</span>
-            <h2>Global value chain</h2>
-          </div>
-          <div className="nav">
-            <a href="/ecosystems/semiconductor">Open Explorer</a>
-            <a href="/ecosystems/semiconductor/compare">Compare countries</a>
-          </div>
-        </div>
+        <div className="panelHeader"><div><span className="eyebrow">SEMICONDUCTOR ECOSYSTEM</span><h2>Global value chain</h2></div><div className="nav"><a href="/ecosystems/semiconductor">Open Explorer</a><a href="/ecosystems/semiconductor/compare">Compare countries</a></div></div>
         <div className="stages">
-          {ecosystemStages.map((stage, index) => (
-            <article className="stage" key={stage}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{stage}</h3>
-              <p>Companies, products, factories and verified relations appear only with approved evidence.</p>
-            </article>
-          ))}
+          {ecosystemStages.map((stage, index) => <article className="stage" key={stage}><span>{String(index + 1).padStart(2, "0")}</span><h3>{stage}</h3><p>Companies, products, factories and verified relations appear only with approved evidence.</p></article>)}
         </div>
       </section>
 
       <section className="grid3">
-        <article className="panel compact">
-          <span className="eyebrow">OFFICIAL DISCLOSURES</span>
-          <h2>OpenDART pipeline</h2>
-          <p>Company master sync, receipt-number deduplication and official filing links.</p>
-        </article>
-        <article className="panel compact">
-          <span className="eyebrow">RIGHTS CONTROL</span>
-          <h2>Link-first external content</h2>
-          <p>Unlicensed media and broker research cannot be stored, translated or summarized.</p>
-        </article>
-        <article className="panel compact">
-          <span className="eyebrow">EVIDENCE ENGINE</span>
-          <h2>No unsupported relationships</h2>
-          <p>Supply, peer, factory and cluster connections require a traceable approved source.</p>
-        </article>
+        <a className="panel compact" href="/news"><span className="eyebrow">NEWS & RESEARCH</span><h2>Rights-aware source links</h2><p>Link-first handling with translation only when rights explicitly permit it.</p></a>
+        <a className="panel compact" href="/market-events"><span className="eyebrow">MARKET EVENTS</span><h2>Neutral relevance analysis</h2><p>Explain factual transmission paths without price predictions or trade instructions.</p></a>
+        <a className="panel compact" href="/global-money"><span className="eyebrow">GLOBAL MONEY</span><h2>Institutional disclosures</h2><p>Track reported large-investor positions while preserving filing and period dates.</p></a>
+        <a className="panel compact" href="/ma"><span className="eyebrow">GLOBAL M&A</span><h2>Verified deal timeline</h2><p>Announced, pending, completed or withdrawn corporate transactions from approved sources.</p></a>
+        <article className="panel compact"><span className="eyebrow">OFFICIAL DISCLOSURES</span><h2>OpenDART pipeline</h2><p>Company master sync, receipt-number deduplication and official filing links.</p></article>
+        <article className="panel compact"><span className="eyebrow">EVIDENCE & RIGHTS</span><h2>No unsupported publication</h2><p>Relationships, translations and analysis require the appropriate evidence and rights state.</p></article>
       </section>
     </main>
   );
