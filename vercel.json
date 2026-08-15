@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/dart-disclosures",
+      "schedule": "55 14 * * *"
+    }
+  ]
+}
