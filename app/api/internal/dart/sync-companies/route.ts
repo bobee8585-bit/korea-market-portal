@@ -3,6 +3,8 @@ import { db } from "@/lib/db";
 import { isAuthorizedInternalRequest } from "@/lib/internal-auth";
 import { fetchDartCorpMaster } from "@/lib/opendart-corp-master";
 
+export const preferredRegion = "icn1";
+
 export async function POST(request: NextRequest) {
   if (!isAuthorizedInternalRequest(request)) {
     return NextResponse.json({ error: "UNAUTHORIZED" }, { status: 401 });
