@@ -13,6 +13,13 @@ function companyHref(company: { ticker: string | null; slug: string | null; coun
   return identifier ? `/companies/${identifier}` : "#";
 }
 
+function mapPosition(latitude: number, longitude: number) {
+  return {
+    left: `${((longitude + 180) / 360) * 100}%`,
+    top: `${((90 - latitude) / 180) * 100}%`,
+  };
+}
+
 export default async function MegaFactoriesPage() {
   const factories = await db.factory.findMany({
     where: { evidenceStatus: { in: publicEvidence } },
@@ -34,6 +41,8 @@ export default async function MegaFactoriesPage() {
       return { country, sites: sites.length, companies: companies.size, products: products.size };
     })
     .sort((a, b) => b.sites - a.sites || a.country.localeCompare(b.country));
+
+  const mappableFactories = factories.filter((factory) => factory.latitude !== null && factory.longitude !== null);
 
   return (
     <main className="shell">
@@ -62,9 +71,45 @@ export default async function MegaFactoriesPage() {
           <strong>Factory evidence rule</strong>
           <span>• No estimated or rumored factory capacity.</span>
           <span>• Planned and operating facilities are clearly separated.</span>
-          <span>• Every public site requires approved evidence.</span>
+          <span>• Map positions disclose their location precision.</span>
         </div>
       </section>
+
+      {mappableFactories.length > 0 && (
+        <section className="panel">
+          <div className="panelHeader">
+            <div>
+              <span className="eyebrow">WORLD MAP</span>
+              <h2>Verified semiconductor production locations</h2>
+            </div>
+            <span className="countBadge">{mappableFactories.length} mapped sites</span>
+          </div>
+          <div className="factoryMap" role="img" aria-label="World map of verified semiconductor manufacturing locations">
+            <div className="mapGrid mapGridVertical" />
+            <div className="mapGrid mapGridHorizontal" />
+            {mappableFactories.map((factory) => {
+              const latitude = Number(factory.latitude);
+              const longitude = Number(factory.longitude);
+              return (
+                <a
+                  className="factoryMapPoint"
+                  key={factory.id}
+                  href={companyHref(factory.company)}
+                  style={mapPosition(latitude, longitude)}
+                  title={`${factory.name} — ${factory.company.nameEn || factory.company.nameKo}`}
+                >
+                  <span className="factoryMapDot" />
+                  <span className="factoryMapLabel">
+                    <strong>{factory.city || factory.name}</strong>
+                    <small>{factory.company.nameEn || factory.company.nameKo} · {factory.locationPrecision}</small>
+                  </span>
+                </a>
+              );
+            })}
+          </div>
+          <p className="mapNote">CITY means the marker represents the verified city or campus area, not an exact fab entrance or building coordinate.</p>
+        </section>
+      )}
 
       {countrySummary.length > 0 && (
         <section className="panel">
@@ -109,7 +154,7 @@ export default async function MegaFactoriesPage() {
                 </div>
                 <h3>{factory.name}</h3>
                 <p>{[factory.city, factory.region, factory.country].filter(Boolean).join(", ")}</p>
-                <p>{factory.factoryType.replaceAll("_", " ")}</p>
+                <p>{factory.factoryType.replaceAll("_", " ")} · {factory.locationPrecision} location</p>
                 <a className="sourceLink" href={companyHref(factory.company)}>
                   {factory.company.nameEn || factory.company.nameKo} →
                 </a>
