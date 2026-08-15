@@ -32,11 +32,24 @@ function tag(block: string, name: string) {
 
 export async function fetchDartCorpMaster(): Promise<DartCorpMasterItem[]> {
   const url = `${CORP_CODE_URL}?crtfc_key=${encodeURIComponent(getApiKey())}`;
-  const response = await fetch(url, { cache: "no-store" });
+  const response = await fetch(url, {
+    cache: "no-store",
+    headers: {
+      Accept: "application/zip, application/octet-stream;q=0.9, */*;q=0.8",
+      Referer: "https://opendart.fss.or.kr/",
+      "User-Agent": "KoreaMarketPortal/1.0 (+https://korea-market-portal.vercel.app)",
+    },
+  });
   if (!response.ok) throw new Error(`OpenDART corpCode HTTP ${response.status}`);
 
   const zipped = new Uint8Array(await response.arrayBuffer());
-  const files = unzipSync(zipped);
+  let files: ReturnType<typeof unzipSync>;
+  try {
+    files = unzipSync(zipped);
+  } catch {
+    const preview = new TextDecoder().decode(zipped.slice(0, 300)).replace(/\s+/g, " ");
+    throw new Error(`OpenDART corpCode returned a non-ZIP response: ${preview}`);
+  }
   const xmlFile = Object.entries(files).find(([name]) => name.toLowerCase().endsWith(".xml"));
   if (!xmlFile) throw new Error("OpenDART corpCode archive did not contain XML");
 
