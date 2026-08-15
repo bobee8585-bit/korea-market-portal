@@ -26,7 +26,14 @@ export default async function MegaFactoriesPage() {
     orderBy: [{ country: "asc" }, { city: "asc" }, { name: "asc" }],
   });
 
-  const countries = [...new Set(factories.map((factory) => factory.country))];
+  const countrySummary = [...new Set(factories.map((factory) => factory.country))]
+    .map((country) => {
+      const sites = factories.filter((factory) => factory.country === country);
+      const companies = new Set(sites.map((factory) => factory.company.id));
+      const products = new Set(sites.flatMap((factory) => factory.products.map((item) => item.product.name)));
+      return { country, sites: sites.length, companies: companies.size, products: products.size };
+    })
+    .sort((a, b) => b.sites - a.sites || a.country.localeCompare(b.country));
 
   return (
     <main className="shell">
@@ -59,11 +66,31 @@ export default async function MegaFactoriesPage() {
         </div>
       </section>
 
+      {countrySummary.length > 0 && (
+        <section className="panel">
+          <div className="panelHeader">
+            <div>
+              <span className="eyebrow">COUNTRY COMPARISON</span>
+              <h2>Verified semiconductor production footprint</h2>
+            </div>
+          </div>
+          <div className="grid3">
+            {countrySummary.map((item) => (
+              <article className="stage" key={item.country}>
+                <span>{item.country}</span>
+                <h3>{item.sites} verified sites</h3>
+                <p>{item.companies} companies · {item.products} verified product categories</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="panel">
         <div className="panelHeader">
           <div>
             <span className="eyebrow">GLOBAL PRODUCTION FOOTPRINT</span>
-            <h2>{factories.length} verified sites across {countries.length} countries</h2>
+            <h2>{factories.length} verified sites across {countrySummary.length} countries</h2>
           </div>
         </div>
 
