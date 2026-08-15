@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { EvidenceStatus } from "@prisma/client";
+import { EvidenceStatus, FactoryStatus } from "@prisma/client";
 import { db } from "@/lib/db";
 
 const publicEvidence = [
@@ -9,17 +9,33 @@ const publicEvidence = [
   EvidenceStatus.LICENSED_SOURCE,
 ];
 
+function parseFactoryStatus(value: string | null): FactoryStatus | undefined {
+  if (!value) return undefined;
+  const normalized = value.trim().toUpperCase();
+  return Object.values(FactoryStatus).includes(normalized as FactoryStatus)
+    ? (normalized as FactoryStatus)
+    : undefined;
+}
+
 export async function GET(request: NextRequest) {
-  const country = request.nextUrl.searchParams.get("country")?.toUpperCase() ?? undefined;
-  const ecosystemSlug = request.nextUrl.searchParams.get("ecosystem") ?? undefined;
-  const company = request.nextUrl.searchParams.get("company") ?? undefined;
-  const status = request.nextUrl.searchParams.get("status") ?? undefined;
+  const country = request.nextUrl.searchParams.get("country")?.trim().toUpperCase() || undefined;
+  const ecosystemSlug = request.nextUrl.searchParams.get("ecosystem")?.trim() || undefined;
+  const company = request.nextUrl.searchParams.get("company")?.trim() || undefined;
+  const rawStatus = request.nextUrl.searchParams.get("status");
+  const status = parseFactoryStatus(rawStatus);
+
+  if (rawStatus && !status) {
+    return NextResponse.json(
+      { error: "INVALID_FACTORY_STATUS", allowed: Object.values(FactoryStatus) },
+      { status: 400 },
+    );
+  }
 
   const factories = await db.factory.findMany({
     where: {
       evidenceStatus: { in: publicEvidence },
       ...(country ? { country } : {}),
-      ...(status ? { status: status as never } : {}),
+      ...(status ? { status } : {}),
       ...(company
         ? {
             company: {
@@ -51,6 +67,7 @@ export async function GET(request: NextRequest) {
       city: true,
       latitude: true,
       longitude: true,
+      locationPrecision: true,
       factoryType: true,
       status: true,
       openedAt: true,
