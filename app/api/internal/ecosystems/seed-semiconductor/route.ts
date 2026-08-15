@@ -10,6 +10,7 @@ import { isAuthorizedInternalRequest } from "@/lib/internal-auth";
 
 type SeedCompany = {
   ticker: string;
+  slug: string;
   nameEn: string;
   nameKo?: string;
   country: string;
@@ -20,88 +21,119 @@ type SeedCompany = {
     name: string;
     stage: string;
     roleType: EcosystemRoleType;
+    technologyGroup?: string;
   }>;
 };
 
 const companies: SeedCompany[] = [
   {
     ticker: "005930",
+    slug: "samsung-electronics",
     nameEn: "Samsung Electronics",
     nameKo: "삼성전자",
     country: "KR",
     websiteUrl: "https://semiconductor.samsung.com/",
     sourceName: "Samsung Semiconductor",
-    sourceUrl: "https://semiconductor.samsung.com/dram/hbm/",
+    sourceUrl: "https://semiconductor.samsung.com/dram/",
     products: [
-      { name: "HBM", stage: "Memory / Foundry", roleType: EcosystemRoleType.MANUFACTURER },
+      { name: "HBM", stage: "Memory / Foundry", roleType: EcosystemRoleType.MANUFACTURER, technologyGroup: "Memory" },
+      { name: "DRAM", stage: "Memory / Foundry", roleType: EcosystemRoleType.MANUFACTURER, technologyGroup: "Memory" },
+      { name: "NAND Flash", stage: "Memory / Foundry", roleType: EcosystemRoleType.MANUFACTURER, technologyGroup: "Memory" },
+      { name: "Foundry Services", stage: "Wafer / Fab", roleType: EcosystemRoleType.MANUFACTURER, technologyGroup: "Foundry" },
     ],
   },
   {
     ticker: "000660",
+    slug: "sk-hynix",
     nameEn: "SK hynix",
     nameKo: "SK하이닉스",
     country: "KR",
     websiteUrl: "https://www.skhynix.com/",
-    sourceName: "SK hynix Newsroom",
-    sourceUrl: "https://news.skhynix.com/sk-hynix-completes-worlds-first-hbm4-development-and-readies-mass-production/",
+    sourceName: "SK hynix",
+    sourceUrl: "https://www.skhynix.com/eng/product/dram.jsp",
     products: [
-      { name: "HBM", stage: "Memory / Foundry", roleType: EcosystemRoleType.MANUFACTURER },
+      { name: "HBM", stage: "Memory / Foundry", roleType: EcosystemRoleType.MANUFACTURER, technologyGroup: "Memory" },
+      { name: "DRAM", stage: "Memory / Foundry", roleType: EcosystemRoleType.MANUFACTURER, technologyGroup: "Memory" },
+      { name: "NAND Flash", stage: "Memory / Foundry", roleType: EcosystemRoleType.MANUFACTURER, technologyGroup: "Memory" },
     ],
   },
   {
     ticker: "MU",
+    slug: "micron-technology",
     nameEn: "Micron Technology",
     country: "US",
     websiteUrl: "https://www.micron.com/",
     sourceName: "Micron Technology",
-    sourceUrl: "https://www.micron.com/products/memory/hbm",
+    sourceUrl: "https://www.micron.com/products/memory",
     products: [
-      { name: "HBM", stage: "Memory / Foundry", roleType: EcosystemRoleType.MANUFACTURER },
+      { name: "HBM", stage: "Memory / Foundry", roleType: EcosystemRoleType.MANUFACTURER, technologyGroup: "Memory" },
+      { name: "DRAM", stage: "Memory / Foundry", roleType: EcosystemRoleType.MANUFACTURER, technologyGroup: "Memory" },
+      { name: "NAND Flash", stage: "Memory / Foundry", roleType: EcosystemRoleType.MANUFACTURER, technologyGroup: "Memory" },
     ],
   },
   {
     ticker: "2330",
+    slug: "tsmc",
     nameEn: "Taiwan Semiconductor Manufacturing Company",
     country: "TW",
     websiteUrl: "https://www.tsmc.com/",
     sourceName: "TSMC",
-    sourceUrl: "https://www.tsmc.com/english/aboutTSMC/company_profile",
+    sourceUrl: "https://www.tsmc.com/english/dedicatedFoundry",
     products: [
-      { name: "Foundry Services", stage: "Wafer / Fab", roleType: EcosystemRoleType.MANUFACTURER },
+      { name: "Foundry Services", stage: "Wafer / Fab", roleType: EcosystemRoleType.MANUFACTURER, technologyGroup: "Foundry" },
     ],
   },
   {
     ticker: "ASML",
+    slug: "asml",
     nameEn: "ASML",
     country: "NL",
     websiteUrl: "https://www.asml.com/",
     sourceName: "ASML",
     sourceUrl: "https://www.asml.com/en/products/euv-lithography-systems",
     products: [
-      { name: "EUV Lithography", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER },
+      { name: "EUV Lithography", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER, technologyGroup: "Lithography" },
+      { name: "DUV Lithography", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER, technologyGroup: "Lithography" },
     ],
   },
   {
     ticker: "AMAT",
+    slug: "applied-materials",
     nameEn: "Applied Materials",
     country: "US",
     websiteUrl: "https://www.appliedmaterials.com/",
     sourceName: "Applied Materials",
-    sourceUrl: "https://www.appliedmaterials.com/us/en/about.html",
+    sourceUrl: "https://www.appliedmaterials.com/us/en/semiconductor.html",
     products: [
-      { name: "Semiconductor Materials Engineering Equipment", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER },
+      { name: "Deposition Equipment", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER, technologyGroup: "Deposition" },
+      { name: "Etch Equipment", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER, technologyGroup: "Etch" },
+    ],
+  },
+  {
+    ticker: "LRCX",
+    slug: "lam-research",
+    nameEn: "Lam Research",
+    country: "US",
+    websiteUrl: "https://www.lamresearch.com/",
+    sourceName: "Lam Research",
+    sourceUrl: "https://www.lamresearch.com/products/",
+    products: [
+      { name: "Etch Equipment", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER, technologyGroup: "Etch" },
+      { name: "Deposition Equipment", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER, technologyGroup: "Deposition" },
     ],
   },
   {
     ticker: "8035",
+    slug: "tokyo-electron",
     nameEn: "Tokyo Electron",
     country: "JP",
     websiteUrl: "https://www.tel.com/",
     sourceName: "Tokyo Electron",
-    sourceUrl: "https://www.tel.com/corporatesummary/",
+    sourceUrl: "https://www.tel.com/product/",
     products: [
-      { name: "Etch Equipment", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER },
-      { name: "Deposition Equipment", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER },
+      { name: "Etch Equipment", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER, technologyGroup: "Etch" },
+      { name: "Deposition Equipment", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER, technologyGroup: "Deposition" },
+      { name: "Coater / Developer", stage: "Equipment", roleType: EcosystemRoleType.EQUIPMENT_PROVIDER, technologyGroup: "Lithography" },
     ],
   },
 ];
@@ -134,11 +166,16 @@ async function getOrCreateSource(company: SeedCompany) {
 }
 
 async function getOrCreateCompany(seed: SeedCompany) {
-  const existing = await db.company.findUnique({ where: { ticker: seed.ticker } });
+  const existing = await db.company.findFirst({
+    where: { OR: [{ ticker: seed.ticker }, { slug: seed.slug }] },
+  });
+
   if (existing) {
     return db.company.update({
       where: { id: existing.id },
       data: {
+        ticker: seed.ticker,
+        slug: seed.slug,
         nameEn: seed.nameEn,
         nameKo: seed.nameKo ?? existing.nameKo,
         country: seed.country,
@@ -151,6 +188,7 @@ async function getOrCreateCompany(seed: SeedCompany) {
   return db.company.create({
     data: {
       ticker: seed.ticker,
+      slug: seed.slug,
       nameEn: seed.nameEn,
       nameKo: seed.nameKo ?? seed.nameEn,
       country: seed.country,
@@ -175,7 +213,7 @@ export async function POST(request: NextRequest) {
 
   const stages = await db.ecosystemStage.findMany({ where: { ecosystemId: ecosystem.id } });
   const stageByName = new Map(stages.map((stage) => [stage.name, stage]));
-  const seeded: Array<{ company: string; products: string[] }> = [];
+  const seeded: Array<{ company: string; slug: string; products: string[] }> = [];
 
   for (const seed of companies) {
     const company = await getOrCreateCompany(seed);
@@ -195,7 +233,13 @@ export async function POST(request: NextRequest) {
             ecosystemId: ecosystem.id,
             stageId: stage.id,
             name: item.name,
+            technologyGroup: item.technologyGroup,
           },
+        });
+      } else if (item.technologyGroup && product.technologyGroup !== item.technologyGroup) {
+        product = await db.product.update({
+          where: { id: product.id },
+          data: { technologyGroup: item.technologyGroup },
         });
       }
 
@@ -234,7 +278,7 @@ export async function POST(request: NextRequest) {
       productNames.push(item.name);
     }
 
-    seeded.push({ company: company.nameEn ?? company.nameKo, products: productNames });
+    seeded.push({ company: company.nameEn ?? company.nameKo, slug: seed.slug, products: productNames });
   }
 
   return NextResponse.json({
