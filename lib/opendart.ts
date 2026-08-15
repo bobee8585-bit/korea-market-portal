@@ -1,4 +1,4 @@
-const DART_BASE_URL = "https://opendart.fss.or.kr/api";
+const DART_BASE_URL = "https://engopendart.fss.or.kr/engapi";
 const DART_VIEWER_URL = "https://dart.fss.or.kr/dsaf001/main.do";
 
 export type DartDisclosureItem = {
