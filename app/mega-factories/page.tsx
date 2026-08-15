@@ -1,6 +1,8 @@
 import { EvidenceStatus } from "@prisma/client";
 import { db } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 const publicEvidence = [
   EvidenceStatus.REGULATOR_CONFIRMED,
   EvidenceStatus.GOVERNMENT_CONFIRMED,
@@ -53,8 +55,10 @@ export default async function MegaFactoriesPage() {
         </a>
         <nav className="nav" aria-label="Mega factory navigation">
           <a href="/ecosystems/semiconductor">Ecosystems</a>
+          <a href="/ecosystems/semiconductor/compare">Compare</a>
           <a href="/companies">Companies</a>
           <a href="/mega-factories" className="active">Mega Factories</a>
+          <a href="/clusters">Clusters</a>
         </nav>
       </header>
 
