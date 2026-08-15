@@ -1,7 +1,9 @@
 import { db } from "@/lib/db";
 import { fetchDartCorpMaster } from "@/lib/opendart-corp-master";
 
-const BATCH_SIZE = 25;
+// Supabase's transaction pool currently exposes five connections to this app.
+// Keep one connection available for normal traffic while the bulk sync runs.
+const BATCH_SIZE = 4;
 
 export async function syncDartCompanies() {
   const master = await fetchDartCorpMaster();
