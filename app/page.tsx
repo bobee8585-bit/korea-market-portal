@@ -36,6 +36,7 @@ export default function HomePage() {
           <a href="/companies">Companies</a>
           <a href="#disclosures">Disclosures</a>
           <a href="#ecosystems" className="active">Ecosystems</a>
+          <a href="/mega-factories">Mega Factories</a>
           <a href="#global-money">Global Money</a>
           <a href="#ma">M&A</a>
         </nav>
@@ -71,6 +72,7 @@ export default function HomePage() {
             <span className="eyebrow">GLOBAL INDUSTRY ECOSYSTEMS</span>
             <h2>Explore the first four value chains</h2>
           </div>
+          <a href="/mega-factories">Explore production sites →</a>
         </div>
         <div className="grid3">
           {ecosystems.map(([name, slug]) => (
