@@ -12,6 +12,7 @@ button { font: inherit; }
 
 .shell { width: min(1480px, calc(100% - 40px)); margin: 0 auto; padding-bottom: 48px; }
 .topbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+.brandBlock { display: block; }
 .brand { font-weight: 800; font-size: 20px; letter-spacing: -.02em; }
 .subtitle { color: #8ca0bd; font-size: 12px; margin-top: 4px; }
 .nav { display: flex; gap: 22px; color: #aebbd0; font-size: 14px; flex-wrap: wrap; }
@@ -37,14 +38,47 @@ p { color: #9eb0c8; line-height: 1.65; }
 .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
 .compact { min-height: 180px; }
 
+.companyPage { padding-bottom: 72px; }
+.companyHero { display: grid; grid-template-columns: 1.6fr .8fr; gap: 24px; padding: 50px 0 24px; }
+.companyTitle { font-size: clamp(42px, 6vw, 78px); margin-bottom: 16px; }
+.companyMeta { display: flex; gap: 10px; flex-wrap: wrap; }
+.companyMeta span, .countBadge { border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04); border-radius: 999px; padding: 7px 11px; color: #b9c7db; font-size: 12px; }
+.companyPage > .panel { margin-top: 16px; }
+.roleGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.roleCard { min-height: 170px; padding: 18px; border-radius: 14px; background: linear-gradient(180deg, rgba(91,105,255,.12), rgba(18,27,43,.76)); border: 1px solid rgba(255,255,255,.07); }
+.roleTopline { display: flex; justify-content: space-between; gap: 12px; color: #8796ae; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.roleCard p { margin: 6px 0 18px; font-size: 13px; }
+.sourceLink { color: #8ba0ff; font-size: 13px; font-weight: 700; }
+.peerGroups { display: grid; gap: 14px; }
+.peerGroup { border: 1px solid rgba(255,255,255,.07); border-radius: 14px; overflow: hidden; background: rgba(255,255,255,.02); }
+.peerGroupHeader { display: flex; justify-content: space-between; gap: 16px; padding: 14px 16px; background: rgba(255,255,255,.035); color: #aebbd0; }
+.peerGroupHeader strong { color: white; }
+.peerList { display: grid; }
+.peerRow { display: grid; grid-template-columns: 90px 1fr 220px; gap: 16px; padding: 13px 16px; border-top: 1px solid rgba(255,255,255,.055); align-items: center; color: #b9c7db; }
+.peerRow:hover { background: rgba(109,124,255,.06); }
+.subjectRow { background: rgba(109,124,255,.1); }
+.mutedLine { margin: 0; padding: 14px 16px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.stackList { display: grid; margin-top: 18px; }
+.listRow { display: flex; justify-content: space-between; gap: 18px; padding: 15px 0; border-top: 1px solid rgba(255,255,255,.065); }
+.listRow:first-child { border-top: 0; }
+.listRow strong { display: block; }
+.listRow p { margin: 4px 0 0; font-size: 12px; }
+.listMeta { display: grid; justify-items: end; align-content: center; gap: 4px; color: #8ea0bb; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+
 @media (max-width: 980px) {
-  .topbar, .hero { grid-template-columns: 1fr; display: grid; }
+  .topbar, .hero, .companyHero { grid-template-columns: 1fr; display: grid; }
   .stages { grid-template-columns: repeat(2, 1fr); }
-  .grid3 { grid-template-columns: 1fr; }
+  .grid3, .grid2 { grid-template-columns: 1fr; }
+  .roleGrid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 620px) {
   .shell { width: min(100% - 24px, 1480px); }
-  .stages { grid-template-columns: 1fr; }
+  .stages, .roleGrid { grid-template-columns: 1fr; }
   .nav { gap: 14px; }
+  .peerRow { grid-template-columns: 60px 1fr; }
+  .peerRow span:last-child { grid-column: 2; }
+  .listRow { display: grid; }
+  .listMeta { justify-items: start; }
 }
