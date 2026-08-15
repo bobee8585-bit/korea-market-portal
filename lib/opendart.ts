@@ -60,8 +60,16 @@ export async function fetchDartDisclosures(params: {
     cache: "no-store",
   });
 
-  if (!response.ok) throw new Error(`OpenDART HTTP ${response.status}`);
-  const data = (await response.json()) as DartListResponse;
+  const contentType = response.headers.get("content-type") ?? "unknown";
+  const raw = await response.text();
+  if (!response.ok) throw new Error(`OpenDART HTTP ${response.status} (${contentType})`);
+  let data: DartListResponse;
+  try {
+    data = JSON.parse(raw) as DartListResponse;
+  } catch {
+    const title = raw.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1]?.trim() ?? "HTML response";
+    throw new Error(`OpenDART non-JSON response (${contentType}): ${title}`);
+  }
   assertDartOk(data.status, data.message);
   return data;
 }
