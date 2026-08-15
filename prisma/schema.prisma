@@ -69,23 +69,45 @@ enum EcosystemRoleType {
   OTHER
 }
 
+enum DisclosureEventType {
+  EARNINGS
+  DIVIDEND
+  SHARE_BUYBACK
+  SHARE_CANCELLATION
+  CAPITAL_INCREASE
+  BOND
+  MERGER
+  SPINOFF
+  ACQUISITION
+  MAJOR_CONTRACT
+  OWNERSHIP_CHANGE
+  INVESTMENT
+  LITIGATION
+  TRADING_STATUS
+  COMPANY_IR
+  POLICY
+  REGULATION
+  OTHER
+}
+
 model Company {
-  id          String   @id @default(cuid())
-  corpCode    String?  @unique
-  ticker      String?  @unique
-  nameKo      String
-  nameEn      String?
-  market      Market?
-  websiteUrl  String?
-  irUrl       String?
-  isActive    Boolean  @default(true)
-  aliases     CompanyAlias[]
-  roles       CompanyEcosystemRole[]
-  factories   Factory[]
+  id            String   @id @default(cuid())
+  corpCode      String?  @unique
+  ticker        String?  @unique
+  nameKo        String
+  nameEn        String?
+  market        Market?
+  websiteUrl    String?
+  irUrl         String?
+  isActive      Boolean  @default(true)
+  aliases       CompanyAlias[]
+  roles         CompanyEcosystemRole[]
+  factories     Factory[]
+  disclosures   Disclosure[]
   relationsFrom CompanyRelationship[] @relation("RelationshipFrom")
   relationsTo   CompanyRelationship[] @relation("RelationshipTo")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@index([nameKo])
   @@index([nameEn])
@@ -122,8 +144,32 @@ model Source {
   licenseStart   DateTime?
   licenseEnd     DateTime?
   active         Boolean    @default(false)
+  disclosures    Disclosure[]
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
+}
+
+model Disclosure {
+  id             String              @id @default(cuid())
+  companyId      String
+  sourceId       String
+  receiptNo      String              @unique
+  reportName     String
+  filerName      String?
+  corpClass      String?
+  filedAt        DateTime
+  remarks        String?
+  originalUrl    String
+  eventType      DisclosureEventType @default(OTHER)
+  language       String              @default("ko")
+  company        Company             @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  source         Source              @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  @@index([companyId, filedAt])
+  @@index([filedAt])
+  @@index([eventType])
 }
 
 model Ecosystem {
