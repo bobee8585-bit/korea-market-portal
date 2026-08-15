@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@prisma/client": "latest",
+    "fflate": "^0.8.2",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"
