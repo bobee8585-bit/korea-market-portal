@@ -30,6 +30,26 @@ export default async function IndustryClustersPage() {
     orderBy: [{ country: "asc" }, { region: "asc" }, { name: "asc" }],
   });
 
+  const countryComparison = [...new Set(clusters.map((cluster) => cluster.country))]
+    .map((country) => {
+      const countryClusters = clusters.filter((cluster) => cluster.country === country);
+      const companies = new Set(
+        countryClusters.flatMap((cluster) => cluster.companies.map((membership) => membership.company.id)),
+      );
+      const factories = new Set(
+        countryClusters.flatMap((cluster) => cluster.factories.map((membership) => membership.factory.id)),
+      );
+      const ecosystems = new Set(countryClusters.map((cluster) => cluster.ecosystem.id));
+      return {
+        country,
+        clusters: countryClusters.length,
+        companies: companies.size,
+        factories: factories.size,
+        ecosystems: ecosystems.size,
+      };
+    })
+    .sort((a, b) => b.clusters - a.clusters || b.factories - a.factories || a.country.localeCompare(b.country));
+
   return (
     <main className="shell">
       <header className="topbar">
@@ -47,24 +67,44 @@ export default async function IndustryClustersPage() {
       <section className="hero">
         <div>
           <span className="eyebrow">INDUSTRY CLUSTER EXPLORER</span>
-          <h1>See how companies and factories concentrate into regional ecosystems.</h1>
+          <h1>Compare how industrial ecosystems concentrate across regions and countries.</h1>
           <p>
-            A cluster is not a single factory. It groups verified companies and production sites that belong to the same regional industrial ecosystem.
+            A cluster is not a single factory. It groups verified companies and production sites that belong to the same regional industrial ecosystem, while preserving the difference between official government-designated clusters and service-level regional manufacturing hubs.
           </p>
         </div>
         <div className="policyCard">
           <strong>Cluster evidence rule</strong>
           <span>• Cluster membership needs an approved source.</span>
           <span>• Company and factory membership are verified separately.</span>
-          <span>• Unverified ecosystem claims remain hidden.</span>
+          <span>• Service-defined hubs are not presented as government-designated clusters.</span>
         </div>
       </section>
+
+      {countryComparison.length > 0 && (
+        <section className="panel">
+          <div className="panelHeader">
+            <div>
+              <span className="eyebrow">COUNTRY ECOSYSTEM COMPARISON</span>
+              <h2>Verified regional semiconductor footprint</h2>
+            </div>
+          </div>
+          <div className="grid3">
+            {countryComparison.map((item) => (
+              <article className="stage" key={item.country}>
+                <span>{item.country}</span>
+                <h3>{item.clusters} regional hubs</h3>
+                <p>{item.companies} verified companies · {item.factories} linked production sites · {item.ecosystems} ecosystems</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="panel">
         <div className="panelHeader">
           <div>
             <span className="eyebrow">VERIFIED REGIONAL ECOSYSTEMS</span>
-            <h2>{clusters.length} published clusters</h2>
+            <h2>{clusters.length} published clusters and hubs</h2>
           </div>
         </div>
 
@@ -79,7 +119,7 @@ export default async function IndustryClustersPage() {
               <article className="clusterCard" key={cluster.id}>
                 <div className="roleTopline">
                   <span>{cluster.country}</span>
-                  <span>{cluster.ecosystem.name}</span>
+                  <span>{cluster.evidenceStatus.replaceAll("_", " ")}</span>
                 </div>
                 <h3>{cluster.name}</h3>
                 <p>{[cluster.city, cluster.region, cluster.country].filter(Boolean).join(", ")}</p>
@@ -88,6 +128,7 @@ export default async function IndustryClustersPage() {
                 <div className="clusterStats">
                   <span>{cluster.companies.length} verified companies</span>
                   <span>{cluster.factories.length} linked sites</span>
+                  <span>{cluster.ecosystem.name}</span>
                 </div>
 
                 <div className="clusterSection">
