@@ -284,25 +284,26 @@ model CompanyRelationship {
 }
 
 model Factory {
-  id             String         @id @default(cuid())
-  companyId      String
-  name           String
-  country        String
-  region         String?
-  city           String?
-  latitude       Decimal?       @db.Decimal(9, 6)
-  longitude      Decimal?       @db.Decimal(9, 6)
-  factoryType    FactoryType    @default(OTHER)
-  status         FactoryStatus  @default(UNKNOWN)
-  openedAt       DateTime?
-  sourceId       String?
-  sourceUrl      String?
-  evidenceStatus EvidenceStatus @default(UNVERIFIED)
-  verifiedAt     DateTime?
-  company        Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  products       FactoryProduct[]
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  id                String         @id @default(cuid())
+  companyId         String
+  name              String
+  country           String
+  region            String?
+  city              String?
+  latitude          Decimal?       @db.Decimal(9, 6)
+  longitude         Decimal?       @db.Decimal(9, 6)
+  locationPrecision String         @default("CITY")
+  factoryType       FactoryType    @default(OTHER)
+  status            FactoryStatus  @default(UNKNOWN)
+  openedAt          DateTime?
+  sourceId          String?
+  sourceUrl         String?
+  evidenceStatus    EvidenceStatus @default(UNVERIFIED)
+  verifiedAt        DateTime?
+  company           Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  products          FactoryProduct[]
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
 
   @@index([country, city])
   @@index([companyId, status])
