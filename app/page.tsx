@@ -32,14 +32,12 @@ export default function HomePage() {
           <div className="subtitle">Global Industry Intelligence</div>
         </div>
         <nav className="nav" aria-label="Primary navigation">
-          <a href="#markets">Markets</a>
           <a href="/companies">Companies</a>
-          <a href="#disclosures">Disclosures</a>
           <a href="#ecosystems" className="active">Ecosystems</a>
+          <a href="/ecosystems/semiconductor/compare">Compare</a>
+          <a href="/korea-inside">Korea Inside</a>
           <a href="/mega-factories">Mega Factories</a>
           <a href="/clusters">Industry Clusters</a>
-          <a href="#global-money">Global Money</a>
-          <a href="#ma">M&A</a>
         </nav>
       </header>
 
@@ -48,14 +46,14 @@ export default function HomePage() {
           <span className="eyebrow">FOUNDATION v0.1</span>
           <h1>See where Korean companies sit inside global industrial ecosystems.</h1>
           <p>
-            The portal connects industries, products, companies, factories, official events,
-            disclosures and evidence without turning those facts into trading advice.
+            The portal connects industries, products, companies, factories, regional hubs,
+            official disclosures and evidence without turning those facts into trading advice.
           </p>
           <form action="/companies" method="get" className="companySearchForm homeSearch">
             <input
               type="search"
               name="q"
-              placeholder="Search company or ticker — Samsung Electronics, 005930…"
+              placeholder="Search company or ticker — Samsung Electronics, TSMC, 005930…"
               aria-label="Search companies"
             />
             <button type="submit">Search</button>
@@ -74,6 +72,8 @@ export default function HomePage() {
             <h2>Explore the first four value chains</h2>
           </div>
           <div className="nav">
+            <a href="/ecosystems/semiconductor/compare">Compare roles →</a>
+            <a href="/korea-inside">Korea Inside →</a>
             <a href="/mega-factories">Production sites →</a>
             <a href="/clusters">Industry clusters →</a>
           </div>
@@ -96,14 +96,17 @@ export default function HomePage() {
             <span className="eyebrow">SEMICONDUCTOR ECOSYSTEM</span>
             <h2>Global value chain</h2>
           </div>
-          <a href="/ecosystems/semiconductor">Open Explorer</a>
+          <div className="nav">
+            <a href="/ecosystems/semiconductor">Open Explorer</a>
+            <a href="/ecosystems/semiconductor/compare">Compare countries</a>
+          </div>
         </div>
         <div className="stages">
           {ecosystemStages.map((stage, index) => (
             <article className="stage" key={stage}>
               <span>{String(index + 1).padStart(2, "0")}</span>
               <h3>{stage}</h3>
-              <p>Companies, products, factories and verified relations will appear here.</p>
+              <p>Companies, products, factories and verified relations appear only with approved evidence.</p>
             </article>
           ))}
         </div>
@@ -123,7 +126,7 @@ export default function HomePage() {
         <article className="panel compact">
           <span className="eyebrow">EVIDENCE ENGINE</span>
           <h2>No unsupported relationships</h2>
-          <p>Supply, peer and factory connections require a traceable approved source.</p>
+          <p>Supply, peer, factory and cluster connections require a traceable approved source.</p>
         </article>
       </section>
     </main>
