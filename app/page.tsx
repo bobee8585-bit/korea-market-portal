@@ -33,7 +33,7 @@ export default function HomePage() {
         </div>
         <nav className="nav" aria-label="Primary navigation">
           <a href="#markets">Markets</a>
-          <a href="#companies">Companies</a>
+          <a href="/companies">Companies</a>
           <a href="#disclosures">Disclosures</a>
           <a href="#ecosystems" className="active">Ecosystems</a>
           <a href="#global-money">Global Money</a>
@@ -49,6 +49,15 @@ export default function HomePage() {
             The portal connects industries, products, companies, factories, official events,
             disclosures and evidence without turning those facts into trading advice.
           </p>
+          <form action="/companies" method="get" className="companySearchForm homeSearch">
+            <input
+              type="search"
+              name="q"
+              placeholder="Search company or ticker — Samsung Electronics, 005930…"
+              aria-label="Search companies"
+            />
+            <button type="submit">Search</button>
+          </form>
         </div>
         <div className="policyCard">
           <strong>Safety by design</strong>
