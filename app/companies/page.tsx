@@ -1,4 +1,19 @@
+import { EvidenceStatus } from "@prisma/client";
 import { db } from "@/lib/db";
+
+export const dynamic = "force-dynamic";
+
+const publicEvidence = [
+  EvidenceStatus.REGULATOR_CONFIRMED,
+  EvidenceStatus.GOVERNMENT_CONFIRMED,
+  EvidenceStatus.COMPANY_CONFIRMED,
+  EvidenceStatus.LICENSED_SOURCE,
+];
+
+function companyHref(company: { ticker: string | null; slug: string | null; country: string }) {
+  const identifier = company.country === "KR" && company.ticker ? company.ticker : company.slug || company.ticker;
+  return identifier ? `/companies/${identifier}` : null;
+}
 
 export default async function CompaniesPage({
   searchParams,
@@ -14,6 +29,7 @@ export default async function CompaniesPage({
           isActive: true,
           OR: [
             { ticker: { contains: query, mode: "insensitive" } },
+            { slug: { contains: query, mode: "insensitive" } },
             { nameKo: { contains: query, mode: "insensitive" } },
             { nameEn: { contains: query, mode: "insensitive" } },
             { aliases: { some: { alias: { contains: query, mode: "insensitive" } } } },
@@ -24,11 +40,13 @@ export default async function CompaniesPage({
         select: {
           id: true,
           ticker: true,
+          slug: true,
           nameKo: true,
           nameEn: true,
           country: true,
           market: true,
           roles: {
+            where: { evidenceStatus: { in: publicEvidence } },
             take: 3,
             select: {
               roleType: true,
@@ -51,6 +69,7 @@ export default async function CompaniesPage({
           <a href="/">Home</a>
           <a href="/companies" className="active">Companies</a>
           <a href="/ecosystems/semiconductor">Ecosystems</a>
+          <a href="/ecosystems/semiconductor/compare">Compare</a>
         </nav>
       </header>
 
@@ -63,7 +82,7 @@ export default async function CompaniesPage({
             type="search"
             name="q"
             defaultValue={query}
-            placeholder="Samsung Electronics, SK hynix, 005930…"
+            placeholder="Samsung Electronics, SK hynix, TSMC, 005930…"
             aria-label="Search companies"
           />
           <button type="submit">Search</button>
@@ -79,11 +98,12 @@ export default async function CompaniesPage({
           {query && <span className="countBadge">{companies.length} results</span>}
         </div>
 
-        {!query && <p>Enter a company name, Korean name or stock ticker above.</p>}
+        {!query && <p>Enter a company name, Korean name, global company name or stock ticker above.</p>}
         {query && companies.length === 0 && <p>No matching companies were found.</p>}
 
         <div className="companyResultGrid">
           {companies.map((company) => {
+            const href = companyHref(company);
             const content = (
               <>
                 <div className="companyResultTopline">
@@ -104,14 +124,14 @@ export default async function CompaniesPage({
               </>
             );
 
-            return company.ticker ? (
-              <a className="companyResultCard" href={`/companies/${company.ticker}`} key={company.id}>
+            return href ? (
+              <a className="companyResultCard" href={href} key={company.id}>
                 {content}
               </a>
             ) : (
               <article className="companyResultCard" key={company.id}>
                 {content}
-                <span className="mutedLine">Global profile route coming next.</span>
+                <span className="mutedLine">Profile unavailable until a stable identifier is verified.</span>
               </article>
             );
           })}
