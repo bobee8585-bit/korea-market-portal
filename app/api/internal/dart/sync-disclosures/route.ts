@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { RightsType, SourceType } from "@prisma/client";
+import { Market, RightsType, SourceType } from "@prisma/client";
 import { db } from "@/lib/db";
 import { classifyDisclosure, parseDartDate } from "@/lib/disclosure";
 import { isAuthorizedInternalRequest } from "@/lib/internal-auth";
@@ -14,6 +14,14 @@ function kstDateString() {
   }).formatToParts(new Date());
   const get = (type: string) => parts.find((part) => part.type === type)?.value ?? "";
   return `${get("year")}${get("month")}${get("day")}`;
+}
+
+function marketFromCorpClass(corpClass?: string): Market | undefined {
+  if (corpClass === "Y") return Market.KOSPI;
+  if (corpClass === "K") return Market.KOSDAQ;
+  if (corpClass === "N") return Market.KONEX;
+  if (corpClass === "E") return Market.OTHER;
+  return undefined;
 }
 
 async function getDartSource() {
@@ -75,6 +83,14 @@ export async function POST(request: NextRequest) {
       if (!company) {
         skippedUnknownCompany += 1;
         continue;
+      }
+
+      const inferredMarket = marketFromCorpClass(item.corp_cls);
+      if (inferredMarket && company.market !== inferredMarket) {
+        await db.company.update({
+          where: { id: company.id },
+          data: { market: inferredMarket },
+        });
       }
 
       const exists = await db.disclosure.findUnique({ where: { receiptNo: item.rcept_no } });
