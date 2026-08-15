@@ -114,6 +114,38 @@ enum DisclosureEventType {
   OTHER
 }
 
+enum ExternalContentType {
+  NEWS
+  BROKER_RESEARCH
+  COMPANY_IR
+  POLICY
+  REGULATORY_NOTICE
+  INDUSTRY_REPORT
+}
+
+enum GlobalEventType {
+  POLICY
+  REGULATION
+  SANCTION
+  TRADE
+  SUPPLY_CHAIN
+  FACTORY
+  TECHNOLOGY
+  EARNINGS
+  OWNERSHIP
+  MNA
+  OTHER
+}
+
+enum DealStatus {
+  ANNOUNCED
+  PENDING
+  COMPLETED
+  WITHDRAWN
+  BLOCKED
+  UNKNOWN
+}
+
 model Company {
   id                 String   @id @default(cuid())
   corpCode           String?  @unique
@@ -382,4 +414,92 @@ model ClusterFactory {
 
   @@unique([clusterId, factoryId])
   @@index([factoryId])
+}
+
+model InstitutionalDisclosure {
+  id                String         @id @default(cuid())
+  managerName       String
+  managerCountry    String?
+  targetCompanyName String
+  targetIdentifier  String?
+  targetCountry     String?
+  positionType      String
+  shares            Decimal?       @db.Decimal(30, 4)
+  reportedValueUsd  Decimal?       @db.Decimal(30, 2)
+  periodEnd         DateTime
+  reportedAt        DateTime
+  sourceUrl         String
+  evidenceStatus    EvidenceStatus @default(UNVERIFIED)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  @@index([managerName, periodEnd])
+  @@index([targetIdentifier, periodEnd])
+  @@index([reportedAt])
+}
+
+model MnaEvent {
+  id             String         @id @default(cuid())
+  acquirerName   String
+  acquirerCountry String?
+  targetName     String
+  targetCountry  String?
+  dealValueUsd   Decimal?       @db.Decimal(30, 2)
+  status         DealStatus     @default(UNKNOWN)
+  announcedAt    DateTime
+  completedAt    DateTime?
+  ecosystemSlug  String?
+  sourceUrl      String
+  evidenceStatus EvidenceStatus @default(UNVERIFIED)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([announcedAt])
+  @@index([status, announcedAt])
+  @@index([ecosystemSlug])
+}
+
+model ExternalContentLink {
+  id                String              @id @default(cuid())
+  contentType       ExternalContentType
+  sourceName        String
+  sourceCountry     String?
+  title             String
+  translatedTitle   String?
+  language          String              @default("ko")
+  targetLanguage    String?
+  originalUrl       String              @unique
+  publishedAt       DateTime?
+  companyIdentifier String?
+  ecosystemSlug     String?
+  rightsType        RightsType          @default(LINK_ONLY)
+  translationAllowed Boolean            @default(false)
+  analysisAllowed   Boolean             @default(false)
+  evidenceStatus    EvidenceStatus      @default(UNVERIFIED)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@index([contentType, publishedAt])
+  @@index([companyIdentifier, publishedAt])
+  @@index([ecosystemSlug, publishedAt])
+}
+
+model MarketImpactEvent {
+  id                String         @id @default(cuid())
+  eventType         GlobalEventType
+  title             String
+  country           String?
+  occurredAt        DateTime
+  companyIdentifier String?
+  ecosystemSlug     String?
+  relevanceNote     String?
+  sourceUrl         String
+  evidenceStatus    EvidenceStatus @default(UNVERIFIED)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  @@index([occurredAt])
+  @@index([eventType, occurredAt])
+  @@index([companyIdentifier, occurredAt])
+  @@index([ecosystemSlug, occurredAt])
 }
