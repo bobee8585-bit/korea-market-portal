@@ -9,6 +9,20 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: korea_market_portal
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d korea_market_portal"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/korea_market_portal
       OPENDART_API_KEY: test-only
@@ -29,6 +43,9 @@ jobs:
 
       - name: Validate schema and TypeScript
         run: npm run check
+
+      - name: Prepare isolated CI database
+        run: npx prisma db push --skip-generate
 
       - name: Build application
         run: npm run build
