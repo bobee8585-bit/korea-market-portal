@@ -49,7 +49,7 @@ for (const detail of ["Starches, sugars and sweeteners", "Fermentation cultures 
   if (!industryStageCatalog.includes(detail)) failures.push(`Ingredient explorer is missing ${detail}.`);
 }
 if (!industryDetailPage.includes("await params") || !industryStagePage.includes("await params")) failures.push("Next.js dynamic industry pages must await params.");
-if (!industryStagePage.includes("does not establish that every listed company makes every product")) failures.push("Stage pages must preserve the company-product evidence boundary.");
+if (!industryStagePage.includes("not evidence that every listed product family is manufactured by every member company")) failures.push("Stage pages must preserve the company-product evidence boundary.");
 if (`${disclosureCron}\n${disclosureSync}`.includes("preferredRegion")) failures.push("Deprecated route-level preferredRegion must not be used; deployment region is configured in vercel.json.");
 for (const slug of ["battery", "automotive-ev", "shipbuilding"]) {
   if (!ecosystemEvidenceCatalog.includes(`${slug.includes("-") ? `"${slug}"` : slug}: [`)) failures.push(`Official ecosystem starting sources are missing for ${slug}.`);
