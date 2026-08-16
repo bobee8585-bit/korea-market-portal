@@ -14,6 +14,7 @@ export function GET() {
       editorialSeparation: true,
       adsTxt: true,
       privacySafeDirectMeasurement: true,
+      protectedSponsorReporting: true,
       consentRequiredBeforePersonalisedAds: true,
     },
     checkedAt: new Date().toISOString(),

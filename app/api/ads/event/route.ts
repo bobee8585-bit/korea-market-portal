@@ -1,4 +1,5 @@
-import { directCampaigns, type SponsorPlacement } from "@/lib/monetization";
+import { directCampaigns, isCampaignActive, type SponsorPlacement } from "@/lib/monetization";
+import { recordSponsorEvent } from "@/lib/sponsor-events";
 
 export const dynamic = "force-dynamic";
 
@@ -21,10 +22,15 @@ export async function POST(request: Request) {
   const page = typeof value.page === "string" && /^\/[a-zA-Z0-9/_-]*$/.test(value.page) ? value.page.slice(0, 180) : null;
   const campaign = directCampaigns().find((item) => item.id === campaignId);
 
-  if (!campaign || !placement || !placements.has(placement) || !campaign.placements.includes(placement) || !event || !events.has(event) || !page) {
+  if (!campaign || !isCampaignActive(campaign) || !placement || !placements.has(placement) || !campaign.placements.includes(placement) || !event || !events.has(event) || !page) {
     return Response.json({ error: "invalid_event" }, { status: 400 });
   }
 
-  console.info("sponsor_event", JSON.stringify({ campaignId, placement, event, page, recordedAt: new Date().toISOString() }));
-  return new Response(null, { status: 204, headers: { "cache-control": "no-store" } });
+  try {
+    await recordSponsorEvent({ campaignId, placement, event, page });
+    return new Response(null, { status: 204, headers: { "cache-control": "no-store" } });
+  } catch {
+    console.warn("sponsor_event_storage_unavailable", JSON.stringify({ campaignId, placement, event, page }));
+    return new Response(null, { status: 202, headers: { "cache-control": "no-store" } });
+  }
 }
