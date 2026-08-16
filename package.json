@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && opennextjs-cloudflare build --skipNextBuild && node scripts/package-sites.mjs",
+    "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "check": "prisma generate && prisma validate && tsc --noEmit && npm run verify:mvp",
     "verify:mvp": "node scripts/verify-mvp.mjs",
     "prisma:generate": "prisma generate",
     "prisma:validate": "prisma validate",
-    "prisma:migrate": "prisma migrate dev"
+    "prisma:migrate": "prisma migrate dev",
+    "build:sites": "next build && opennextjs-cloudflare build --skipNextBuild && node scripts/package-sites.mjs"
   },
   "dependencies": {
     "@prisma/client": "6.19.2",
