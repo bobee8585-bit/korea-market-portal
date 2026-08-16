@@ -11,6 +11,10 @@ export function kstDateString(date = new Date()) {
   return `${get("year")}${get("month")}${get("day")}`;
 }
 
+function daysBeforeKstDate(days: number) {
+  return kstDateString(new Date(Date.now() - days * 86_400_000));
+}
+
 function marketFromCorpClass(corpClass?: string): Market | undefined {
   if (corpClass === "Y") return Market.KOSPI;
   if (corpClass === "K") return Market.KOSDAQ;
@@ -33,30 +37,94 @@ async function getDartSource() {
 
 export async function syncDartDisclosures(date = kstDateString()) {
   if (!/^\d{8}$/.test(date)) throw new Error("INVALID_DATE");
+  return syncDartDisclosureRange(date, date);
+}
+
+export async function syncRecentDartDisclosures(days = 7) {
+  const safeDays = Math.min(Math.max(Math.trunc(days), 1), 30);
+  return syncDartDisclosureRange(daysBeforeKstDate(safeDays - 1), kstDateString());
+}
+
+async function syncDartDisclosureRange(beginDate: string, endDate: string) {
   const source = await getDartSource();
   let pageNo = 1, totalPages = 1, received = 0, inserted = 0, skippedUnknownCompany = 0;
   do {
-    const response = await fetchDartDisclosures({ beginDate: date, endDate: date, pageNo, pageCount: 100 });
+    const response = await fetchDartDisclosures({ beginDate, endDate, pageNo, pageCount: 100 });
     totalPages = response.total_page ?? 1;
     const items = response.list ?? [];
     received += items.length;
-    for (const item of items) {
-      const company = await db.company.findUnique({ where: { corpCode: item.corp_code } });
-      if (!company) { skippedUnknownCompany += 1; continue; }
-      const inferredMarket = marketFromCorpClass(item.corp_cls);
-      if (inferredMarket && company.market !== inferredMarket) {
-        await db.company.update({ where: { id: company.id }, data: { market: inferredMarket } });
-      }
-      if (await db.disclosure.findUnique({ where: { receiptNo: item.rcept_no } })) continue;
-      await db.disclosure.create({ data: {
-        companyId: company.id, sourceId: source.id, receiptNo: item.rcept_no,
-        reportName: item.report_nm, filerName: item.flr_nm || null, corpClass: item.corp_cls || null,
-        filedAt: parseDartDate(item.rcept_dt), remarks: item.rm || null,
-        originalUrl: dartDisclosureUrl(item.rcept_no), eventType: classifyDisclosure(item.report_nm),
-      }});
-      inserted += 1;
-    }
+    if (items.length === 0) break;
+
+    const corpCodes = [...new Set(items.map((item) => item.corp_code))];
+    const knownCompanies = await db.company.findMany({
+      where: { corpCode: { in: corpCodes } },
+      select: { corpCode: true },
+    });
+    const knownCorpCodes = new Set(knownCompanies.flatMap((company) => company.corpCode ?? []));
+    skippedUnknownCompany += items.filter((item) => !knownCorpCodes.has(item.corp_code)).length;
+
+    const payload = JSON.stringify(items.map((item) => ({
+      corpCode: item.corp_code,
+      receiptNo: item.rcept_no,
+      reportName: item.report_nm,
+      filerName: item.flr_nm || null,
+      corpClass: item.corp_cls || null,
+      filedAt: parseDartDate(item.rcept_dt).toISOString(),
+      remarks: item.rm || null,
+      originalUrl: dartDisclosureUrl(item.rcept_no),
+      eventType: classifyDisclosure(item.report_nm),
+      market: marketFromCorpClass(item.corp_cls) ?? null,
+    })));
+
+    const [, insertedOnPage] = await db.$transaction([
+      db.$executeRaw`
+        WITH input AS (
+          SELECT * FROM jsonb_to_recordset(${payload}::jsonb)
+            AS item("corpCode" text, market text)
+        )
+        UPDATE "Company" AS company
+        SET market = input.market::"Market", "updatedAt" = now()
+        FROM input
+        WHERE company."corpCode" = input."corpCode"
+          AND input.market IS NOT NULL
+          AND company.market IS DISTINCT FROM input.market::"Market"
+      `,
+      db.$executeRaw`
+        WITH input AS (
+          SELECT * FROM jsonb_to_recordset(${payload}::jsonb)
+            AS item(
+              "corpCode" text, "receiptNo" text, "reportName" text,
+              "filerName" text, "corpClass" text, "filedAt" timestamptz,
+              remarks text, "originalUrl" text, "eventType" text
+            )
+        )
+        INSERT INTO "Disclosure" (
+          id, "companyId", "sourceId", "receiptNo", "reportName", "filerName",
+          "corpClass", "filedAt", remarks, "originalUrl", "eventType", language,
+          "createdAt", "updatedAt"
+        )
+        SELECT
+          'dart_disclosure_' || input."receiptNo",
+          company.id,
+          ${source.id},
+          input."receiptNo",
+          input."reportName",
+          input."filerName",
+          input."corpClass",
+          input."filedAt",
+          input.remarks,
+          input."originalUrl",
+          input."eventType"::"DisclosureEventType",
+          'en',
+          now(),
+          now()
+        FROM input
+        JOIN "Company" AS company ON company."corpCode" = input."corpCode"
+        ON CONFLICT ("receiptNo") DO NOTHING
+      `,
+    ]);
+    inserted += insertedOnPage;
     pageNo += 1;
   } while (pageNo <= totalPages);
-  return { date, pages: totalPages, received, inserted, skippedUnknownCompany };
+  return { beginDate, endDate, pages: totalPages, received, inserted, skippedUnknownCompany };
 }
