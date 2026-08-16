@@ -11,6 +11,10 @@ const advertisingInquiry = read("components/advertising-inquiry-form.tsx");
 const sponsorMeasurement = read("app/api/ads/event/route.ts");
 const sponsorReport = read("app/api/internal/ads/report/route.ts");
 const industryCatalog = read("lib/industry-catalog.ts");
+const industryStageCatalog = read("lib/industry-stage-catalog.ts");
+const industriesPage = read("app/industries/page.tsx");
+const industryDetailPage = read("app/industries/[slug]/page.tsx");
+const industryStagePage = read("app/industries/[slug]/[stage]/page.tsx");
 const translationPolicy = read("app/translation-policy/page.tsx");
 const home = read("app/page.tsx");
 const disclosureCron = read("app/api/cron/dart-disclosures/route.ts");
@@ -39,6 +43,13 @@ for (const sector of ["machinery", "defense-aerospace", "cosmetics", "display", 
 }
 if (!industryCatalog.includes("Security-sensitive details")) failures.push("Defense coverage must exclude sensitive and speculative material.");
 if (!home.includes("industryCatalog.map")) failures.push("Home must expose every industry catalog entry.");
+if (!home.includes("`/industries/${industry.slug}`")) failures.push("Home industry cards must open industry explorers.");
+if (!industriesPage.includes("industryStageSlug(stage)")) failures.push("Industry stages must link to stage detail pages.");
+for (const detail of ["Starches, sugars and sweeteners", "Fermentation cultures and enzymes", "MFDS permitted use and scope"]) {
+  if (!industryStageCatalog.includes(detail)) failures.push(`Ingredient explorer is missing ${detail}.`);
+}
+if (!industryDetailPage.includes("await params") || !industryStagePage.includes("await params")) failures.push("Next.js dynamic industry pages must await params.");
+if (!industryStagePage.includes("does not establish that every listed company makes every product")) failures.push("Stage pages must preserve the company-product evidence boundary.");
 if (`${disclosureCron}\n${disclosureSync}`.includes("preferredRegion")) failures.push("Deprecated route-level preferredRegion must not be used; deployment region is configured in vercel.json.");
 for (const slug of ["battery", "automotive-ev", "shipbuilding"]) {
   if (!ecosystemEvidenceCatalog.includes(`${slug.includes("-") ? `"${slug}"` : slug}: [`)) failures.push(`Official ecosystem starting sources are missing for ${slug}.`);

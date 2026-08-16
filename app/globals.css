@@ -474,3 +474,27 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
 .koreaMacroPending a { color: #8ee8cd; font-size: 11px; }
 @media (max-width: 1050px) { .macroGrid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 @media (max-width: 700px) { .macroDashboard { padding: 20px; } .macroIntro, .macroGrid { grid-template-columns: 1fr; } .macroStatus, .koreaMacroPending { display: grid; } .macroStatus { justify-content: start; } }
+
+
+/* Navigable industry and value-chain detail pages */
+.industryCatalog > section > h2 a:hover { color: #9aa7ff; }
+.industryChain li { padding: 0; overflow: hidden; }
+.industryChain a { display: flex; justify-content: space-between; gap: 12px; padding: 12px; }
+.industryChain a:hover { background: rgba(109,124,255,.1); }
+.industryChain small { color: #8292ff; font-size: 9px; font-weight: 800; }
+.industryOpenLink { display: inline-block; margin: 14px 0 4px; color: #8ba0ff; font-size: 13px; font-weight: 800; }
+.industryDetailActions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.industryDetailActions a { padding: 11px 14px; border: 1px solid rgba(109,124,255,.35); border-radius: 10px; color: #c5ccff; font-weight: 800; }
+.industryStageExplorer { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin-top: 18px; }
+.industryStageCard { display: grid; gap: 7px; min-height: 155px; padding: 18px; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: linear-gradient(180deg,rgba(91,105,255,.1),rgba(18,27,43,.76)); }
+.industryStageCard:hover { border-color: rgba(109,124,255,.48); transform: translateY(-1px); }
+.industryStageCard > span { color: #8292ff; font-size: 11px; font-weight: 800; }
+.industryStageCard > small { align-self: end; color: #8ba0ff; font-weight: 800; }
+.stageDetailGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.stageDetailList { display: grid; gap: 10px; padding: 0; list-style: none; }
+.stageDetailList li { padding: 14px; border: 1px solid rgba(255,255,255,.07); border-radius: 10px; background: rgba(255,255,255,.025); color: #c4d0e2; line-height: 1.55; }
+.stageSiblingNav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.stageSiblingNav a { padding: 9px 11px; border-radius: 999px; background: rgba(109,124,255,.1); color: #bfc8ff; font-size: 11px; }
+.stageSiblingNav a[aria-current="page"] { background: #5968ff; color: white; }
+@media (max-width: 900px) { .industryStageExplorer { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 650px) { .industryStageExplorer, .stageDetailGrid { grid-template-columns: 1fr; } .industryChain a { display: grid; } }
