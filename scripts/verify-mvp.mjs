@@ -52,6 +52,10 @@ if (!industryDetailPage.includes("await params") || !industryStagePage.includes(
 if (!industryStagePage.includes("not evidence that every listed product family is manufactured by every member company")) failures.push("Stage pages must preserve the company-product evidence boundary.");
 if (!industryStagePage.includes("evidenceStatus: { in: publicEvidence }") || !industryStagePage.includes("sourceUrl: { not: null }")) failures.push("Stage company links must require public evidence and an original source.");
 if (!industryStagePage.includes("absence here does not mean the company is absent from the industry")) failures.push("Empty stage-company results must not imply industry absence.");
+if (!industryStagePage.includes("/companies?q=${encodeURIComponent(item)}")) failures.push("Product families must link to verified company search.");
+const companiesPage = read("app/companies/page.tsx");
+if (!companiesPage.includes("product: { name: { contains: query") || !companiesPage.includes("stage: { name: { contains: query") || !companiesPage.includes("ecosystem: { name: { contains: query")) failures.push("Company search must support verified product, stage and industry queries.");
+if ((companiesPage.match(/sourceUrl: \{ not: null \}/g) || []).length < 3) failures.push("Role-based company search must require original evidence URLs.");
 for (const detail of ["Atmospheric and vacuum distillation", "Electrical steel", "Clinical trial phases", "Industrial robots", "No classified, tactical or inferred operational detail", "Responsible cosmetic distributor", "Organic emitting materials", "Black mass processing"]) {
   if (!industryStageCatalog.includes(detail)) failures.push(`Expanded industry explorer is missing ${detail}.`);
 }

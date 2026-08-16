@@ -33,6 +33,9 @@ export default async function CompaniesPage({
             { nameKo: { contains: query, mode: "insensitive" } },
             { nameEn: { contains: query, mode: "insensitive" } },
             { aliases: { some: { alias: { contains: query, mode: "insensitive" } } } },
+            { roles: { some: { evidenceStatus: { in: publicEvidence }, sourceUrl: { not: null }, product: { name: { contains: query, mode: "insensitive" } } } } },
+            { roles: { some: { evidenceStatus: { in: publicEvidence }, sourceUrl: { not: null }, stage: { name: { contains: query, mode: "insensitive" } } } } },
+            { roles: { some: { evidenceStatus: { in: publicEvidence }, sourceUrl: { not: null }, ecosystem: { name: { contains: query, mode: "insensitive" } } } } },
           ],
         },
         orderBy: [{ country: "asc" }, { nameEn: "asc" }, { nameKo: "asc" }],
@@ -76,13 +79,13 @@ export default async function CompaniesPage({
       <section className="searchHero">
         <span className="eyebrow">COMPANY SEARCH</span>
         <h1>Find a company by name or ticker.</h1>
-        <p>Search Korean listed companies and global ecosystem companies already in the verified graph.</p>
+        <p>Search Korean listed companies and global ecosystem companies by company name, ticker, verified product, value-chain stage or industry.</p>
         <form action="/companies" method="get" className="companySearchForm">
           <input
             type="search"
             name="q"
             defaultValue={query}
-            placeholder="Samsung Electronics, SK hynix, TSMC, 005930…"
+            placeholder="Company, ticker, product or stage — OLED, cathode, 005930…"
             aria-label="Search companies"
           />
           <button type="submit">Search</button>

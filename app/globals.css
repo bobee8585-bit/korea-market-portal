@@ -507,3 +507,10 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
 .verifiedCompanyCard > div { display:flex; flex-wrap:wrap; gap:12px; }
 .verifiedCompanyCard a { color:#8ba0ff; font-size:11px; font-weight:800; }
 @media (max-width:850px) { .verifiedCompanyGrid { grid-template-columns:1fr; } }
+
+.linkedProductFamilies { padding:0; list-style:none; }
+.linkedProductFamilies li { padding:0; }
+.linkedProductFamilies a { display:flex; justify-content:space-between; gap:14px; padding:14px; }
+.linkedProductFamilies a:hover { background:rgba(109,124,255,.08); }
+.linkedProductFamilies small { color:#8292ff; font-size:9px; font-weight:800; text-align:right; }
+@media (max-width:650px) { .linkedProductFamilies a { display:grid; } .linkedProductFamilies small { text-align:left; } }
