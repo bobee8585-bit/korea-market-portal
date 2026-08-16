@@ -1,5 +1,6 @@
 import { DirectSponsorSlot } from "@/components/monetization";
 import { industryCatalog } from "@/lib/industry-catalog";
+import { IndexComparisonChart } from "@/components/index-comparison-chart";
 
 const ecosystemStages = ["Materials", "Equipment", "Design", "Wafer / Fab", "Memory / Foundry", "Packaging", "Testing", "End Market"];
 const principles = ["Official or rights-cleared data first", "News and broker research default to LINK_ONLY", "No direct investment recommendations or trading instructions", "Every ecosystem relation requires evidence"];
@@ -19,6 +20,7 @@ export default function HomePage() {
         <div className="policyCard"><strong>Safety by design</strong>{principles.map((item) => <span key={item}>• {item}</span>)}</div>
       </section>
       <DirectSponsorSlot />
+      <IndexComparisonChart />
       <a className="fundFlowHomeFeature" href="/fund-flow"><div><span className="eyebrow">NEW · FUND FLOW MONITOR</span><h2>Was the move driven by fundamentals—or amplified by positioning?</h2><p>Follow foreign cash and futures flows, program trading, short activity, leveraged products and index concentration. Every conclusion carries an evidence label and a public-source trail.</p></div><strong>Open the KOSPI flow assessment →</strong></a>
       <section className="industryHomeFeature" aria-labelledby="industry-map-title">
         <div className="industryHomeIntro"><div><span className="eyebrow">BEYOND THE HEADLINES</span><h2 id="industry-map-title">Ten connected manufacturing sectors.</h2><p>Follow Korea&apos;s industrial value chains from inputs to global markets. Each sector is grounded in public institutions, regulators or industry associations—not unsupported rankings.</p></div><a href="/industries">Open the complete industry map →</a></div>
