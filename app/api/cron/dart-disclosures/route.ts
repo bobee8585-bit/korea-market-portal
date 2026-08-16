@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { syncRecentDartDisclosures } from "@/lib/dart-sync";
 
-export const maxDuration = 60;
+export const maxDuration = 300;
 export const preferredRegion = "icn1";
 
 export async function GET(request: NextRequest) {
