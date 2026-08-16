@@ -19,6 +19,9 @@ const ecosystemEvidenceCatalog = read("lib/ecosystem-evidence-catalog.ts");
 const publicSourceHubs = read("lib/public-source-hubs.ts");
 const fundFlowMonitor = read("lib/fund-flow-monitor.ts");
 const fundFlowPage = read("app/fund-flow/page.tsx");
+const fundFlowValidation = read("lib/fund-flow-validation.ts");
+const fundFlowIngest = read("app/api/internal/fund-flow/ingest/route.ts");
+const fundFlowApi = read("app/api/v1/fund-flow/route.ts");
 
 if (!layout.includes("lang={defaultLocale}")) failures.push("Root document must use the locale contract.");
 if (!localeContract.includes('defaultLocale = "en"')) failures.push("English must remain the published default locale.");
@@ -51,6 +54,10 @@ for (const label of ["CONFIRMED", "STRONG INDICATION", "ESTIMATE", "MEDIA REPORT
 }
 if (!fundFlowMonitor.includes("does not prove that a particular hedge fund caused")) failures.push("Fund-flow assessment must not assert an unverified hedge-fund cause.");
 if (!fundFlowPage.includes("Every conclusion carries an evidence label") && !home.includes("Every conclusion carries an evidence label")) failures.push("Home must expose the fund-flow evidence model.");
+if (!fundFlowIngest.includes("isAuthorizedInternalRequest(request)")) failures.push("Fund-flow ingestion must require internal authorization.");
+if (!fundFlowValidation.includes("officialHosts") || !fundFlowValidation.includes("OFFICIAL_SOURCE_REQUIRED")) failures.push("Fund-flow ingestion must restrict confirmed records to official source hosts.");
+if (!fundFlowPage.includes("Awaiting licensed KRX data connection") || !fundFlowApi.includes('isLive: false')) failures.push("Fund-flow UI and API must not imply an unlicensed live feed.");
+if (!fundFlowApi.includes("not proof of a hedge fund's identity")) failures.push("Fund-flow API must preserve the causality limitation.");
 
 if (failures.length) {
   console.error(failures.map((failure) => `- ${failure}`).join("\n"));

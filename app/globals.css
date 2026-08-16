@@ -376,3 +376,16 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
   .fundFlowHomeFeature, .fundFlowInlineCta, .assessmentList, .signalGrid { grid-template-columns: 1fr; }
   .assessmentList article p, .signalGrid p { min-height: 0; }
 }
+.dataConnectionPanel { margin-bottom: 16px; }
+.connectionBadge { align-self: start; padding: 7px 10px; border-radius: 999px; font-size: 9px; font-weight: 900; letter-spacing: .08em; }
+.connectionBadge.awaiting { background: rgba(255,103,123,.1); color: #ff96a6; }
+.connectionBadge.connected { background: rgba(62,203,157,.12); color: #79ddb9; }
+.connectionEmpty { max-width: 980px; padding: 20px; border: 1px dashed rgba(255,255,255,.13); border-radius: 12px; }
+.connectionEmpty p { margin-top: 0; }
+.connectionEmpty a, .dataTimestamp a { color: #92a5ff; }
+.flowMetricGrid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; }
+.flowMetricGrid article { display: grid; gap: 7px; padding: 17px; border: 1px solid rgba(255,255,255,.07); border-radius: 12px; background: rgba(255,255,255,.025); }
+.flowMetricGrid span { color: #8292ff; font-size: 9px; font-weight: 900; letter-spacing: .08em; }
+.flowMetricGrid strong { font-size: 28px; }
+.flowMetricGrid small, .dataTimestamp { color: #7f8da3; font-size: 10px; }
+@media (max-width: 800px) { .flowMetricGrid { grid-template-columns: repeat(2,minmax(0,1fr)); } }

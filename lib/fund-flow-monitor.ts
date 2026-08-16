@@ -32,3 +32,43 @@ export const fundFlowOfficialSources = [
   { type: "REGULATOR", name: "Financial Services Commission", description: "Official market-stability measures and rules for leveraged ETF and ETN products.", url: "https://www.fsc.go.kr/no010101/87353" },
   { type: "CENTRAL BANK", name: "Bank of Korea ECOS", description: "Official exchange-rate, monetary and financial time series for cross-market checks.", url: "https://ecos.bok.or.kr/" },
 ] as const;
+
+export type FundFlowSnapshot = {
+  market: "KOSPI";
+  observedAt: string;
+  foreignCashNetKrwBn: number | null;
+  foreignFuturesNetContracts: number | null;
+  programNetKrwBn: number | null;
+  shortSaleValueKrwBn: number | null;
+  leveragedProductTurnoverKrwBn: number | null;
+  usdKrw: number | null;
+  volatilityIndex: number | null;
+  topTwoIndexContributionPct: number | null;
+  sourceName: string;
+  sourceUrl: string;
+  retrievedAt: string;
+};
+
+export function calculateFlowPressure(snapshot: FundFlowSnapshot) {
+  const factors = [
+    snapshot.foreignCashNetKrwBn != null && snapshot.foreignCashNetKrwBn < 0 ? Math.min(20, Math.abs(snapshot.foreignCashNetKrwBn) / 500) : 0,
+    snapshot.programNetKrwBn != null && snapshot.programNetKrwBn < 0 ? Math.min(20, Math.abs(snapshot.programNetKrwBn) / 300) : 0,
+    snapshot.volatilityIndex != null ? Math.min(20, snapshot.volatilityIndex / 2.5) : 0,
+    snapshot.topTwoIndexContributionPct != null ? Math.min(20, snapshot.topTwoIndexContributionPct / 3) : 0,
+    snapshot.leveragedProductTurnoverKrwBn != null ? Math.min(20, snapshot.leveragedProductTurnoverKrwBn / 1000) : 0,
+  ];
+  const observed = factors.filter((_, index) => [snapshot.foreignCashNetKrwBn, snapshot.programNetKrwBn, snapshot.volatilityIndex, snapshot.topTwoIndexContributionPct, snapshot.leveragedProductTurnoverKrwBn][index] != null);
+  if (observed.length < 3) return { score: null, coverage: observed.length, label: "INSUFFICIENT DATA" as const };
+  const score = Math.round(factors.reduce((sum, value) => sum + value, 0));
+  return { score, coverage: observed.length, label: score >= 70 ? "HIGH PRESSURE" as const : score >= 40 ? "ELEVATED" as const : "NORMAL RANGE" as const };
+}
+
+export function parseFundFlowSnapshot(value: string | null): FundFlowSnapshot | null {
+  if (!value) return null;
+  try {
+    const parsed = JSON.parse(value) as FundFlowSnapshot;
+    return parsed.market === "KOSPI" && typeof parsed.observedAt === "string" ? parsed : null;
+  } catch {
+    return null;
+  }
+}
