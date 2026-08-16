@@ -43,7 +43,7 @@ p { color: #9eb0c8; line-height: 1.65; }
 .historyHomeFeature h2 { font-size: clamp(27px, 4vw, 44px); }
 .historyHomeFeature strong { flex: 0 0 auto; color: #f2cf84; }
 
-.historyPage { --history-gold: #e7b95c; }
+.historyPage { --history-gold: #e7b95c; overflow-x: clip; }
 .historyHero { min-height: 680px; display: grid; align-content: center; padding: 90px 5vw; margin: 0 calc(50% - 50vw); padding-inline: max(5vw, calc((100vw - 1480px) / 2)); background: linear-gradient(90deg, rgba(4,10,18,.98) 0 45%, rgba(4,10,18,.6)), radial-gradient(circle at 78% 50%, rgba(215,158,51,.23), transparent 30%), repeating-linear-gradient(115deg, rgba(255,255,255,.025) 0 1px, transparent 1px 13px); border-bottom: 1px solid rgba(255,255,255,.08); }
 .historyHero .eyebrow, .historyPage .eyebrow { color: var(--history-gold); }
 .historyHero h1 { max-width: 980px; font-size: clamp(54px, 8vw, 112px); }
