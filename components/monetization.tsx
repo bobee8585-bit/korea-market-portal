@@ -1,5 +1,6 @@
 import Script from "next/script";
 import { activeCampaignFor, monetization, type SponsorPlacement } from "@/lib/monetization";
+import { SponsorSlotClient } from "@/components/sponsor-slot-client";
 
 export function AdProviderScripts() {
   if (!monetization.adsense.enabled || !monetization.adsense.client) return null;
@@ -10,13 +11,5 @@ export function DirectSponsorSlot({ placement = "home-inline" }: { placement?: S
   const campaign = activeCampaignFor(placement);
   if (!campaign) return null;
 
-  return (
-    <aside className="adSlot" aria-label="Advertisement" data-placement={placement} data-campaign={campaign.id}>
-      <span>ADVERTISEMENT</span>
-      <a href={campaign.sponsorUrl} rel="sponsored nofollow noopener" target="_blank">
-        <strong>{campaign.sponsorName}</strong>
-        <small>{campaign.label || "KorPulse industry partner"}</small>
-      </a>
-    </aside>
-  );
+  return <SponsorSlotClient campaignId={campaign.id} sponsorName={campaign.sponsorName} sponsorUrl={campaign.sponsorUrl} label={campaign.label || "KorPulse industry partner"} placement={placement} />;
 }

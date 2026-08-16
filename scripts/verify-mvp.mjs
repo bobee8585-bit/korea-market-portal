@@ -8,6 +8,7 @@ const localeContract = read("lib/i18n.ts");
 const envExample = read(".env.example");
 const ingestion = read("app/api/internal/intelligence/ingest/route.ts");
 const advertisingInquiry = read("components/advertising-inquiry-form.tsx");
+const sponsorMeasurement = read("app/api/ads/event/route.ts");
 
 if (!layout.includes("lang={defaultLocale}")) failures.push("Root document must use the locale contract.");
 if (!localeContract.includes('defaultLocale = "en"')) failures.push("English must remain the published default locale.");
@@ -16,6 +17,8 @@ if (!envExample.includes("NEXT_PUBLIC_SITE_URL")) failures.push("The public site
 if (!ingestion.includes("isAuthorizedInternalRequest(request)")) failures.push("Protected intelligence ingestion must require internal authorization.");
 if (!advertisingInquiry.includes("Nothing entered here is stored")) failures.push("Advertising enquiry must disclose its no-storage behaviour.");
 if (!advertisingInquiry.includes("mailto:")) failures.push("Advertising enquiry must remain operational without a new data processor.");
+if (!sponsorMeasurement.includes('console.info("sponsor_event"')) failures.push("Direct sponsor measurement must produce an operational event.");
+if (/cookie|user-agent|x-forwarded-for/i.test(sponsorMeasurement)) failures.push("Direct sponsor measurement must not collect persistent or request-level identifiers.");
 
 if (failures.length) {
   console.error(failures.map((failure) => `- ${failure}`).join("\n"));

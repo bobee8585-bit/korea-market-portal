@@ -19,7 +19,7 @@ export default function Page() {
       <div role="row"><span>Site footer</span><span>Full content width</span><span>Stacked responsive</span><span>Maximum one unit</span></div>
       <div role="row"><span>Industry inline</span><span>Within relevant analysis</span><span>Between sections</span><span>Never beside a trading action</span></div>
     </div>
-    <h2>Measurement</h2><p>Until privacy-safe analytics are formally activated, KorPulse will not make unverified traffic or performance claims. Campaign reporting will distinguish delivery, viewability and outbound interaction where technically and legally available.</p>
+    <h2>Measurement</h2><p>Direct campaigns record placement impressions and outbound interactions without cookies or persistent user identifiers. Reporting distinguishes delivery from interaction and does not make unverified audience claims.</p>
     <h2>Editorial safeguards</h2><p>Sponsored placements are labelled Advertisement or Sponsored. Partners receive no influence over company rankings, evidence standards or editorial conclusions. Active and completed paid relationships are disclosed on the sponsor register.</p>
     <h2>Categories we do not accept</h2><p>Misleading financial promotions, guaranteed-return claims, unlicensed investment solicitation, political persuasion, gambling and products that conflict with publisher safety standards.</p>
     <div className="contactCta"><strong>Request a founding-partner proposal</strong><p>Tell us your organisation, destination URL, target market, campaign dates and preferred industry category.</p><a href="/advertise/inquiry">Prepare advertising enquiry →</a></div>

@@ -13,6 +13,7 @@ export function GET() {
       policyPages: true,
       editorialSeparation: true,
       adsTxt: true,
+      privacySafeDirectMeasurement: true,
       consentRequiredBeforePersonalisedAds: true,
     },
     checkedAt: new Date().toISOString(),
