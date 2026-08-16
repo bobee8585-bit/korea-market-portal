@@ -137,6 +137,24 @@ export default function PeopleWhoBuiltKoreaPage() {
         </div>
       </section>
 
+      <section className="historySection videoRecords">
+        <div className="historySectionIntro">
+          <span className="eyebrow">WATCH THE ORIGINAL RECORD</span>
+          <h2>History in motion</h2>
+          <p>Videos play on the institution that published them. KorPulse does not copy or re-upload protected footage.</p>
+        </div>
+        <div className="videoRecordGrid">
+          <a className="videoRecordCard" href="https://www.ktv.go.kr/program/home/PG2150034D/content/515542" target="_blank" rel="noreferrer">
+            <span className="videoRecordPoster tradeFilm"><i aria-hidden="true">▶</i><b>KTV · ARCHIVAL NEWS</b></span>
+            <span className="videoRecordCopy"><small>OFFICIAL VIDEO · KOREAN</small><strong>From early exports to a major trading nation</strong><p>KTV traces changes in Korea&apos;s exports through historical Daehan News footage.</p><em>Watch on KTV ↗</em></span>
+          </a>
+          <a className="videoRecordCard" href="https://chuntaeil.org/" target="_blank" rel="noreferrer">
+            <span className="videoRecordPoster laborFilm"><i aria-hidden="true">▶</i><b>JEON TAE-IL FOUNDATION</b></span>
+            <span className="videoRecordCopy"><small>OFFICIAL VIDEO ARCHIVE · KOREAN</small><strong>Memory, labor and solidarity</strong><p>Continue to the foundation&apos;s official films and records about Jeon Tae-il and Korea&apos;s labor movement.</p><em>Open the foundation archive ↗</em></span>
+          </a>
+        </div>
+      </section>
+
       <section className="personFeature">
         <figure className="personMedia">
           <div className="personPhotoGrid">

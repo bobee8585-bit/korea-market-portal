@@ -76,6 +76,19 @@ p { color: #9eb0c8; line-height: 1.65; }
 .industrialPhoto b { color: var(--history-gold); font-size: 10px; letter-spacing: .1em; }
 .industrialPhoto strong { font-size: 20px; }
 .industrialPhoto small { color: #abb5c2; font-size: 10px; }
+.videoRecords { padding-top: 20px; }
+.videoRecordGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.videoRecordCard { display: grid; grid-template-columns: minmax(180px, .85fr) 1.15fr; min-width: 0; overflow: hidden; border: 1px solid rgba(255,255,255,.1); border-radius: 16px; background: rgba(9,18,30,.88); }
+.videoRecordPoster { min-height: 240px; display: grid; place-content: center; gap: 14px; text-align: center; background: radial-gradient(circle, rgba(231,185,92,.26), transparent 30%), repeating-linear-gradient(120deg, #202a34 0 8px, #101923 8px 16px); }
+.videoRecordPoster i { display: grid; place-items: center; width: 62px; height: 62px; margin: auto; border: 1px solid rgba(255,255,255,.62); border-radius: 50%; color: white; font-style: normal; font-size: 22px; padding-left: 4px; }
+.videoRecordPoster b { color: #e8c57e; font-size: 10px; letter-spacing: .12em; }
+.laborFilm { background: radial-gradient(circle at 50% 45%, rgba(158,56,42,.32), transparent 34%), repeating-linear-gradient(120deg, #2a211f 0 8px, #151312 8px 16px); }
+.videoRecordCopy { display: grid; align-content: center; gap: 8px; padding: 24px; }
+.videoRecordCopy small { color: var(--history-gold); font-size: 9px; font-weight: 800; letter-spacing: .1em; }
+.videoRecordCopy strong { font-size: 20px; line-height: 1.25; }
+.videoRecordCopy p { margin: 0; font-size: 12px; }
+.videoRecordCopy em { margin-top: 8px; color: #f0cc83; font-size: 12px; font-style: normal; font-weight: 800; }
+.videoRecordCard:hover { border-color: rgba(231,185,92,.48); }
 .personFeature { display: grid; grid-template-columns: minmax(280px, .8fr) 1.2fr; gap: clamp(36px, 7vw, 100px); align-items: center; padding: clamp(38px, 6vw, 88px); margin: 20px 0 70px; border: 1px solid rgba(231,185,92,.2); border-radius: 24px; background: linear-gradient(135deg, rgba(37,29,21,.95), rgba(9,19,32,.98) 62%); }
 .personMedia { margin: 0; }
 .personPhotoGrid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 8px; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid rgba(231,185,92,.28); background: #0b1119; }
@@ -227,6 +240,6 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
   .historyHero { min-height: 590px; padding-top: 68px; padding-bottom: 68px; }
   .historyChapter { grid-template-columns: 1fr; gap: 12px; }
   .archiveCard { grid-column: 1; margin-top: 10px; }
-  .industrialPhotoGrid { grid-template-columns: 1fr; grid-template-rows: repeat(3, 280px); }\n  .industrialPhotoWide { grid-row: auto; }\n  .personFeature { grid-template-columns: 1fr; padding: 26px; }
+  .industrialPhotoGrid { grid-template-columns: 1fr; grid-template-rows: repeat(3, 280px); }\n  .videoRecordGrid, .videoRecordCard { grid-template-columns: 1fr; }\n  .videoRecordPoster { min-height: 200px; }\n  .industrialPhotoWide { grid-row: auto; }\n  .personFeature { grid-template-columns: 1fr; padding: 26px; }
   .personPhotoGrid { max-height: 420px; }
 }
