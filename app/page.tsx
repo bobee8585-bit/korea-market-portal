@@ -11,7 +11,7 @@ export default function HomePage() {
       <header className="topbar">
         <div><div className="brand">KorPulse</div><div className="subtitle">Korea Industry Intelligence</div></div>
         <nav className="nav" aria-label="Primary navigation">
-          <a href="/companies">Companies</a><a href="/industries">Industries</a><a href="#ecosystems" className="active">Ecosystems</a><a href="/people-who-built-korea">Industrial Journey</a><a href="/korea-inside">Korea Inside</a><a href="/news">News & Research</a><a href="/market-events">Market Events</a><a href="/global-money">Global Money</a><a href="/ma">M&A</a>
+          <a href="/companies">Companies</a><a href="/industries">Industries</a><a href="#ecosystems" className="active">Ecosystems</a><a href="/people-who-built-korea">Industrial Journey</a><a href="/korea-inside">Korea Inside</a><a href="/news">News & Research</a><a href="/market-events">Market Events</a><a href="/global-money">Global Money</a><a href="/fund-flow">Fund Flow</a><a href="/ma">M&A</a>
         </nav>
       </header>
       <section className="hero" id="ecosystems">
@@ -19,6 +19,7 @@ export default function HomePage() {
         <div className="policyCard"><strong>Safety by design</strong>{principles.map((item) => <span key={item}>• {item}</span>)}</div>
       </section>
       <DirectSponsorSlot />
+      <a className="fundFlowHomeFeature" href="/fund-flow"><div><span className="eyebrow">NEW · FUND FLOW MONITOR</span><h2>Was the move driven by fundamentals—or amplified by positioning?</h2><p>Follow foreign cash and futures flows, program trading, short activity, leveraged products and index concentration. Every conclusion carries an evidence label and a public-source trail.</p></div><strong>Open the KOSPI flow assessment →</strong></a>
       <section className="industryHomeFeature" aria-labelledby="industry-map-title">
         <div className="industryHomeIntro"><div><span className="eyebrow">BEYOND THE HEADLINES</span><h2 id="industry-map-title">Ten connected manufacturing sectors.</h2><p>Follow Korea&apos;s industrial value chains from inputs to global markets. Each sector is grounded in public institutions, regulators or industry associations—not unsupported rankings.</p></div><a href="/industries">Open the complete industry map →</a></div>
         <div className="industryHomeGrid">{industryCatalog.map((industry, index) => <a className="industryHomeCard" href={`/industries#${industry.slug}`} key={industry.slug}><span>{String(index + 1).padStart(2, "0")}</span><small>{industry.koreanName}</small><h3>{industry.name}</h3><p>{industry.chain.slice(0, 3).join(" · ")}</p><strong>View value chain →</strong></a>)}</div>

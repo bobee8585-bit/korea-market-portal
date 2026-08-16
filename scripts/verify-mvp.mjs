@@ -17,6 +17,8 @@ const disclosureCron = read("app/api/cron/dart-disclosures/route.ts");
 const disclosureSync = read("app/api/internal/dart/sync-disclosures/route.ts");
 const ecosystemEvidenceCatalog = read("lib/ecosystem-evidence-catalog.ts");
 const publicSourceHubs = read("lib/public-source-hubs.ts");
+const fundFlowMonitor = read("lib/fund-flow-monitor.ts");
+const fundFlowPage = read("app/fund-flow/page.tsx");
 
 if (!layout.includes("lang={defaultLocale}")) failures.push("Root document must use the locale contract.");
 if (!localeContract.includes('defaultLocale = "en"')) failures.push("English must remain the published default locale.");
@@ -44,6 +46,11 @@ for (const source of ["englishdart.fss.or.kr", "global.krx.co.kr", "bok.or.kr", 
 }
 if (!publicSourceHubs.includes("not a substitute for the legally authoritative Korean filing")) failures.push("English DART directory must preserve the legal-authority warning.");
 if (!translationPolicy.includes("Investigation, allegation, charge, judgment and final conviction are not interchangeable")) failures.push("Translation policy must preserve legal status distinctions.");
+for (const label of ["CONFIRMED", "STRONG INDICATION", "ESTIMATE", "MEDIA REPORT", "NOT VERIFIABLE"]) {
+  if (!fundFlowMonitor.includes(`level: "${label}"`)) failures.push(`Fund-flow evidence model is missing ${label}.`);
+}
+if (!fundFlowMonitor.includes("does not prove that a particular hedge fund caused")) failures.push("Fund-flow assessment must not assert an unverified hedge-fund cause.");
+if (!fundFlowPage.includes("Every conclusion carries an evidence label") && !home.includes("Every conclusion carries an evidence label")) failures.push("Home must expose the fund-flow evidence model.");
 
 if (failures.length) {
   console.error(failures.map((failure) => `- ${failure}`).join("\n"));
