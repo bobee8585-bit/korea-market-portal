@@ -302,9 +302,26 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
 .specTable span { color: #93a4bc; }
 .sponsorRegister { display: grid; gap: 12px; }
 .emptyDisclosure { padding: 28px; border: 1px dashed rgba(255,255,255,.14); border-radius: 14px; text-align: center; }
+.industryHomeFeature { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; margin: 20px 0; padding: 30px; border: 1px solid rgba(96,220,188,.18); border-radius: 18px; background: linear-gradient(135deg,rgba(39,143,117,.17),rgba(7,14,24,.72)); }
+.industryHomeFeature h2 { margin: 8px 0; font-size: clamp(26px,4vw,48px); }
+.industryHomeFeature > strong { color: #8ee8cd; }
+.evidenceNotice { margin-bottom: 22px; padding: 20px; border-left: 3px solid #8292ff; background: rgba(130,146,255,.07); }
+.evidenceNotice p { margin-bottom: 0; }
+.industryCatalog { display: grid; gap: 16px; }
+.industryCatalog > section { padding: 24px; border: 1px solid rgba(255,255,255,.08); border-radius: 16px; background: rgba(255,255,255,.025); }
+.industryCatalog > section > span { color: #8ee8cd; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
+.industryCatalog h2 { margin: 7px 0 10px; }
+.industryChain { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; padding: 0; list-style: none; counter-reset: industry-stage; }
+.industryChain li { counter-increment: industry-stage; padding: 12px; border-radius: 10px; background: rgba(255,255,255,.035); color: #aebacd; font-size: 12px; }
+.industryChain li::before { content: counter(industry-stage,decimal-leading-zero) " "; color: #6676df; font-weight: 800; }
+.sourceList { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; margin-top: 16px; }
+.sourceList a { display: grid; gap: 5px; padding: 14px; border: 1px solid rgba(255,255,255,.07); border-radius: 10px; }
+.sourceList small { color: #718097; font-size: 9px; letter-spacing: .08em; }
+.sourceList span { color: #8292ff; font-size: 11px; }
 @media (max-width: 620px) {
   .inventoryGrid { grid-template-columns: 1fr; }
   .inquiryFields { grid-template-columns: 1fr; }
   .specTable { overflow-x: auto; }
   .specTable > div { min-width: 700px; }
+  .industryHomeFeature, .industryChain, .sourceList { grid-template-columns: 1fr; }
 }

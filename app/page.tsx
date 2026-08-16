@@ -10,7 +10,7 @@ export default function HomePage() {
       <header className="topbar">
         <div><div className="brand">KorPulse</div><div className="subtitle">Korea Industry Intelligence</div></div>
         <nav className="nav" aria-label="Primary navigation">
-          <a href="/companies">Companies</a><a href="#ecosystems" className="active">Ecosystems</a><a href="/people-who-built-korea">Industrial Journey</a><a href="/korea-inside">Korea Inside</a><a href="/news">News & Research</a><a href="/market-events">Market Events</a><a href="/global-money">Global Money</a><a href="/ma">M&A</a>
+          <a href="/companies">Companies</a><a href="/industries">Industries</a><a href="#ecosystems" className="active">Ecosystems</a><a href="/people-who-built-korea">Industrial Journey</a><a href="/korea-inside">Korea Inside</a><a href="/news">News & Research</a><a href="/market-events">Market Events</a><a href="/global-money">Global Money</a><a href="/ma">M&A</a>
         </nav>
       </header>
       <section className="hero" id="ecosystems">
@@ -18,6 +18,7 @@ export default function HomePage() {
         <div className="policyCard"><strong>Safety by design</strong>{principles.map((item) => <span key={item}>• {item}</span>)}</div>
       </section>
       <DirectSponsorSlot />
+      <a className="industryHomeFeature" href="/industries"><div><span className="eyebrow">BEYOND THE HEADLINES</span><h2>Food, chemicals, refining, steel and biohealth.</h2><p>Follow Korea's manufacturing systems from inputs and materials to production, logistics and global markets—with every major claim tied to evidence.</p></div><strong>Open the industry map →</strong></a>
       <a className="historyHomeFeature" href="/people-who-built-korea"><div><span className="eyebrow">THE PEOPLE WHO BUILT KOREA</span><h2>Built by people. Proven by industry.</h2><p>Explore Korea&apos;s industrial journey through official records—and remember the workers whose skill, sacrifice and courage made it possible.</p></div><strong>Enter the industrial history →</strong></a>
       <section className="panel"><div className="panelHeader"><div><span className="eyebrow">GLOBAL INDUSTRY ECOSYSTEMS</span><h2>Explore the first four value chains</h2></div><div className="nav"><a href="/ecosystems/semiconductor/compare">Compare roles →</a><a href="/mega-factories">Production sites →</a><a href="/clusters">Industry clusters →</a></div></div><div className="grid3">{ecosystems.map(([name, slug]) => <article className="stage" key={slug}><span>ECOSYSTEM</span><h3>{name}</h3><p>Open the live database-backed ecosystem explorer.</p><a href={`/ecosystems/${slug}`}>Explore →</a></article>)}</div></section>
       <section className="panel"><div className="panelHeader"><div><span className="eyebrow">SEMICONDUCTOR ECOSYSTEM</span><h2>Global value chain</h2></div><div className="nav"><a href="/ecosystems/semiconductor">Open Explorer</a><a href="/ecosystems/semiconductor/compare">Compare countries</a></div></div><div className="stages">{ecosystemStages.map((stage, index) => <article className="stage" key={stage}><span>{String(index + 1).padStart(2, "0")}</span><h3>{stage}</h3><p>Companies, products, factories and verified relations appear only with approved evidence.</p></article>)}</div></section>

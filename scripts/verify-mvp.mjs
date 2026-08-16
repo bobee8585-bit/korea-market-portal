@@ -10,6 +10,8 @@ const ingestion = read("app/api/internal/intelligence/ingest/route.ts");
 const advertisingInquiry = read("components/advertising-inquiry-form.tsx");
 const sponsorMeasurement = read("app/api/ads/event/route.ts");
 const sponsorReport = read("app/api/internal/ads/report/route.ts");
+const industryCatalog = read("lib/industry-catalog.ts");
+const translationPolicy = read("app/translation-policy/page.tsx");
 
 if (!layout.includes("lang={defaultLocale}")) failures.push("Root document must use the locale contract.");
 if (!localeContract.includes('defaultLocale = "en"')) failures.push("English must remain the published default locale.");
@@ -21,6 +23,8 @@ if (!advertisingInquiry.includes("mailto:")) failures.push("Advertising enquiry 
 if (/cookie|user-agent|x-forwarded-for/i.test(sponsorMeasurement)) failures.push("Direct sponsor measurement must not collect persistent or request-level identifiers.");
 if (!sponsorMeasurement.includes("recordSponsorEvent")) failures.push("Direct sponsor events must be persisted for reporting.");
 if (!sponsorReport.includes("isAuthorizedInternalRequest(request)")) failures.push("Sponsor reporting must require internal authorization.");
+if (!industryCatalog.includes("not a claim about market rank")) failures.push("Industry expansion must avoid unsupported ranking claims.");
+if (!translationPolicy.includes("Investigation, allegation, charge, judgment and final conviction are not interchangeable")) failures.push("Translation policy must preserve legal status distinctions.");
 
 if (failures.length) {
   console.error(failures.map((failure) => `- ${failure}`).join("\n"));

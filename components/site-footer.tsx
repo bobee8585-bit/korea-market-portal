@@ -2,7 +2,7 @@ import { DirectSponsorSlot } from "@/components/monetization";
 
 const footerLinks = [
   ["/about", "About"], ["/advertise", "Advertise"], ["/sponsors", "Sponsors"], ["/sponsorship-policy", "Sponsorship Policy"],
-  ["/editorial-policy", "Editorial Policy"], ["/disclaimer", "Disclaimer"], ["/privacy", "Privacy"], ["/terms", "Terms"], ["/contact", "Contact"],
+  ["/industries", "Industries"], ["/editorial-policy", "Editorial Policy"], ["/translation-policy", "Translation Policy"], ["/disclaimer", "Disclaimer"], ["/privacy", "Privacy"], ["/terms", "Terms"], ["/contact", "Contact"],
 ] as const;
 
 export function SiteFooter() {
