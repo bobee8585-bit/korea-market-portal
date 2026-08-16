@@ -123,7 +123,16 @@ async function syncDartDisclosureRange(beginDate: string, endDate: string) {
           now()
         FROM input
         JOIN "Company" AS company ON company."corpCode" = input."corpCode"
-        ON CONFLICT ("receiptNo") DO NOTHING
+        ON CONFLICT ("receiptNo") DO UPDATE SET
+          "reportName" = EXCLUDED."reportName",
+          "filerName" = EXCLUDED."filerName",
+          "corpClass" = EXCLUDED."corpClass",
+          "filedAt" = EXCLUDED."filedAt",
+          remarks = EXCLUDED.remarks,
+          "originalUrl" = EXCLUDED."originalUrl",
+          "eventType" = EXCLUDED."eventType",
+          language = EXCLUDED.language,
+          "updatedAt" = now()
       `,
     ]);
     inserted += insertedOnPage;
