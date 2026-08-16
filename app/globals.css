@@ -498,3 +498,12 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
 .stageSiblingNav a[aria-current="page"] { background: #5968ff; color: white; }
 @media (max-width: 900px) { .industryStageExplorer { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 @media (max-width: 650px) { .industryStageExplorer, .stageDetailGrid { grid-template-columns: 1fr; } .industryChain a { display: grid; } }
+
+.verifiedCompanyGrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.verifiedCompanyCard { min-width:0; padding:17px; border:1px solid rgba(255,255,255,.08); border-radius:12px; background:rgba(255,255,255,.025); }
+.verifiedCompanyCard small { color:#8292ff; font-size:9px; font-weight:800; }
+.verifiedCompanyCard h3 { margin-top:9px; }
+.verifiedCompanyCard p { margin:5px 0 14px; font-size:12px; }
+.verifiedCompanyCard > div { display:flex; flex-wrap:wrap; gap:12px; }
+.verifiedCompanyCard a { color:#8ba0ff; font-size:11px; font-weight:800; }
+@media (max-width:850px) { .verifiedCompanyGrid { grid-template-columns:1fr; } }

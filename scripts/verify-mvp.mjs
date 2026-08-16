@@ -50,6 +50,8 @@ for (const detail of ["Starches, sugars and sweeteners", "Fermentation cultures 
 }
 if (!industryDetailPage.includes("await params") || !industryStagePage.includes("await params")) failures.push("Next.js dynamic industry pages must await params.");
 if (!industryStagePage.includes("not evidence that every listed product family is manufactured by every member company")) failures.push("Stage pages must preserve the company-product evidence boundary.");
+if (!industryStagePage.includes("evidenceStatus: { in: publicEvidence }") || !industryStagePage.includes("sourceUrl: { not: null }")) failures.push("Stage company links must require public evidence and an original source.");
+if (!industryStagePage.includes("absence here does not mean the company is absent from the industry")) failures.push("Empty stage-company results must not imply industry absence.");
 for (const detail of ["Atmospheric and vacuum distillation", "Electrical steel", "Clinical trial phases", "Industrial robots", "No classified, tactical or inferred operational detail", "Responsible cosmetic distributor", "Organic emitting materials", "Black mass processing"]) {
   if (!industryStageCatalog.includes(detail)) failures.push(`Expanded industry explorer is missing ${detail}.`);
 }
