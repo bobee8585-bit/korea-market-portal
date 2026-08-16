@@ -11,8 +11,16 @@ export function kstDateString(date = new Date()) {
   return `${get("year")}${get("month")}${get("day")}`;
 }
 
-function daysBeforeKstDate(days: number) {
-  return kstDateString(new Date(Date.now() - days * 86_400_000));
+export function latestKstBusinessDate(date = new Date()) {
+  let candidate = date;
+  while (true) {
+    const weekday = new Intl.DateTimeFormat("en-US", {
+      timeZone: "Asia/Seoul",
+      weekday: "short",
+    }).format(candidate);
+    if (weekday !== "Sat" && weekday !== "Sun") return kstDateString(candidate);
+    candidate = new Date(candidate.getTime() - 86_400_000);
+  }
 }
 
 function marketFromCorpClass(corpClass?: string): Market | undefined {
@@ -38,11 +46,6 @@ async function getDartSource() {
 export async function syncDartDisclosures(date = kstDateString()) {
   if (!/^\d{8}$/.test(date)) throw new Error("INVALID_DATE");
   return syncDartDisclosureRange(date, date);
-}
-
-export async function syncRecentDartDisclosures(days = 7) {
-  const safeDays = Math.min(Math.max(Math.trunc(days), 1), 30);
-  return syncDartDisclosureRange(daysBeforeKstDate(safeDays - 1), kstDateString());
 }
 
 async function syncDartDisclosureRange(beginDate: string, endDate: string) {
