@@ -16,6 +16,7 @@ const home = read("app/page.tsx");
 const disclosureCron = read("app/api/cron/dart-disclosures/route.ts");
 const disclosureSync = read("app/api/internal/dart/sync-disclosures/route.ts");
 const ecosystemEvidenceCatalog = read("lib/ecosystem-evidence-catalog.ts");
+const publicSourceHubs = read("lib/public-source-hubs.ts");
 
 if (!layout.includes("lang={defaultLocale}")) failures.push("Root document must use the locale contract.");
 if (!localeContract.includes('defaultLocale = "en"')) failures.push("English must remain the published default locale.");
@@ -38,6 +39,10 @@ for (const slug of ["battery", "automotive-ev", "shipbuilding"]) {
   if (!ecosystemEvidenceCatalog.includes(`${slug.includes("-") ? `"${slug}"` : slug}: [`)) failures.push(`Official ecosystem starting sources are missing for ${slug}.`);
 }
 if (!ecosystemEvidenceCatalog.includes("OFFICIAL COMPANY SOURCE")) failures.push("Ecosystem source catalog must preserve source attribution.");
+for (const source of ["englishdart.fss.or.kr", "global.krx.co.kr", "bok.or.kr", "sec.gov", "fund.nps.or.kr"]) {
+  if (!publicSourceHubs.includes(source)) failures.push(`Public source hub is missing ${source}.`);
+}
+if (!publicSourceHubs.includes("not a substitute for the legally authoritative Korean filing")) failures.push("English DART directory must preserve the legal-authority warning.");
 if (!translationPolicy.includes("Investigation, allegation, charge, judgment and final conviction are not interchangeable")) failures.push("Translation policy must preserve legal status distinctions.");
 
 if (failures.length) {

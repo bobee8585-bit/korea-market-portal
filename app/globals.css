@@ -330,6 +330,7 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
 .sourceList span { color: #8292ff; font-size: 11px; }
 .ecosystemSources { margin-top: 16px; }
 .sourceMethodNote { max-width: 900px; margin-top: -6px; font-size: 12px; }
+.officialSourceHub { margin-top: 16px; }
 @media (max-width: 620px) {
   .inventoryGrid { grid-template-columns: 1fr; }
   .inquiryFields { grid-template-columns: 1fr; }
