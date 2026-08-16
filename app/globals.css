@@ -275,6 +275,14 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
 .mediaKitGrid section h2 { margin-top: 0; }
 .contactCta { margin-top: 32px; padding: 22px; border-radius: 14px; background: linear-gradient(135deg, rgba(89,104,255,.2), rgba(255,255,255,.025)); }
 .contactCta a { color: #bfc8ff; font-weight: 800; }
+.advertisingInquiry { display: grid; gap: 18px; padding: 24px; border: 1px solid rgba(255,255,255,.09); border-radius: 16px; background: rgba(255,255,255,.025); }
+.inquiryFields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.advertisingInquiry label { display: grid; gap: 8px; }
+.advertisingInquiry label span { color: #b9c5d7; font-size: 12px; font-weight: 700; }
+.advertisingInquiry input, .advertisingInquiry textarea { width: 100%; padding: 13px 14px; border: 1px solid rgba(255,255,255,.11); border-radius: 10px; background: #09111d; color: #eef4ff; font: inherit; }
+.advertisingInquiry input:focus, .advertisingInquiry textarea:focus { border-color: #8292ff; outline: 2px solid rgba(130,146,255,.2); }
+.advertisingInquiry button { justify-self: start; padding: 13px 18px; border: 0; border-radius: 10px; background: #8292ff; color: #07101c; font-weight: 800; cursor: pointer; }
+.inquiryPrivacy, .inquiryStatus { margin: 0; color: #7f8da3; font-size: 12px; }
 @media (max-width: 620px) {
   .siteFooter { width: min(100% - 24px, 1480px); }
   .adSlot, .adSlot a, .mediaKitGrid { display: grid; grid-template-columns: 1fr; }
@@ -296,6 +304,7 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
 .emptyDisclosure { padding: 28px; border: 1px dashed rgba(255,255,255,.14); border-radius: 14px; text-align: center; }
 @media (max-width: 620px) {
   .inventoryGrid { grid-template-columns: 1fr; }
+  .inquiryFields { grid-template-columns: 1fr; }
   .specTable { overflow-x: auto; }
   .specTable > div { min-width: 700px; }
 }

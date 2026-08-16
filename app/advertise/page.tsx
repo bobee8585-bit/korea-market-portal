@@ -22,6 +22,6 @@ export default function Page() {
     <h2>Measurement</h2><p>Until privacy-safe analytics are formally activated, KorPulse will not make unverified traffic or performance claims. Campaign reporting will distinguish delivery, viewability and outbound interaction where technically and legally available.</p>
     <h2>Editorial safeguards</h2><p>Sponsored placements are labelled Advertisement or Sponsored. Partners receive no influence over company rankings, evidence standards or editorial conclusions. Active and completed paid relationships are disclosed on the sponsor register.</p>
     <h2>Categories we do not accept</h2><p>Misleading financial promotions, guaranteed-return claims, unlicensed investment solicitation, political persuasion, gambling and products that conflict with publisher safety standards.</p>
-    <div className="contactCta"><strong>Request a founding-partner proposal</strong><p>Tell us your organisation, destination URL, target market, campaign dates and preferred industry category.</p><a href="/contact">Contact KorPulse →</a></div>
+    <div className="contactCta"><strong>Request a founding-partner proposal</strong><p>Tell us your organisation, destination URL, target market, campaign dates and preferred industry category.</p><a href="/advertise/inquiry">Prepare advertising enquiry →</a></div>
   </InfoPage>;
 }
