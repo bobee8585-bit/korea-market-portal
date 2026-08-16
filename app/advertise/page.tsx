@@ -1,17 +1,27 @@
 import type { Metadata } from "next";
 import { InfoPage } from "@/components/info-page";
 export const metadata: Metadata = { title: "Advertise" };
+
 const products = [
-  ["Industry partner", "A clearly labelled sponsor position on a relevant industry or ecosystem page."],
-  ["Display placement", "A limited, non-disruptive placement on selected high-intent pages."],
-  ["Newsletter sponsor", "A future single-sponsor position in an opted-in industry briefing."],
-  ["Research support", "Transparent support for a public-interest research series without editorial control."],
+  { name: "Industry partner", status: "Available now", placement: "Relevant industry and ecosystem pages", format: "Clearly labelled partner strip", fit: "Manufacturing, logistics, B2B technology, professional services" },
+  { name: "Display placement", status: "Available now", placement: "Home inline or global footer", format: "Responsive text-led display unit", fit: "Brand awareness without interrupting research" },
+  { name: "Newsletter sponsor", status: "Planned", placement: "One sponsor per opted-in briefing", format: "Header or mid-brief disclosure", fit: "Campaigns seeking a recurring professional audience" },
+  { name: "Research support", status: "Selective", placement: "Named public-interest research series", format: "Funding disclosure, no editorial control", fit: "Institutions supporting documented industrial history" },
 ];
+
 export default function Page() {
-  return <InfoPage eyebrow="PARTNER WITH KORPULSE" title="Reach readers who follow Korea's industrial ecosystem." intro="KorPulse offers limited, clearly labelled sponsorship for organisations serving industry, trade, logistics, technology and professional markets.">
-    <div className="mediaKitGrid">{products.map(([name, copy]) => <section key={name}><h2>{name}</h2><p>{copy}</p></section>)}</div>
-    <h2>Editorial safeguards</h2><p>Sponsored placements are labelled Advertisement or Sponsored. Partners receive no influence over company rankings, evidence standards or editorial conclusions.</p>
+  return <InfoPage eyebrow="PARTNER WITH KORPULSE" title="Reach readers who follow Korea's industrial ecosystem." intro="KorPulse keeps inventory limited, disclosures visible and editorial decisions independent. Founding-partner campaigns are quoted individually until verified audience benchmarks are established.">
+    <div className="inventoryGrid">{products.map((item) => <section key={item.name}><span>{item.status}</span><h2>{item.name}</h2><dl><dt>Placement</dt><dd>{item.placement}</dd><dt>Format</dt><dd>{item.format}</dd><dt>Best fit</dt><dd>{item.fit}</dd></dl></section>)}</div>
+    <h2>Launch inventory</h2>
+    <div className="specTable" role="table" aria-label="Advertising inventory">
+      <div role="row"><strong role="columnheader">Placement</strong><strong role="columnheader">Desktop</strong><strong role="columnheader">Mobile</strong><strong role="columnheader">Density rule</strong></div>
+      <div role="row"><span>Home inline</span><span>Full content width</span><span>Stacked responsive</span><span>Maximum one unit</span></div>
+      <div role="row"><span>Site footer</span><span>Full content width</span><span>Stacked responsive</span><span>Maximum one unit</span></div>
+      <div role="row"><span>Industry inline</span><span>Within relevant analysis</span><span>Between sections</span><span>Never beside a trading action</span></div>
+    </div>
+    <h2>Measurement</h2><p>Until privacy-safe analytics are formally activated, KorPulse will not make unverified traffic or performance claims. Campaign reporting will distinguish delivery, viewability and outbound interaction where technically and legally available.</p>
+    <h2>Editorial safeguards</h2><p>Sponsored placements are labelled Advertisement or Sponsored. Partners receive no influence over company rankings, evidence standards or editorial conclusions. Active and completed paid relationships are disclosed on the sponsor register.</p>
     <h2>Categories we do not accept</h2><p>Misleading financial promotions, guaranteed-return claims, unlicensed investment solicitation, political persuasion, gambling and products that conflict with publisher safety standards.</p>
-    <div className="contactCta"><strong>Request the media kit</strong><p>Tell us your organisation, target market, campaign period and preferred industry category.</p><a href="/contact">Contact KorPulse →</a></div>
+    <div className="contactCta"><strong>Request a founding-partner proposal</strong><p>Tell us your organisation, destination URL, target market, campaign dates and preferred industry category.</p><a href="/contact">Contact KorPulse →</a></div>
   </InfoPage>;
 }

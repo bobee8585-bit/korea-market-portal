@@ -279,3 +279,23 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
   .siteFooter { width: min(100% - 24px, 1480px); }
   .adSlot, .adSlot a, .mediaKitGrid { display: grid; grid-template-columns: 1fr; }
 }
+
+.inventoryGrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+.inventoryGrid section, .sponsorRegister section { padding: 20px; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: rgba(255,255,255,.025); }
+.inventoryGrid section > span, .sponsorRegister section > span { color: #8292ff; font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+.inventoryGrid h2, .sponsorRegister h2 { margin-top: 8px; }
+.inventoryGrid dl { display: grid; grid-template-columns: 88px 1fr; gap: 8px 12px; margin: 18px 0 0; font-size: 12px; }
+.inventoryGrid dt { color: #718097; }
+.inventoryGrid dd { margin: 0; color: #b5c2d5; }
+.specTable { overflow: hidden; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; }
+.specTable > div { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); }
+.specTable > div > * { padding: 13px; border-right: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06); font-size: 12px; }
+.specTable strong { color: #dce5f4; background: rgba(255,255,255,.035); }
+.specTable span { color: #93a4bc; }
+.sponsorRegister { display: grid; gap: 12px; }
+.emptyDisclosure { padding: 28px; border: 1px dashed rgba(255,255,255,.14); border-radius: 14px; text-align: center; }
+@media (max-width: 620px) {
+  .inventoryGrid { grid-template-columns: 1fr; }
+  .specTable { overflow-x: auto; }
+  .specTable > div { min-width: 700px; }
+}
