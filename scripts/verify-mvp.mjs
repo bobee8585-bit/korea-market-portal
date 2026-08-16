@@ -12,6 +12,7 @@ const sponsorMeasurement = read("app/api/ads/event/route.ts");
 const sponsorReport = read("app/api/internal/ads/report/route.ts");
 const industryCatalog = read("lib/industry-catalog.ts");
 const translationPolicy = read("app/translation-policy/page.tsx");
+const home = read("app/page.tsx");
 
 if (!layout.includes("lang={defaultLocale}")) failures.push("Root document must use the locale contract.");
 if (!localeContract.includes('defaultLocale = "en"')) failures.push("English must remain the published default locale.");
@@ -28,6 +29,7 @@ for (const sector of ["machinery", "defense-aerospace", "cosmetics", "display", 
   if (!industryCatalog.includes(`slug: "${sector}"`)) failures.push(`Industry expansion is missing ${sector}.`);
 }
 if (!industryCatalog.includes("Security-sensitive details")) failures.push("Defense coverage must exclude sensitive and speculative material.");
+if (!home.includes("industryCatalog.map")) failures.push("Home must expose every industry catalog entry.");
 if (!translationPolicy.includes("Investigation, allegation, charge, judgment and final conviction are not interchangeable")) failures.push("Translation policy must preserve legal status distinctions.");
 
 if (failures.length) {
