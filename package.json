@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && opennextjs-cloudflare build --skipNextBuild && node scripts/package-sites.mjs",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "check": "prisma generate && prisma validate && tsc --noEmit && npm run verify:mvp",
@@ -21,10 +21,12 @@
     "react-dom": "latest"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "prisma": "6.19.2",
-    "typescript": "latest"
+    "typescript": "latest",
+    "wrangler": "latest"
   }
 }
