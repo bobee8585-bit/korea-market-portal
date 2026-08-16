@@ -440,3 +440,37 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
 .chartSourceLegend small { color: #718097; font-size: 8px; }
 .chartDisclosure { margin: 13px 0 0; color: #718097; font-size: 10px; }
 @media (max-width: 800px) { .indexComparisonIntro { grid-template-columns: 1fr; } .chartAwaiting { min-height: 340px; } }
+
+.macroDashboard { margin: 20px 0; padding: 30px; border: 1px solid rgba(96,220,188,.2); border-radius: 18px; background: linear-gradient(145deg,rgba(10,38,43,.72),rgba(7,14,24,.9) 55%); }
+.macroIntro { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 24px; align-items: end; }
+.macroIntro h2 { font-size: clamp(28px,4vw,48px); }
+.macroIntro p { max-width: 900px; margin-bottom: 0; }
+.macroIntro > a { color: #8ee8cd; font-weight: 800; }
+.macroStatus { display: flex; justify-content: space-between; gap: 16px; margin: 20px 0 12px; color: #718097; font-size: 10px; }
+.macroStatus span { padding: 6px 8px; border-radius: 6px; font-weight: 900; letter-spacing: .08em; }
+.macroStatus .connected { color: #79ddb9; background: rgba(62,203,157,.12); }
+.macroStatus .partial { color: #ffc777; background: rgba(255,180,88,.12); }
+.macroGrid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+.macroCard { min-width: 0; padding: 18px; border: 1px solid rgba(255,255,255,.075); border-radius: 14px; background: rgba(5,14,24,.62); }
+.macroCardHead { display: flex; justify-content: space-between; gap: 14px; min-height: 66px; }
+.macroCardHead small { color: #8ee8cd; font-size: 8px; font-weight: 800; letter-spacing: .08em; }
+.macroCardHead h3 { margin: 5px 0; font-size: 17px; }
+.macroLatest { display: grid; justify-items: end; align-content: start; flex: 0 0 auto; }
+.macroLatest strong { font-size: 24px; }
+.macroLatest span { color: #718097; font-size: 8px; }
+.macroSvg { display: block; width: 100%; height: auto; margin: 10px 0 5px; overflow: visible; }
+.macroGridLine { stroke: rgba(255,255,255,.06); stroke-width: 1; }
+.macroZeroLine { stroke: rgba(255,199,119,.35); stroke-width: 1; stroke-dasharray: 5 5; }
+.macroArea { stroke: none; }
+.macroLine { fill: none; stroke: #8292ff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.macroLastDot { fill: #8ee8cd; stroke: #07111f; stroke-width: 2; }
+.macroMeta { display: flex; justify-content: space-between; gap: 10px; color: #718097; font-size: 9px; }
+.macroCard > p { min-height: 56px; font-size: 11px; }
+.macroCard > a { color: #8292ff; font-size: 9px; }
+.macroUnavailable { min-height: 185px; display: grid; place-items: center; padding: 18px; color: #718097; border: 1px dashed rgba(255,255,255,.1); border-radius: 10px; text-align: center; font-size: 11px; }
+.koreaMacroPending { display: flex; justify-content: space-between; gap: 24px; align-items: center; margin-top: 14px; padding: 18px; border: 1px dashed rgba(255,255,255,.12); border-radius: 12px; }
+.koreaMacroPending p { max-width: 900px; margin: 5px 0 0; font-size: 11px; }
+.koreaMacroPending > div:last-child { display: flex; gap: 12px; flex: 0 0 auto; }
+.koreaMacroPending a { color: #8ee8cd; font-size: 11px; }
+@media (max-width: 1050px) { .macroGrid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 700px) { .macroDashboard { padding: 20px; } .macroIntro, .macroGrid { grid-template-columns: 1fr; } .macroStatus, .koreaMacroPending { display: grid; } .macroStatus { justify-content: start; } }

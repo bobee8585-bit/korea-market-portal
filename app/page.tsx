@@ -1,6 +1,7 @@
 import { DirectSponsorSlot } from "@/components/monetization";
 import { industryCatalog } from "@/lib/industry-catalog";
 import { IndexComparisonChart } from "@/components/index-comparison-chart";
+import { MacroIndicatorDashboard } from "@/components/macro-indicator-dashboard";
 
 const ecosystemStages = ["Materials", "Equipment", "Design", "Wafer / Fab", "Memory / Foundry", "Packaging", "Testing", "End Market"];
 const principles = ["Official or rights-cleared data first", "News and broker research default to LINK_ONLY", "No direct investment recommendations or trading instructions", "Every ecosystem relation requires evidence"];
@@ -20,6 +21,7 @@ export default function HomePage() {
         <div className="policyCard"><strong>Safety by design</strong>{principles.map((item) => <span key={item}>• {item}</span>)}</div>
       </section>
       <DirectSponsorSlot />
+      <MacroIndicatorDashboard />
       <IndexComparisonChart />
       <a className="fundFlowHomeFeature" href="/fund-flow"><div><span className="eyebrow">NEW · FUND FLOW MONITOR</span><h2>Was the move driven by fundamentals—or amplified by positioning?</h2><p>Follow foreign cash and futures flows, program trading, short activity, leveraged products and index concentration. Every conclusion carries an evidence label and a public-source trail.</p></div><strong>Open the KOSPI flow assessment →</strong></a>
       <section className="industryHomeFeature" aria-labelledby="industry-map-title">

@@ -66,6 +66,13 @@ if (!fundFlowPage.includes("Index levels are not directly comparable") || !fundF
 const indexComparisonChart = read("components/index-comparison-chart.tsx");
 if (!home.includes("<IndexComparisonChart />")) failures.push("Home must render the global index comparison chart.");
 if (!indexComparisonChart.includes("GRAPH UNAVAILABLE · NOT LIVE") || !indexComparisonChart.includes("Decorative lines and placeholder values are not displayed")) failures.push("Empty comparison state must not imitate a graph.");
+const macroDashboard = read("components/macro-indicator-dashboard.tsx");
+if (!home.includes("<MacroIndicatorDashboard />")) failures.push("Home must render the macro indicator dashboard.");
+for (const series of ["CPIAUCSL", "PPIACO", "UNRATE", "PAYEMS", "FEDFUNDS", "DGS10"]) {
+  if (!macroDashboard.includes(`id: "${series}"`)) failures.push(`Macro dashboard is missing official series ${series}.`);
+}
+if (!macroDashboard.includes("No placeholder graph is shown")) failures.push("Macro data failure state must not imitate a graph.");
+if (!macroDashboard.includes("not investment advice")) failures.push("Macro dashboard must preserve the investment-advice boundary.");
 if (!indexComparisonChart.includes("return1dPct") || !indexComparisonChart.includes("return5dPct") || !indexComparisonChart.includes("return20dPct")) failures.push("Comparison chart must preserve all three return windows.");
 
 if (failures.length) {
