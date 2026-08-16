@@ -130,7 +130,8 @@ export default async function EcosystemComparePage({
         {countries.length === 0 ? (
           <div className="emptyState">
             <h3>No verified roles are published yet.</h3>
-            <p>The matrix will populate only after evidence-backed company roles are available.</p>
+            <p>The matrix will populate only after evidence-backed company roles are available. Official starting sources are available in the ecosystem explorer.</p>
+            <a className="sourceLink" href={`/ecosystems/${ecosystem.slug}`}>Open official source starting points →</a>
           </div>
         ) : (
           <div className="compareTableWrap">

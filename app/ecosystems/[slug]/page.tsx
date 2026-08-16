@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { EvidenceStatus } from "@prisma/client";
 import { db } from "@/lib/db";
+import { ecosystemEvidenceCatalog } from "@/lib/ecosystem-evidence-catalog";
 
 export const dynamic = "force-dynamic";
 
@@ -54,6 +55,7 @@ export default async function EcosystemPage({
   });
 
   if (!ecosystem) notFound();
+  const sourceStartingPoints = ecosystemEvidenceCatalog[ecosystem.slug] ?? [];
 
   return (
     <main className="shell">
@@ -141,6 +143,12 @@ export default async function EcosystemPage({
           ))}
         </div>
       </section>
+
+      {sourceStartingPoints.length > 0 && <section className="panel ecosystemSources">
+        <div className="panelHeader"><div><span className="eyebrow">OFFICIAL SOURCE STARTING POINTS</span><h2>Open the original evidence</h2></div></div>
+        <p className="sourceMethodNote">These links identify relevant public source material. They are not counted as verified company roles until the specific relationship is reviewed and published in the database.</p>
+        <div className="sourceList">{sourceStartingPoints.map((source) => <a href={source.url} target="_blank" rel="noreferrer" key={source.url}><small>{source.sourceType} · {source.stage}</small><strong>{source.organisation}</strong><span>{source.title} ↗</span></a>)}</div>
+      </section>}
     </main>
   );
 }
