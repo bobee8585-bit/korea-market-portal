@@ -116,10 +116,21 @@ export default function PeopleWhoBuiltKoreaPage() {
       </section>
 
       <section className="personFeature">
-        <div className="personPortrait" aria-hidden="true">
-          <span>1948—1970</span>
-          <strong>全泰壹</strong>
-        </div>
+        <figure className="personMedia">
+          <div className="personPhotoGrid">
+            <img
+              src="https://commons.wikimedia.org/wiki/Special:Redirect/file/%EC%A0%84%ED%83%9C%EC%9D%BC%20%ED%9D%89%EC%83%81.jpg?width=960"
+              alt="Bust of Jeon Tae-il on Jeon Tae-il Bridge in Seoul"
+            />
+            <img
+              src="https://commons.wikimedia.org/wiki/Special:Redirect/file/%EC%A0%84%ED%83%9C%EC%9D%BC%EB%B0%95%EB%AC%BC%EA%B4%80.jpg?width=960"
+              alt="Exterior of the Jeon Tae-il Memorial Museum in Seoul"
+            />
+          </div>
+          <figcaption>
+            Jeon Tae-il bust: Dalgial, CC BY-SA 3.0 · Memorial museum: Onnew, CC BY-SA 4.0 · via Wikimedia Commons
+          </figcaption>
+        </figure>
         <div>
           <span className="eyebrow">A PERSON WE MUST REMEMBER</span>
           <h2>Jeon Tae-il</h2>
