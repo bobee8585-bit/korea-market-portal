@@ -33,6 +33,26 @@ export const fundFlowOfficialSources = [
   { type: "CENTRAL BANK", name: "Bank of Korea ECOS", description: "Official exchange-rate, monetary and financial time series for cross-market checks.", url: "https://ecos.bok.or.kr/" },
 ] as const;
 
+export type BenchmarkReturn = {
+  code: "KOSPI" | "SP500" | "NASDAQCOM" | "DJIA";
+  name: string;
+  region: "KR" | "US";
+  asOf: string;
+  close: number | null;
+  return1dPct: number | null;
+  return5dPct: number | null;
+  return20dPct: number | null;
+  sourceName: string;
+  sourceUrl: string;
+};
+
+export const benchmarkDirectory = [
+  { code: "KOSPI", name: "KOSPI", region: "Korea", sourceName: "Korea Exchange", sourceUrl: "https://data.krx.co.kr/" },
+  { code: "SP500", name: "S&P 500", region: "United States", sourceName: "FRED · S&P Dow Jones Indices", sourceUrl: "https://fred.stlouisfed.org/series/SP500" },
+  { code: "NASDAQCOM", name: "Nasdaq Composite", region: "United States", sourceName: "FRED · Nasdaq", sourceUrl: "https://fred.stlouisfed.org/series/NASDAQCOM" },
+  { code: "DJIA", name: "Dow Jones Industrial Average", region: "United States", sourceName: "FRED · S&P Dow Jones Indices", sourceUrl: "https://fred.stlouisfed.org/series/DJIA" },
+] as const;
+
 export type FundFlowSnapshot = {
   market: "KOSPI";
   observedAt: string;
@@ -47,6 +67,7 @@ export type FundFlowSnapshot = {
   sourceName: string;
   sourceUrl: string;
   retrievedAt: string;
+  benchmarks?: BenchmarkReturn[];
 };
 
 export function calculateFlowPressure(snapshot: FundFlowSnapshot) {

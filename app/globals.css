@@ -389,3 +389,25 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
 .flowMetricGrid strong { font-size: 28px; }
 .flowMetricGrid small, .dataTimestamp { color: #7f8da3; font-size: 10px; }
 @media (max-width: 800px) { .flowMetricGrid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+
+.benchmarkPanel { margin-bottom: 16px; }
+.comparisonBasis { color: #8ee8cd; font-size: 9px; font-weight: 900; letter-spacing: .08em; }
+.comparisonNote { max-width: 1050px; font-size: 12px; }
+.benchmarkDirectory { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin: 18px 0; }
+.benchmarkDirectory a { display: grid; gap: 8px; padding: 17px; border: 1px solid rgba(255,255,255,.07); border-radius: 12px; background: rgba(255,255,255,.025); }
+.benchmarkDirectory small { color: #718097; font-size: 9px; }
+.benchmarkDirectory strong { color: #e5edf9; }
+.benchmarkDirectory span { color: #8292ff; font-size: 10px; }
+.benchmarkTable { overflow-x: auto; margin: 18px 0; border: 1px solid rgba(255,255,255,.07); border-radius: 12px; }
+.benchmarkHead, .benchmarkRow { display: grid; grid-template-columns: minmax(170px,1.4fr) 110px 80px 80px 80px minmax(180px,1fr); gap: 12px; align-items: center; min-width: 800px; padding: 13px 15px; }
+.benchmarkHead { background: rgba(255,255,255,.04); color: #718097; font-size: 9px; }
+.benchmarkRow { border-top: 1px solid rgba(255,255,255,.06); font-size: 12px; }
+.benchmarkRow > div { display: grid; }
+.benchmarkRow small { color: #718097; }
+.benchmarkRow a { color: #8292ff; font-size: 10px; }
+.positiveReturn { color: #79ddb9; }
+.negativeReturn { color: #ff96a6; }
+.comparisonLimits { display: flex; flex-wrap: wrap; gap: 8px 18px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.07); color: #8796aa; font-size: 10px; }
+.comparisonLimits strong { width: 100%; color: #cbd6e6; }
+@media (max-width: 800px) { .benchmarkDirectory { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .benchmarkDirectory { grid-template-columns: 1fr; } }

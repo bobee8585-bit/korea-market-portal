@@ -58,6 +58,11 @@ if (!fundFlowIngest.includes("isAuthorizedInternalRequest(request)")) failures.p
 if (!fundFlowValidation.includes("officialHosts") || !fundFlowValidation.includes("OFFICIAL_SOURCE_REQUIRED")) failures.push("Fund-flow ingestion must restrict confirmed records to official source hosts.");
 if (!fundFlowPage.includes("Awaiting licensed KRX data connection") || !fundFlowApi.includes('isLive: false')) failures.push("Fund-flow UI and API must not imply an unlicensed live feed.");
 if (!fundFlowApi.includes("not proof of a hedge fund's identity")) failures.push("Fund-flow API must preserve the causality limitation.");
+for (const benchmark of ["KOSPI", "SP500", "NASDAQCOM", "DJIA"]) {
+  if (!fundFlowMonitor.includes(`code: "${benchmark}"`)) failures.push(`Global index comparison is missing ${benchmark}.`);
+}
+if (!fundFlowValidation.includes("OFFICIAL_BENCHMARK_SOURCE_REQUIRED")) failures.push("Benchmark ingestion must require an approved official source.");
+if (!fundFlowPage.includes("Index levels are not directly comparable") || !fundFlowPage.includes("This comparison does not identify a fund or prove causation")) failures.push("Global index comparison must preserve normalization and causality warnings.");
 
 if (failures.length) {
   console.error(failures.map((failure) => `- ${failure}`).join("\n"));
