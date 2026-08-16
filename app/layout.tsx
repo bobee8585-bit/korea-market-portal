@@ -3,12 +3,12 @@ import "./globals.css";
 import { defaultLocale } from "@/lib/i18n";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://korpulse.com"),
   title: {
-    default: "Korea Market Portal",
-    template: "%s | Korea Market Portal",
+    default: "KorPulse — Discover Korea's Industrial Power",
+    template: "%s | KorPulse",
   },
-  description: "Global intelligence for Korea's public markets and industrial ecosystems.",
+  description: "Discover Korea's industrial power through verified companies, factories, ecosystems and history.",
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
 };

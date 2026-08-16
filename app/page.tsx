@@ -28,12 +28,13 @@ export default function HomePage() {
     <main className="shell">
       <header className="topbar">
         <div>
-          <div className="brand">Korea Market Portal</div>
-          <div className="subtitle">Global Industry Intelligence</div>
+          <div className="brand">KorPulse</div>
+          <div className="subtitle">Korea Industry Intelligence</div>
         </div>
         <nav className="nav" aria-label="Primary navigation">
           <a href="/companies">Companies</a>
           <a href="#ecosystems" className="active">Ecosystems</a>
+          <a href="/people-who-built-korea">Industrial Journey</a>
           <a href="/korea-inside">Korea Inside</a>
           <a href="/news">News & Research</a>
           <a href="/market-events">Market Events</a>
@@ -60,6 +61,15 @@ export default function HomePage() {
           {principles.map((item) => <span key={item}>• {item}</span>)}
         </div>
       </section>
+
+      <a className="historyHomeFeature" href="/people-who-built-korea">
+        <div>
+          <span className="eyebrow">THE PEOPLE WHO BUILT KOREA</span>
+          <h2>Built by people. Proven by industry.</h2>
+          <p>Explore Korea&apos;s industrial journey through official records—and remember the workers whose skill, sacrifice and courage made it possible.</p>
+        </div>
+        <strong>Enter the industrial history →</strong>
+      </a>
 
       <section className="panel">
         <div className="panelHeader">

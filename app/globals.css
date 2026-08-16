@@ -38,6 +38,45 @@ p { color: #9eb0c8; line-height: 1.65; }
 .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
 .compact { min-height: 180px; }
 
+.historyHomeFeature { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin: 0 0 16px; padding: 34px; overflow: hidden; border: 1px solid rgba(238,193,96,.22); border-radius: 20px; background: radial-gradient(circle at 88% 24%, rgba(231,176,62,.2), transparent 25%), linear-gradient(135deg, rgba(52,39,24,.94), rgba(10,21,37,.96) 55%); }
+.historyHomeFeature > div { max-width: 790px; }
+.historyHomeFeature h2 { font-size: clamp(27px, 4vw, 44px); }
+.historyHomeFeature strong { flex: 0 0 auto; color: #f2cf84; }
+
+.historyPage { --history-gold: #e7b95c; }
+.historyHero { min-height: 680px; display: grid; align-content: center; padding: 90px 5vw; margin: 0 calc(50% - 50vw); padding-inline: max(5vw, calc((100vw - 1480px) / 2)); background: linear-gradient(90deg, rgba(4,10,18,.98) 0 45%, rgba(4,10,18,.6)), radial-gradient(circle at 78% 50%, rgba(215,158,51,.23), transparent 30%), repeating-linear-gradient(115deg, rgba(255,255,255,.025) 0 1px, transparent 1px 13px); border-bottom: 1px solid rgba(255,255,255,.08); }
+.historyHero .eyebrow, .historyPage .eyebrow { color: var(--history-gold); }
+.historyHero h1 { max-width: 980px; font-size: clamp(54px, 8vw, 112px); }
+.historyLead { max-width: 850px; font-size: clamp(18px, 2vw, 24px); color: #ccd5df; }
+.historyPromise { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 34px; max-width: 1000px; color: #9eacbd; font-size: 12px; }
+.historyPromise strong { width: 100%; color: #f2d395; font-size: 15px; }
+.historySection { padding: 82px 0; }
+.historySectionIntro { max-width: 760px; margin-bottom: 42px; }
+.historySectionIntro h2, .personFeature h2, .futureVoices h2 { font-size: clamp(32px, 5vw, 58px); margin-top: 10px; }
+.historyTimeline { border-top: 1px solid rgba(255,255,255,.12); }
+.historyChapter { display: grid; grid-template-columns: 150px minmax(280px, 1fr) minmax(260px, 380px); gap: 34px; align-items: center; padding: 32px 0; border-bottom: 1px solid rgba(255,255,255,.1); }
+.historyYear { color: var(--history-gold); font: 800 clamp(22px, 3vw, 34px)/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.historyCopy h3 { font-size: 24px; }
+.historyCopy p { margin-bottom: 0; }
+.archiveCard { display: grid; grid-template-columns: 92px 1fr; column-gap: 15px; padding: 12px; border: 1px solid rgba(255,255,255,.1); border-radius: 14px; background: rgba(255,255,255,.035); transition: border-color .15s ease, transform .15s ease; }
+.archiveCard:hover { border-color: rgba(231,185,92,.55); transform: translateY(-2px); }
+.archiveVisual { grid-row: 1 / 4; display: grid; place-items: center; min-height: 88px; border-radius: 9px; color: #f5d38d; background: radial-gradient(circle, rgba(231,185,92,.28), transparent 55%), repeating-linear-gradient(135deg, #27313b 0 7px, #1a232d 7px 14px); }
+.archiveVisual i { font-style: normal; font-size: 28px; }
+.archiveType { color: var(--history-gold); font-size: 9px; font-weight: 800; letter-spacing: .12em; }
+.archiveCard strong { align-self: center; font-size: 13px; }
+.archiveCard small { color: #8796aa; }
+.personFeature { display: grid; grid-template-columns: minmax(280px, .8fr) 1.2fr; gap: clamp(36px, 7vw, 100px); align-items: center; padding: clamp(38px, 6vw, 88px); margin: 20px 0 70px; border: 1px solid rgba(231,185,92,.2); border-radius: 24px; background: linear-gradient(135deg, rgba(37,29,21,.95), rgba(9,19,32,.98) 62%); }
+.personPortrait { aspect-ratio: 4 / 5; display: grid; place-content: center; gap: 16px; text-align: center; border: 1px solid rgba(231,185,92,.28); background: radial-gradient(circle, rgba(231,185,92,.18), transparent 42%), repeating-linear-gradient(110deg, rgba(255,255,255,.025) 0 1px, transparent 1px 11px); }
+.personPortrait span { color: #bc9d63; font: 700 12px ui-monospace, monospace; letter-spacing: .18em; }
+.personPortrait strong { color: #f0d59e; font: 500 clamp(52px, 8vw, 100px) serif; letter-spacing: .12em; writing-mode: vertical-rl; }
+.personQuote { max-width: 720px; color: #f0d59e; font: 500 clamp(20px, 2.7vw, 32px)/1.45 serif; }
+.primaryLink { display: inline-block; margin-top: 16px; padding: 13px 16px; border-radius: 10px; color: #111820; background: var(--history-gold); font-weight: 800; }
+.futureVoices { max-width: 920px; }
+.futureVoices > p { font-size: 18px; }
+.historyFooter { display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center; padding: 28px 0; border-top: 1px solid rgba(255,255,255,.1); }
+.historyFooter p { margin: 0; font-size: 12px; }
+.historyFooter a { color: var(--history-gold); font-weight: 700; }
+
 .companySearchForm { display: flex; gap: 10px; width: min(760px, 100%); margin-top: 24px; }
 .companySearchForm input { flex: 1; min-width: 0; border: 1px solid rgba(255,255,255,.1); background: rgba(5,11,19,.75); color: white; border-radius: 12px; padding: 14px 16px; outline: none; }
 .companySearchForm input:focus { border-color: #6d7cff; box-shadow: 0 0 0 3px rgba(109,124,255,.12); }
@@ -154,6 +193,9 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
   .compareSummaryGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .roleGrid { grid-template-columns: repeat(2, 1fr); }
   .factoryMap { height: 420px; }
+  .historyChapter { grid-template-columns: 100px 1fr; }
+  .archiveCard { grid-column: 2; }
+  .personFeature { grid-template-columns: 1fr 1.25fr; }
 }
 
 @media (max-width: 620px) {
@@ -167,4 +209,10 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
   .listMeta { justify-items: start; }
   .factoryMap { height: 340px; }
   .factoryMapLabel { display: none; }
+  .historyHomeFeature, .historyFooter { display: grid; }
+  .historyHero { min-height: 590px; padding-top: 68px; padding-bottom: 68px; }
+  .historyChapter { grid-template-columns: 1fr; gap: 12px; }
+  .archiveCard { grid-column: 1; margin-top: 10px; }
+  .personFeature { grid-template-columns: 1fr; padding: 26px; }
+  .personPortrait { max-height: 420px; }
 }
