@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { syncRecentDartDisclosures } from "@/lib/dart-sync";
+import { latestKstBusinessDate, syncDartDisclosures } from "@/lib/dart-sync";
 
 export const maxDuration = 300;
 export const preferredRegion = "icn1";
@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "UNAUTHORIZED" }, { status: 401 });
   }
   try {
-    return NextResponse.json(await syncRecentDartDisclosures(7));
+    return NextResponse.json(await syncDartDisclosures(latestKstBusinessDate()));
   } catch (error) {
     const message = error instanceof Error ? error.message : "DART_SYNC_FAILED";
     console.error("OpenDART cron sync failed", { message });
