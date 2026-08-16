@@ -115,6 +115,28 @@ export default function PeopleWhoBuiltKoreaPage() {
         </div>
       </section>
 
+      <section className="historySection visualArchive">
+        <div className="historySectionIntro">
+          <span className="eyebrow">PHOTOGRAPHS WITH TRACEABLE RIGHTS</span>
+          <h2>Damage, steel and shipbuilding</h2>
+          <p>Historical records and present-day industrial landscapes are dated separately so a modern photograph is never presented as an image from the 1970s.</p>
+        </div>
+        <div className="industrialPhotoGrid">
+          <a href="https://commons.wikimedia.org/wiki/File:Central_Government_Building_Korean_War.jpg" target="_blank" rel="noreferrer" className="industrialPhoto industrialPhotoWide">
+            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Central%20Government%20Building%20Korean%20War.jpg?width=1280" alt="Central Government Building in Seoul during the Korean War" />
+            <span><b>WAR AND DESTRUCTION · 1950</b><strong>Seoul during the Korean War</strong><small>SFC Cecil L. Riley · U.S. Government work · Public domain</small></span>
+          </a>
+          <a href="https://commons.wikimedia.org/wiki/File:%ED%8F%AC%EC%8A%A4%EC%BD%94_%ED%8F%AC%ED%95%AD.jpg" target="_blank" rel="noreferrer" className="industrialPhoto">
+            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/%ED%8F%AC%EC%8A%A4%EC%BD%94%20%ED%8F%AC%ED%95%AD.jpg?width=1280" alt="Panoramic view of the POSCO steel mill in Pohang" />
+            <span><b>INDUSTRIAL LEGACY · 2020</b><strong>Pohang steel mill</strong><small>Aatu Dorochenko · CC BY-SA 4.0</small></span>
+          </a>
+          <a href="https://commons.wikimedia.org/wiki/File:Hyundai_Heavy_Industries_Ulsan_Shipyard_from_Jujeon_Beacon_Mound_-_2023-07-24.jpg" target="_blank" rel="noreferrer" className="industrialPhoto">
+            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Hyundai%20Heavy%20Industries%20Ulsan%20Shipyard%20from%20Jujeon%20Beacon%20Mound%20-%202023-07-24.jpg?width=1280" alt="Ulsan shipyard seen from Jujeon Beacon Mound" />
+            <span><b>INDUSTRIAL LEGACY · 2023</b><strong>Ulsan shipyard</strong><small>Wvdp · CC0 1.0</small></span>
+          </a>
+        </div>
+      </section>
+
       <section className="personFeature">
         <figure className="personMedia">
           <div className="personPhotoGrid">
