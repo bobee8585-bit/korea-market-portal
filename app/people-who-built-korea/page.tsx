@@ -52,8 +52,8 @@ const chapters = [
     title: "Advanced manufacturing, built on accumulated skill",
     text: "Semiconductors, displays, vehicles, batteries and advanced ships grew from decades of accumulated production knowledge. KorPulse will connect today's companies to that human and industrial history with verifiable evidence.",
     media: "ARCHIVE COLLECTION",
-    source: "Korea's exports — National Archives",
-    href: "https://theme.archives.go.kr/next/koreaOfRecord/export.do",
+    source: "Semiconductor industry film — National Archives",
+    href: "https://theme.archives.go.kr/next/exhibition/index.do",
   },
 ] as const;
 
@@ -179,6 +179,20 @@ export default function PeopleWhoBuiltKoreaPage() {
           <a className="primaryLink" href="https://chuntaeil.org/" target="_blank" rel="noreferrer">
             Visit the Jeon Tae-il Foundation archive ↗
           </a>
+        </div>
+      </section>
+
+      <section className="historySection sourcePolicy">
+        <div className="historySectionIntro">
+          <span className="eyebrow">SOURCE PRIORITY</span>
+          <h2>Public records before secondary summaries</h2>
+          <p>KorPulse follows a fixed evidence order: public archives and statistics first, specialist public research next, and Wikipedia only when no stronger source exists.</p>
+        </div>
+        <div className="sourceShelf">
+          <a href="https://encykorea.aks.ac.kr/Article/E0026295" target="_blank" rel="noreferrer"><small>ACADEMY OF KOREAN STUDIES</small><strong>Industrialization</strong><span>Manufacturing and employment structure, based on official statistics ↗</span></a>
+          <a href="https://encykorea.aks.ac.kr/Article/E0068924" target="_blank" rel="noreferrer"><small>ACADEMY OF KOREAN STUDIES</small><strong>Cheonggye Garment Workers&apos; Union</strong><span>Labor history following Jeon Tae-il&apos;s death in 1970 ↗</span></a>
+          <a href="https://archives.seoul.go.kr/photo/" target="_blank" rel="noreferrer"><small>SEOUL METROPOLITAN ARCHIVES</small><strong>Seoul Photo Archive</strong><span>Municipal photographs and catalogued city records ↗</span></a>
+          <a href="https://theme.archives.go.kr/next/exhibition/index.do" target="_blank" rel="noreferrer"><small>NATIONAL ARCHIVES OF KOREA</small><strong>Semiconductor archival film</strong><span>Official moving-image record of Korea&apos;s technology industry ↗</span></a>
         </div>
       </section>
 

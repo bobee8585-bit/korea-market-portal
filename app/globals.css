@@ -101,6 +101,12 @@ p { color: #9eb0c8; line-height: 1.65; }
 .personMedia figcaption { margin-top: 10px; color: #7f8a98; font-size: 10px; line-height: 1.55; }
 .personQuote { max-width: 720px; color: #f0d59e; font: 500 clamp(20px, 2.7vw, 32px)/1.45 serif; }
 .primaryLink { display: inline-block; margin-top: 16px; padding: 13px 16px; border-radius: 10px; color: #111820; background: var(--history-gold); font-weight: 800; }
+.sourceShelf { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.sourceShelf a { display: grid; gap: 8px; min-height: 160px; padding: 22px; border: 1px solid rgba(255,255,255,.09); border-radius: 14px; background: linear-gradient(145deg, rgba(231,185,92,.08), rgba(9,18,30,.9)); }
+.sourceShelf a:hover { border-color: rgba(231,185,92,.5); }
+.sourceShelf small { color: var(--history-gold); font-size: 9px; font-weight: 800; letter-spacing: .1em; }
+.sourceShelf strong { font-size: 19px; }
+.sourceShelf span { color: #8fa0b7; font-size: 12px; line-height: 1.6; }
 .futureVoices { max-width: 920px; }
 .futureVoices > p { font-size: 18px; }
 .historyFooter { display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center; padding: 28px 0; border-top: 1px solid rgba(255,255,255,.1); }
@@ -243,6 +249,6 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
   .historyHero { min-height: 590px; padding-top: 68px; padding-bottom: 68px; }
   .historyChapter { grid-template-columns: 1fr; gap: 12px; }
   .archiveCard { grid-column: 1; margin-top: 10px; }
-  .publicRecordGrid, .videoRecordGrid, .videoRecordCard { grid-template-columns: 1fr; }\n  .videoRecordPoster { min-height: 200px; }\n  .personFeature { grid-template-columns: 1fr; padding: 26px; }
+  .publicRecordGrid, .videoRecordGrid, .videoRecordCard, .sourceShelf { grid-template-columns: 1fr; }\n  .videoRecordPoster { min-height: 200px; }\n  .personFeature { grid-template-columns: 1fr; padding: 26px; }
   .personPortrait { min-height: 420px; }
 }
