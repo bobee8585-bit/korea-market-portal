@@ -24,6 +24,10 @@ if (/cookie|user-agent|x-forwarded-for/i.test(sponsorMeasurement)) failures.push
 if (!sponsorMeasurement.includes("recordSponsorEvent")) failures.push("Direct sponsor events must be persisted for reporting.");
 if (!sponsorReport.includes("isAuthorizedInternalRequest(request)")) failures.push("Sponsor reporting must require internal authorization.");
 if (!industryCatalog.includes("not a claim about market rank")) failures.push("Industry expansion must avoid unsupported ranking claims.");
+for (const sector of ["machinery", "defense-aerospace", "cosmetics", "display", "battery-materials"]) {
+  if (!industryCatalog.includes(`slug: "${sector}"`)) failures.push(`Industry expansion is missing ${sector}.`);
+}
+if (!industryCatalog.includes("Security-sensitive details")) failures.push("Defense coverage must exclude sensitive and speculative material.");
 if (!translationPolicy.includes("Investigation, allegation, charge, judgment and final conviction are not interchangeable")) failures.push("Translation policy must preserve legal status distinctions.");
 
 if (failures.length) {

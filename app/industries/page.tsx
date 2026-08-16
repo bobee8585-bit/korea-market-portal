@@ -5,7 +5,7 @@ import { industryCatalog } from "@/lib/industry-catalog";
 export const metadata: Metadata = { title: "Korea Industry Map" };
 
 export default function Page() {
-  return <InfoPage eyebrow="KOREA INDUSTRY MAP" title="Korea's industrial strength extends across connected manufacturing systems." intro="This first expansion maps food, chemicals, refining, steel and biohealth through public institutions, regulators and industry associations. It does not publish unsupported global rankings.">
+  return <InfoPage eyebrow="KOREA INDUSTRY MAP" title="Korea's industrial strength extends across connected manufacturing systems." intro="The map now covers ten sectors—from food and refining to machinery, defense, cosmetics, displays and batteries—through public institutions, regulators and industry associations. It does not publish unsupported global rankings.">
     <div className="evidenceNotice"><strong>Publication rule</strong><p>A sector can be important without being labelled “world number one.” Rank, capacity, export and market-share claims appear only with a dated definition and a comparable source.</p></div>
     <div className="industryCatalog">{industryCatalog.map((industry) => <section id={industry.slug} key={industry.slug}>
       <span>{industry.koreanName}</span><h2>{industry.name}</h2><p>{industry.summary}</p>
