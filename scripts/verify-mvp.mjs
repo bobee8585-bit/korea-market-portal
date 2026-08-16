@@ -65,7 +65,7 @@ if (!fundFlowValidation.includes("OFFICIAL_BENCHMARK_SOURCE_REQUIRED")) failures
 if (!fundFlowPage.includes("Index levels are not directly comparable") || !fundFlowPage.includes("This comparison does not identify a fund or prove causation")) failures.push("Global index comparison must preserve normalization and causality warnings.");
 const indexComparisonChart = read("components/index-comparison-chart.tsx");
 if (!home.includes("<IndexComparisonChart />")) failures.push("Home must render the global index comparison chart.");
-if (!indexComparisonChart.includes("No estimated or fabricated market values are drawn")) failures.push("Empty comparison chart must not imply fabricated data.");
+if (!indexComparisonChart.includes("GRAPH UNAVAILABLE · NOT LIVE") || !indexComparisonChart.includes("Decorative lines and placeholder values are not displayed")) failures.push("Empty comparison state must not imitate a graph.");
 if (!indexComparisonChart.includes("return1dPct") || !indexComparisonChart.includes("return5dPct") || !indexComparisonChart.includes("return20dPct")) failures.push("Comparison chart must preserve all three return windows.");
 
 if (failures.length) {

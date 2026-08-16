@@ -430,16 +430,10 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
 .returnFill.negative { right: 50%; background: linear-gradient(90deg,#ff96a6,#d65970); }
 .returnTrack b { position: absolute; right: 7px; top: 8px; font-size: 10px; }
 .returnMissing { position: absolute; inset: 0; display: grid; place-items: center; color: #536177; }
-.chartAwaiting { position: relative; min-height: 280px; display: grid; place-items: center; gap: 16px; margin-top: 22px; padding: 42px 28px 24px; overflow: hidden; border: 1px dashed rgba(255,255,255,.13); border-radius: 13px; text-align: center; }
-.chartAwaiting > div:not(.chartGrid) { position: relative; z-index: 2; }
-.chartAwaiting p { max-width: 760px; margin-bottom: 0; font-size: 12px; }
-.chartGrid { position: absolute; inset: 0; opacity: .45; background-image: linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px); background-size: 100% 25%,12.5% 100%; }
-.chartGrid i { position: absolute; bottom: 18%; width: 18%; height: 2px; background: rgba(130,146,255,.25); transform: rotate(-5deg); }
-.chartGrid i:nth-child(1) { left: 5%; bottom: 30%; }
-.chartGrid i:nth-child(2) { left: 23%; bottom: 34%; transform: rotate(8deg); }
-.chartGrid i:nth-child(3) { left: 41%; bottom: 27%; transform: rotate(-12deg); }
-.chartGrid i:nth-child(4) { left: 59%; bottom: 39%; transform: rotate(10deg); }
-.chartGrid i:nth-child(5) { left: 77%; bottom: 31%; transform: rotate(-8deg); }
+.chartAwaiting { min-height: 190px; display: grid; place-items: center; gap: 16px; margin-top: 22px; padding: 32px 28px 24px; border: 1px dashed rgba(255,255,255,.13); border-radius: 13px; text-align: center; }
+.chartAwaiting > div:first-child { display: grid; justify-items: center; gap: 12px; }
+.chartAwaiting > div:first-child > strong { font-size: 18px; }
+.chartAwaiting p { max-width: 760px; margin: 0; font-size: 12px; }
 .chartSourceLegend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .chartSourceLegend a { display: grid; gap: 2px; padding: 8px 10px; border-radius: 8px; background: rgba(7,14,24,.78); text-align: left; }
 .chartSourceLegend span { color: #bfc8ff; font-size: 10px; font-weight: 800; }
