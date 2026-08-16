@@ -66,16 +66,19 @@ p { color: #9eb0c8; line-height: 1.65; }
 .archiveCard strong { align-self: center; font-size: 13px; }
 .archiveCard small { color: #8796aa; }
 .visualArchive { padding-top: 34px; }
-.industrialPhotoGrid { display: grid; grid-template-columns: 1.2fr .8fr; grid-template-rows: repeat(2, 270px); gap: 12px; }
-.industrialPhoto { position: relative; min-width: 0; overflow: hidden; border: 1px solid rgba(255,255,255,.1); border-radius: 16px; background: #0a121d; }
-.industrialPhotoWide { grid-row: 1 / 3; }
-.industrialPhoto img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.76) contrast(1.04); transition: transform .35s ease, filter .35s ease; }
-.industrialPhoto:hover img { transform: scale(1.025); filter: saturate(.95) contrast(1.02); }
-.industrialPhoto::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(2,7,13,.92)); pointer-events: none; }
-.industrialPhoto > span { position: absolute; z-index: 2; left: 20px; right: 20px; bottom: 18px; display: grid; gap: 4px; }
-.industrialPhoto b { color: var(--history-gold); font-size: 10px; letter-spacing: .1em; }
-.industrialPhoto strong { font-size: 20px; }
-.industrialPhoto small { color: #abb5c2; font-size: 10px; }
+.publicRecordGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.publicRecord { min-width: 0; overflow: hidden; border: 1px solid rgba(255,255,255,.1); border-radius: 16px; background: rgba(9,18,30,.88); transition: border-color .15s ease, transform .15s ease; }
+.publicRecord:hover { border-color: rgba(231,185,92,.55); transform: translateY(-2px); }
+.publicRecordVisual { min-height: 250px; display: grid; align-content: space-between; padding: 24px; background: radial-gradient(circle at 70% 30%, rgba(231,185,92,.25), transparent 28%), repeating-linear-gradient(115deg, #25303a 0 8px, #111a24 8px 16px); }
+.publicRecordVisual b { color: #f2cf84; font: 800 42px/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.publicRecordVisual i { justify-self: end; color: rgba(255,255,255,.72); font: 500 64px/1 serif; font-style: normal; }
+.publicRecordFactory .publicRecordVisual { background: radial-gradient(circle at 35% 35%, rgba(92,118,151,.3), transparent 28%), repeating-linear-gradient(90deg, #202b37 0 2px, #101923 2px 14px); }
+.publicRecordSteel .publicRecordVisual { background: radial-gradient(circle at 65% 40%, rgba(201,95,57,.28), transparent 30%), repeating-linear-gradient(135deg, #292722 0 9px, #121719 9px 18px); }
+.publicRecordCopy { display: grid; gap: 9px; padding: 22px; }
+.publicRecordCopy small { color: var(--history-gold); font-size: 9px; font-weight: 800; letter-spacing: .1em; line-height: 1.5; }
+.publicRecordCopy strong { font-size: 20px; line-height: 1.3; }
+.publicRecordCopy p { margin: 0; font-size: 12px; }
+.publicRecordCopy em { margin-top: 7px; color: #f0cc83; font-size: 12px; font-style: normal; font-weight: 800; }
 .videoRecords { padding-top: 20px; }
 .videoRecordGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .videoRecordCard { display: grid; grid-template-columns: minmax(180px, .85fr) 1.15fr; min-width: 0; overflow: hidden; border: 1px solid rgba(255,255,255,.1); border-radius: 16px; background: rgba(9,18,30,.88); }
@@ -91,10 +94,10 @@ p { color: #9eb0c8; line-height: 1.65; }
 .videoRecordCard:hover { border-color: rgba(231,185,92,.48); }
 .personFeature { display: grid; grid-template-columns: minmax(280px, .8fr) 1.2fr; gap: clamp(36px, 7vw, 100px); align-items: center; padding: clamp(38px, 6vw, 88px); margin: 20px 0 70px; border: 1px solid rgba(231,185,92,.2); border-radius: 24px; background: linear-gradient(135deg, rgba(37,29,21,.95), rgba(9,19,32,.98) 62%); }
 .personMedia { margin: 0; }
-.personPhotoGrid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 8px; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid rgba(231,185,92,.28); background: #0b1119; }
-.personPhotoGrid img { width: 100%; height: 100%; min-width: 0; object-fit: cover; filter: saturate(.72) contrast(1.05); }
-.personPhotoGrid img:first-child { object-position: 49% 38%; }
-.personPhotoGrid img:last-child { object-position: 52% 50%; }
+.personPortrait { min-height: 500px; display: grid; grid-template-rows: auto 1fr auto; padding: 28px; border: 1px solid rgba(231,185,92,.28); background: radial-gradient(circle at 48% 38%, rgba(158,56,42,.24), transparent 28%), repeating-linear-gradient(120deg, #231e1a 0 9px, #101419 9px 18px); }
+.personPortrait span, .personPortrait small { color: #d8b46d; font: 800 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .15em; }
+.personPortrait strong { align-self: center; justify-self: center; color: rgba(255,255,255,.88); font: 500 76px/1.05 serif; text-align: center; }
+.personPortrait small { justify-self: end; }
 .personMedia figcaption { margin-top: 10px; color: #7f8a98; font-size: 10px; line-height: 1.55; }
 .personQuote { max-width: 720px; color: #f0d59e; font: 500 clamp(20px, 2.7vw, 32px)/1.45 serif; }
 .primaryLink { display: inline-block; margin-top: 16px; padding: 13px 16px; border-radius: 10px; color: #111820; background: var(--history-gold); font-weight: 800; }
@@ -240,6 +243,6 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
   .historyHero { min-height: 590px; padding-top: 68px; padding-bottom: 68px; }
   .historyChapter { grid-template-columns: 1fr; gap: 12px; }
   .archiveCard { grid-column: 1; margin-top: 10px; }
-  .industrialPhotoGrid { grid-template-columns: 1fr; grid-template-rows: repeat(3, 280px); }\n  .videoRecordGrid, .videoRecordCard { grid-template-columns: 1fr; }\n  .videoRecordPoster { min-height: 200px; }\n  .industrialPhotoWide { grid-row: auto; }\n  .personFeature { grid-template-columns: 1fr; padding: 26px; }
-  .personPhotoGrid { max-height: 420px; }
+  .publicRecordGrid, .videoRecordGrid, .videoRecordCard { grid-template-columns: 1fr; }\n  .videoRecordPoster { min-height: 200px; }\n  .personFeature { grid-template-columns: 1fr; padding: 26px; }
+  .personPortrait { min-height: 420px; }
 }

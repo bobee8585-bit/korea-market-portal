@@ -117,22 +117,22 @@ export default function PeopleWhoBuiltKoreaPage() {
 
       <section className="historySection visualArchive">
         <div className="historySectionIntro">
-          <span className="eyebrow">PHOTOGRAPHS WITH TRACEABLE RIGHTS</span>
-          <h2>Damage, steel and shipbuilding</h2>
-          <p>Historical records and present-day industrial landscapes are dated separately so a modern photograph is never presented as an image from the 1970s.</p>
+          <span className="eyebrow">PUBLIC-INSTITUTION RECORDS FIRST</span>
+          <h2>Factories, steel and industrial cities</h2>
+          <p>KorPulse now prioritizes records held by Korean public institutions. Each card opens the official original; images are not copied when the reuse notice is unclear.</p>
         </div>
-        <div className="industrialPhotoGrid">
-          <a href="https://commons.wikimedia.org/wiki/File:Central_Government_Building_Korean_War.jpg" target="_blank" rel="noreferrer" className="industrialPhoto industrialPhotoWide">
-            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Central%20Government%20Building%20Korean%20War.jpg?width=1280" alt="Central Government Building in Seoul during the Korean War" />
-            <span><b>WAR AND DESTRUCTION · 1950</b><strong>Seoul during the Korean War</strong><small>SFC Cecil L. Riley · U.S. Government work · Public domain</small></span>
+        <div className="publicRecordGrid">
+          <a className="publicRecord publicRecordUlsan" href="https://theme.archives.go.kr/next/industry/archivesDetail.do?evntId=0014508187&page=10&tabFlag=2&year=1960" target="_blank" rel="noreferrer">
+            <span className="publicRecordVisual"><b>1962</b><i>蔚山</i></span>
+            <span className="publicRecordCopy"><small>NATIONAL ARCHIVES OF KOREA · CET0077009</small><strong>Groundbreaking of the Ulsan Industrial District</strong><p>Photographic record produced by the Public Information Bureau.</p><em>View original public record ↗</em></span>
           </a>
-          <a href="https://commons.wikimedia.org/wiki/File:%ED%8F%AC%EC%8A%A4%EC%BD%94_%ED%8F%AC%ED%95%AD.jpg" target="_blank" rel="noreferrer" className="industrialPhoto">
-            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/%ED%8F%AC%EC%8A%A4%EC%BD%94%20%ED%8F%AC%ED%95%AD.jpg?width=1280" alt="Panoramic view of the POSCO steel mill in Pohang" />
-            <span><b>INDUSTRIAL LEGACY · 2020</b><strong>Pohang steel mill</strong><small>Aatu Dorochenko · CC BY-SA 4.0</small></span>
+          <a className="publicRecord publicRecordFactory" href="https://theme.archives.go.kr/next/industry/special1960.do" target="_blank" rel="noreferrer">
+            <span className="publicRecordVisual"><b>1965</b><i>工場</i></span>
+            <span className="publicRecordCopy"><small>NATIONAL ARCHIVES OF KOREA · INDUSTRY COLLECTION</small><strong>Workers and production in 1960s factories</strong><p>Official documents and photographs from Korea&apos;s early industrial complexes.</p><em>Open the public archive ↗</em></span>
           </a>
-          <a href="https://commons.wikimedia.org/wiki/File:Hyundai_Heavy_Industries_Ulsan_Shipyard_from_Jujeon_Beacon_Mound_-_2023-07-24.jpg" target="_blank" rel="noreferrer" className="industrialPhoto">
-            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Hyundai%20Heavy%20Industries%20Ulsan%20Shipyard%20from%20Jujeon%20Beacon%20Mound%20-%202023-07-24.jpg?width=1280" alt="Ulsan shipyard seen from Jujeon Beacon Mound" />
-            <span><b>INDUSTRIAL LEGACY · 2023</b><strong>Ulsan shipyard</strong><small>Wvdp · CC0 1.0</small></span>
+          <a className="publicRecord publicRecordSteel" href="https://theme.archives.go.kr/viewer/common/archWebViewer.do?archiveEventId=0049320920&singleData=Y" target="_blank" rel="noreferrer">
+            <span className="publicRecordVisual"><b>1977</b><i>製鐵</i></span>
+            <span className="publicRecordCopy"><small>NATIONAL ARCHIVES OF KOREA · OFFICIAL FILM</small><strong>Pohang cold-rolling mill record</strong><p>Government archival film documenting the expansion of Korea&apos;s steel industry.</p><em>Watch the original record ↗</em></span>
           </a>
         </div>
       </section>
@@ -157,18 +157,13 @@ export default function PeopleWhoBuiltKoreaPage() {
 
       <section className="personFeature">
         <figure className="personMedia">
-          <div className="personPhotoGrid">
-            <img
-              src="https://commons.wikimedia.org/wiki/Special:Redirect/file/%EC%A0%84%ED%83%9C%EC%9D%BC%20%ED%9D%89%EC%83%81.jpg?width=960"
-              alt="Bust of Jeon Tae-il on Jeon Tae-il Bridge in Seoul"
-            />
-            <img
-              src="https://commons.wikimedia.org/wiki/Special:Redirect/file/%EC%A0%84%ED%83%9C%EC%9D%BC%EB%B0%95%EB%AC%BC%EA%B4%80.jpg?width=960"
-              alt="Exterior of the Jeon Tae-il Memorial Museum in Seoul"
-            />
+          <div className="personPortrait" aria-label="Typographic memorial for Jeon Tae-il">
+            <span>1948—1970</span>
+            <strong>全<br />泰<br />壹</strong>
+            <small>JEON TAE-IL</small>
           </div>
           <figcaption>
-            Jeon Tae-il bust: Dalgial, CC BY-SA 3.0 · Memorial museum: Onnew, CC BY-SA 4.0 · via Wikimedia Commons
+            Portrait photographs are withheld until an official archive confirms reuse rights. The foundation&apos;s original records remain linked.
           </figcaption>
         </figure>
         <div>
