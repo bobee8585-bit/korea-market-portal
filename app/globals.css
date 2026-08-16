@@ -514,3 +514,8 @@ a.clusterMember:hover { background: rgba(109,124,255,.08); }
 .linkedProductFamilies a:hover { background:rgba(109,124,255,.08); }
 .linkedProductFamilies small { color:#8292ff; font-size:9px; font-weight:800; text-align:right; }
 @media (max-width:650px) { .linkedProductFamilies a { display:grid; } .linkedProductFamilies small { text-align:left; } }
+
+.officialCompanyEvidence { border-color:rgba(96,220,188,.2); }
+.officialCompanyEvidence .verifiedCompanyCard { background:linear-gradient(150deg,rgba(35,91,78,.13),rgba(255,255,255,.02)); }
+.verifiedCompanyCard ul { margin:10px 0 14px; padding-left:18px; color:#c4d0e2; font-size:12px; line-height:1.65; }
+.evidenceCardNote { min-height:72px; color:#8797ad; font-size:10px !important; }

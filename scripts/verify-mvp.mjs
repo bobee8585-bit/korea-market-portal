@@ -12,6 +12,7 @@ const sponsorMeasurement = read("app/api/ads/event/route.ts");
 const sponsorReport = read("app/api/internal/ads/report/route.ts");
 const industryCatalog = read("lib/industry-catalog.ts");
 const industryStageCatalog = read("lib/industry-stage-catalog.ts");
+const industryCompanyEvidence = read("lib/industry-company-evidence.ts");
 const industriesPage = read("app/industries/page.tsx");
 const industryDetailPage = read("app/industries/[slug]/page.tsx");
 const industryStagePage = read("app/industries/[slug]/[stage]/page.tsx");
@@ -53,6 +54,8 @@ if (!industryStagePage.includes("not evidence that every listed product family i
 if (!industryStagePage.includes("evidenceStatus: { in: publicEvidence }") || !industryStagePage.includes("sourceUrl: { not: null }")) failures.push("Stage company links must require public evidence and an original source.");
 if (!industryStagePage.includes("absence here does not mean the company is absent from the industry")) failures.push("Empty stage-company results must not imply industry absence.");
 if (!industryStagePage.includes("/companies?q=${encodeURIComponent(item)}")) failures.push("Product families must link to verified company search.");
+for (const company of ["CJ CheilJedang", "Samyang Corporation", "Daesang Corporation"]) if (!industryCompanyEvidence.includes(company)) failures.push(`Official ingredient evidence is missing ${company}.`);
+if (!industryCompanyEvidence.includes("COMPANY_CONFIRMED") || !industryCompanyEvidence.includes("publicationNote")) failures.push("Company evidence must stay attributed and carry a publication limitation.");
 const companiesPage = read("app/companies/page.tsx");
 if (!companiesPage.includes("product: { name: { contains: query") || !companiesPage.includes("stage: { name: { contains: query") || !companiesPage.includes("ecosystem: { name: { contains: query")) failures.push("Company search must support verified product, stage and industry queries.");
 if ((companiesPage.match(/sourceUrl: \{ not: null \}/g) || []).length < 3) failures.push("Role-based company search must require original evidence URLs.");

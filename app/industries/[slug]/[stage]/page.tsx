@@ -4,6 +4,7 @@ import { InfoPage } from "@/components/info-page";
 import { industryCatalog } from "@/lib/industry-catalog";
 import { getIndustry, getStageGuide, industryStageSlug } from "@/lib/industry-stage-catalog";
 import { db } from "@/lib/db";
+import { getIndustryCompanyEvidence } from "@/lib/industry-company-evidence";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +20,7 @@ export default async function IndustryStagePage({ params }: { params: Promise<{ 
   if (!industry || !stageName) notFound();
   const guide = getStageGuide(slug, stageName);
   const stageIndex = stages.indexOf(stageName);
+  const officialCompanyEvidence = getIndustryCompanyEvidence(slug, stageSlug);
   const relatedCompanies = await db.company.findMany({
     where: {
       isActive: true,
@@ -37,6 +39,7 @@ export default async function IndustryStagePage({ params }: { params: Promise<{ 
   return <InfoPage eyebrow={`${industry.koreanName} · STAGE ${String(stageIndex + 1).padStart(2, "0")}`} title={stageName} intro={guide.scope}>
     <div className="industryDetailActions"><a href={`/industries/${slug}`}>← {industry.name}</a><a href={`/companies?q=${encodeURIComponent(stageName)}`}>Search related companies →</a></div>
     <div className="stageDetailGrid"><section className="panel"><span className="eyebrow">PRODUCT & SERVICE FAMILIES</span><h2>What this stage covers</h2><ul className="linkedProductFamilies">{guide.productFamilies.map((item) => <li key={item}><a href={`/companies?q=${encodeURIComponent(item)}`}>{item}<small>Find verified companies →</small></a></li>)}</ul></section><section className="panel"><span className="eyebrow">PUBLICATION CHECK</span><h2>What must be verified</h2><ul>{guide.verification.map((item) => <li key={item}>{item}</li>)}</ul></section></div>
+    {officialCompanyEvidence.length > 0 && <section className="panel officialCompanyEvidence"><div className="panelHeader"><div><span className="eyebrow">OFFICIAL COMPANY SOURCES</span><h2>Company-attributed product evidence</h2></div><span className="countBadge">{officialCompanyEvidence.length} checked records</span></div><div className="verifiedCompanyGrid">{officialCompanyEvidence.map((record) => <article className="verifiedCompanyCard" key={record.sourceUrl}><small>{record.evidenceLabel.replace("_", " ")} · checked {record.checkedAt}</small><h3>{record.companyNameEn}</h3><p>{record.companyNameKo}</p><ul>{record.productFamilies.map((product) => <li key={product}>{product}</li>)}</ul><p className="evidenceCardNote">{record.publicationNote}</p><a href={record.sourceUrl} target="_blank" rel="noreferrer">Open company original ({record.sourceLanguage.toUpperCase()}) ↗</a></article>)}</div></section>}
     <section className="panel verifiedStageCompanies"><div className="panelHeader"><div><span className="eyebrow">EVIDENCE-GATED COMPANY LINKS</span><h2>Verified companies at this stage</h2></div><span className="countBadge">{relatedCompanies.length} published</span></div>
       {relatedCompanies.length === 0 ? <p>No company is published for this stage yet. A company appears only after a company-specific source confirms its role; absence here does not mean the company is absent from the industry.</p> : <div className="verifiedCompanyGrid">{relatedCompanies.map((company) => {
         const identifier = company.country === "KR" && company.ticker ? company.ticker : company.slug || company.ticker;
