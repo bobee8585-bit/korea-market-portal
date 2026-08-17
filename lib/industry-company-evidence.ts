@@ -403,6 +403,32 @@ export const industryCompanyEvidence: readonly IndustryCompanyEvidence[] = [
     productFamilies: ["Civil-aircraft engine components", "Aircraft-engine component manufacturing"],
     publicationNote: "The role is limited to the activity publicly stated for named company locations. Engine specifications, defence applications, production volumes and customer programmes are excluded.",
   },
+  {
+    industrySlug: "defense-aerospace",
+    stageSlug: "components",
+    companyNameKo: "두산모빌리티이노베이션",
+    companyNameEn: "Doosan Mobility Innovation",
+    evidenceLabel: "COMPANY_CONFIRMED",
+    sourceTitle: "Doosan Mobility Innovation — Hydrogen fuel-cell systems and drones",
+    sourceUrl: "https://www.doosanmobility.com/en",
+    sourceLanguage: "en",
+    checkedAt: "2026-08-17",
+    productFamilies: ["Hydrogen fuel-cell power packs for drones", "Hydrogen storage and supply systems for mobility"],
+    publicationNote: "Only publicly named product categories are mapped. Endurance, payload, range, safety, certification and comparative-performance claims are not independently confirmed.",
+  },
+  {
+    industrySlug: "defense-aerospace",
+    stageSlug: "systems-integration",
+    companyNameKo: "두산모빌리티이노베이션",
+    companyNameEn: "Doosan Mobility Innovation",
+    evidenceLabel: "COMPANY_CONFIRMED",
+    sourceTitle: "Doosan Mobility Innovation — Hydrogen fuel-cell systems and drones",
+    sourceUrl: "https://www.doosanmobility.com/en",
+    sourceLanguage: "en",
+    checkedAt: "2026-08-17",
+    productFamilies: ["Hydrogen fuel-cell multicopter drones", "Hydrogen fuel-cell VTOL drones", "Ground-control and monitoring systems"],
+    publicationNote: "The official site states military and industrial applicability. Operational missions, surveillance payloads, technical specifications, deployment, customers and procurement relationships are excluded.",
+  },
 ];
 
 export function getIndustryCompanyEvidence(industrySlug: string, stageSlug: string) {
