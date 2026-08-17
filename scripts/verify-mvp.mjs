@@ -17,6 +17,7 @@ const industriesPage = read("app/industries/page.tsx");
 const industryDetailPage = read("app/industries/[slug]/page.tsx");
 const industryStagePage = read("app/industries/[slug]/[stage]/page.tsx");
 const translationPolicy = read("app/translation-policy/page.tsx");
+const correctionsPolicy = read("app/corrections/page.tsx");
 const home = read("app/page.tsx");
 const disclosureCron = read("app/api/cron/dart-disclosures/route.ts");
 const disclosureSync = read("app/api/internal/dart/sync-disclosures/route.ts");
@@ -79,6 +80,7 @@ for (const source of ["englishdart.fss.or.kr", "global.krx.co.kr", "bok.or.kr", 
   if (!publicSourceHubs.includes(source)) failures.push(`Public source hub is missing ${source}.`);
 }
 if (!publicSourceHubs.includes("not a substitute for the legally authoritative Korean filing")) failures.push("English DART directory must preserve the legal-authority warning.");
+if (!correctionsPolicy.includes("Temporary restriction is not an admission") || !correctionsPolicy.includes("Unfavourable but accurately attributed public information")) failures.push("Corrections policy must preserve urgent review and evidence-based publication boundaries.");
 if (!translationPolicy.includes("Investigation, allegation, charge, judgment and final conviction are not interchangeable")) failures.push("Translation policy must preserve legal status distinctions.");
 for (const label of ["CONFIRMED", "STRONG INDICATION", "ESTIMATE", "MEDIA REPORT", "NOT VERIFIABLE"]) {
   if (!fundFlowMonitor.includes(`level: "${label}"`)) failures.push(`Fund-flow evidence model is missing ${label}.`);
